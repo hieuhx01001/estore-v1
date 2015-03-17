@@ -63,11 +63,6 @@ class Product extends ActiveRecord
         ];
     }
 
-    public function afterSave($insert, array $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-    }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -82,5 +77,22 @@ class Product extends ActiveRecord
     public function getProductCategories()
     {
         return $this->hasMany(ProductCategory::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMainProductCategory()
+    {
+        return $this->getProductCategories()->where(['=', 'is_main', true]);
+    }
+
+    /**
+     * @return Category
+     */
+    public function getMainCategory()
+    {
+        return ($mainProductCategory = $this->mainProductCategory) ?
+            $mainProductCategory->category : null;
     }
 }
