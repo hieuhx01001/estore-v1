@@ -26,11 +26,20 @@ use backend\repositories\CategoryRepository;
 
     <?= $form->field($model, 'quantity')->textInput() ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'short_description')->textarea([
+        'rows'  => 6,
+        'id'    => 'short_description'
+    ]) ?>
 
-    <?= $form->field($model, 'short_description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->textarea([
+        'rows'  => 6,
+        'id'    => 'description'
+    ]) ?>
 
-    <?= $form->field($model, 'feature')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'feature')->textarea([
+        'rows'  => 6,
+        'id'    => 'feature'
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -39,3 +48,12 @@ use backend\repositories\CategoryRepository;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<!-- CKEditor Support -->
+<script src="/vendor/ckeditor/ckeditor.js"></script>
+<script>
+    var ids = ["short_description", "description", "feature"];
+    for (var i in ids) {
+        CKEDITOR.replace(ids[i]);
+    }
+</script>
