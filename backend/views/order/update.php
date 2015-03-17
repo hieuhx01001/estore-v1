@@ -78,8 +78,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                 <?php foreach($model->orderItems as $orderItem){ ?>
                     <tr>
                         <td><?php echo $orderItem->order_item_quantity; ?></td>
-                        <td><?php echo $orderItem->product->product_name; ?></td>
-                        <td><?php echo $orderItem->product->product_code; ?></td>
+                        <td><?php echo $orderItem->product->name; ?></td>
+                        <td><?php echo $orderItem->product->code; ?></td>
                         <td><?php echo $orderItem->product->description; ?></td>
                         <td><?php echo Yii::$app->formatter->asCurrency($orderItem->order_item_price) ?></td>
                     </tr>
