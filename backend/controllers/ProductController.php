@@ -80,7 +80,7 @@ class ProductController extends Controller
                 die('Failed to creating product by ProductCategoryRepository');
             }
         }
-        elseif ('GET' == $requestMethod) {
+        else {
             return $this->render('create', [
                 'model' => $product,
                 'categories' => $this->getCategories(),
@@ -96,7 +96,20 @@ class ProductController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $product = $this->findModel($id);
+        $requestMethod = Yii::$app->request->method;
+
+        if ('POST' == $requestMethod) {
+            $pcRepository = new ProductCategoryRepository();
+
+            $product->load(Yii::$app->request->post());
+            $categoryId = Yii::$app->request->post('category_id');
+
+//            $result =
+        }
+        else {
+
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
