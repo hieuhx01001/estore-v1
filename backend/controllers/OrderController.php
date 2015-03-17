@@ -2,11 +2,11 @@
 
 namespace backend\Controllers;
 
-use app\models\Invoice;
-use app\models\StoreDetail;
+use backend\models\Invoice;
+use backend\models\StoreDetail;
 use Yii;
-use app\models\Order;
-use app\models\OrderSearch;
+use backend\models\Order;
+use backend\models\OrderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
