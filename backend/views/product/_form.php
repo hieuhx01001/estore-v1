@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\repositories\CategoryRepository;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
@@ -13,7 +14,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $this->render('_categoriesComboBox', [
-        'categories' => \backend\models\Category::getTopCategories(),
+        'categories' => (new CategoryRepository())->getTopCategories(),
         'value'      => ($mainCategory = $model->mainCategory) ? $mainCategory->id : null,
     ]) ?>
 

@@ -67,6 +67,7 @@ class ProductCategoryRepository
     /**
      * @param Product $product
      * @param integer $categoryId
+     * @return bool
      */
     public function updateProduct($product, $categoryId)
     {
@@ -86,7 +87,7 @@ class ProductCategoryRepository
              * Delete all current product-category links
              * of this product before update new links
              */
-            ProductCategory::deleteAll(['=', static::FIELD_ID, $curMainCategoryId]);
+            $deleted = ProductCategory::deleteAll(['=', static::FIELD_PRODUCT_ID, $productId]);
 
             /*
              * Create new product-category link to the newly

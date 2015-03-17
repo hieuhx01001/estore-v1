@@ -60,6 +60,8 @@ class Product extends ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'short_description' => Yii::t('app', 'Short Description'),
             'feature' => Yii::t('app', 'Feature'),
+
+            'mainCategory.name' => Yii::t('app', 'Category')
         ];
     }
 
@@ -84,7 +86,7 @@ class Product extends ActiveRecord
      */
     public function getMainProductCategory()
     {
-        return $this->getProductCategories()->where(['=', 'is_main', true]);
+        return $this->getProductCategories()->where(['=', 'is_main', true])->one();
     }
 
     /**

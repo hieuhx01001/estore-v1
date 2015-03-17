@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Category;
+use backend\repositories\CategoryRepository;
 use backend\repositories\ProductCategoryRepository;
 use Yii;
 use backend\models\Product;
@@ -77,7 +78,7 @@ class ProductController extends Controller
                 return $this->redirect(['view', 'id' => $product->id]);
             }
             else {
-                die('Failed to creating product by ProductCategoryRepository');
+                die('Failed to create product by ProductCategoryRepository');
             }
         }
         else {
@@ -105,18 +106,19 @@ class ProductController extends Controller
             $product->load(Yii::$app->request->post());
             $categoryId = Yii::$app->request->post('category_id');
 
-//            $result =
+            $result = $pcRepository->updateProduct($product, $categoryId);
+
+            if ($result) {
+                return $this->redirect(['view', 'id' => $product->id]);
+            }
+            else {
+                die('Failed to update product by ProductCategoryRepository');
+            }
         }
         else {
-
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
             return $this->render('update', [
-                'model' => $model,
-                'categories' => $this->getCategories(),
+                'model' => $product,
+                'categories' => $this->getCategories()
             ]);
         }
     }
@@ -152,10 +154,7 @@ class ProductController extends Controller
 
     protected function getCategories()
     {
-        $categories = Category::find()
-//            ->orderBy(['level', 'parent_id', 'name'])
-            ->all();
-
+        $categories = (new CategoryRepository())->getAll();
         return $categories;
     }
 }

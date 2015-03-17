@@ -118,14 +118,6 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Retrieve all top level categories
-     */
-    public static function getTopCategories()
-    {
-        return Category::find()->where(['=', 'level', 1])->all();
-    }
-
-    /**
      * Retrieve a list of categories that is selectable
      * to be the parent of the passed in category.
      *
