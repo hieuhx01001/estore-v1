@@ -1,15 +1,16 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "product".
  *
  * @property integer $id
- * @property string $code
  * @property string $name
+ * @property string $code
  * @property string $price
  * @property integer $quantity
  * @property string $description
@@ -18,8 +19,10 @@ use Yii;
  *
  * @property OrderItem[] $orderItems
  * @property ProductCategory[] $productCategories
+ * @property ProductCategory $mainProductCategory
+ * @property Category $mainCategory
  */
-class Product extends \yii\db\ActiveRecord
+class Product extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -35,11 +38,11 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code', 'name'], 'required'],
+            [['name', 'code', 'price', 'quantity'], 'required'],
             [['price'], 'number'],
             [['quantity'], 'integer'],
             [['description', 'short_description', 'feature'], 'string'],
-            [['code', 'name'], 'string', 'max' => 255]
+            [['name', 'code'], 'string', 'max' => 255]
         ];
     }
 
@@ -58,6 +61,11 @@ class Product extends \yii\db\ActiveRecord
             'short_description' => Yii::t('app', 'Short Description'),
             'feature' => Yii::t('app', 'Feature'),
         ];
+    }
+
+    public function afterSave($insert, array $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**
