@@ -1,7 +1,7 @@
 <?php
 return [
     'name' => 'E-store2',
-    'language' => '',
+    'language' => 'vi-VN',
     'timeZone' => 'Asia/Shanghai',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
@@ -31,11 +31,11 @@ return [
             ],
         ],
         'formatter' => [
-            'dateFormat' => 'yyyy-MM-dd',
+            'dateFormat' => 'dd/MM/yyyy',
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
-            'currencyCode' => 'CNY',
+            'currencyCode' => 'VND',
         ],
     ],
 ];
