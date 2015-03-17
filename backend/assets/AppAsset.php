@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle
         'adminlte/css/AdminLTE.css',
     ];
     public $js = [
-        'adminlte/js/AdminLTE/app.js',
+        'adminlte/js/AdminLTE/app.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

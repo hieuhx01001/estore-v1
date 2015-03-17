@@ -14,6 +14,11 @@ echo Menu::widget(
                 'active' => Yii::$app->request->url === Yii::$app->homeUrl
             ],
             [
+                'label' => Yii::t('app', 'Order & Invoice'),
+                'url' => ['/order/index'],
+                'icon' => 'fa-money',
+            ],
+            [
                 'label' => Yii::t('app', 'Settings'),
                 'url' => ['#'],
                 'icon' => 'fa fa-spinner',
