@@ -27,6 +27,10 @@ class Order extends \yii\db\ActiveRecord
     const STATUS_PROCESSING = 2;
     const STATUS_FINISH = 1;
 
+    private $_shipmentStatus;
+    const STATUS_SHIPMENT_PROCESSING = 2;
+    const STATUS_SHIPMENT_YES = 1;
+    const STATUS_SHIPMENT_NO = 3;
     /**
      * @inheritdoc
      */
@@ -112,7 +116,46 @@ class Order extends \yii\db\ActiveRecord
         return [
             self::STATUS_CANCEL => Yii::t('app', 'CANCEL'),
             self::STATUS_PROCESSING => Yii::t('app', 'PROCESSING'),
-            self::STATUS_FINISH => Yii::t('app', 'FINISH'),
+            self::STATUS_FINISH => Yii::t('app', 'FINISHED'),
         ];
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getStatusShipmentLabel()
+    {
+        if ($this->_shipmentStatus === null) {
+            $statuses = self::getArrayShipmentStatus();
+            $this->_shipmentStatus = $statuses[$this->shipment_status];
+        }
+        return $this->_shipmentStatus;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getArrayShipmentStatus()
+    {
+        return [
+            self::STATUS_SHIPMENT_NO => Yii::t('app', 'NO'),
+            self::STATUS_SHIPMENT_PROCESSING => Yii::t('app', 'PROCESSING'),
+            self::STATUS_SHIPMENT_YES => Yii::t('app', 'YES'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getInvoiceStatus()
+    {
+        return [
+            self::STATUS_SHIPMENT_NO => Yii::t('app', 'NO'),
+            self::STATUS_SHIPMENT_YES => Yii::t('app', 'YES'),
+        ];
+    }
+
+
+
+
 }

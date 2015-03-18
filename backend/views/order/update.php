@@ -3,14 +3,15 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Order */
+/* @var $model backend\models\Order */
+/* @var $model backend\models\Invoice */
+/* @var $form yii\widgets\ActiveForm */
 
 $this->title = Yii::t('app', '{modelClass} #: ', [
     'modelClass' => 'Order',
 ]) . ' ' . $model->order_code;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Orders'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = ['label' => $model->order_code];
 ?>
 <div class="order-update">
     <!-- title row -->
@@ -18,7 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
         <div class="col-xs-12">
             <h2 class="page-header">
                 <i class="fa fa-globe"></i> EStore, Inc.
-                <small class="pull-right">Date: 2/10/2015</small>
+                <small class="pull-right">Date: <?php echo Yii::$app->formatter->asDate($model->order_date);  ?></small>
             </h2>
         </div><!-- /.col -->
     </div>
@@ -96,21 +97,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
             <div class="col-xs-12">
                 <p class="lead">Status</p>
-                <div class="table-responsive">
-                    <table class="table">
-                        <tr>
-                            <th style="width:50%">Order Status</th>
-                            <td>Accepted</td>
-                        </tr>
-                        <tr>
-                            <th>Shipped</th>
-                            <td>Yes</td>
-                        </tr>
-                    </table>
-                </div>
-                <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-                <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Finish</button>
-                <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Cancel</button>
+
+                <?= $this->render('_form', [
+                    'model' => $model,
+                ]) ?>
+
             </div>
         </div><!-- /.col -->
         <div class="col-xs-6">
@@ -135,13 +126,10 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                         <th>Total:</th>
                         <td><?php echo Yii::$app->formatter->asCurrency($totalFinal) ?></td>
                     </tr>
+
                 </table>
             </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
-
-<!--    --><?//= $this->render('_form', [
-//        'model' => $model,
-//    ]) ?>
 
 </div>

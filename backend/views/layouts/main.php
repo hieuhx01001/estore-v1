@@ -112,7 +112,7 @@ AppAsset::register($this);
                     ]
                 ) ?>
             </section>
-
+            <?= Alert::widget() ?>
             <!-- Main content -->
             <section class="content">
                 <?= Alert::widget() ?>

@@ -58,13 +58,18 @@ class OrderController extends Controller
         $items = $model->getOrderItems()
             ->orderBy('id')
             ->all();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->invoice->load(Yii::$app->request->post()) ) {
+            if ($model->save() && $model->invoice->save() ) {
+                Yii::$app->session->setFlash('success', 'Order update successfully.');
+            } else{
+                Yii::$app->session->setFlash('error', 'Something wrong with your submit.');
+            }
             return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'items' => $items,
-                'modelStoreDetail' => $modelStoreDetail
+                'modelStoreDetail' => $modelStoreDetail,
             ]);
         }
     }

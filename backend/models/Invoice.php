@@ -18,6 +18,9 @@ use Yii;
  */
 class Invoice extends \yii\db\ActiveRecord
 {
+    private $_paymentStatus;
+    const PAYMENT_STATUS_YES = 1;
+    const PAYMENT_STATUS_NO = 2;
     /**
      * @inheritdoc
      */
@@ -62,6 +65,29 @@ class Invoice extends \yii\db\ActiveRecord
     public function getOrder()
     {
         return $this->hasOne(Order::className(), ['id' => 'id']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getPaymentStatus()
+    {
+        if($this->_paymentStatus === null){
+            $statuses = $this->getArrayPaymentStatus();
+            $this->_paymentStatus = $statuses[$this->invoice_status];
+        }
+        return $this->_paymentStatus;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getArrayPaymentStatus()
+    {
+        return [
+            self::PAYMENT_STATUS_YES => Yii::t('app', 'YES'),
+            self::PAYMENT_STATUS_NO => Yii::t('app', 'NO'),
+        ];
     }
 
 }
