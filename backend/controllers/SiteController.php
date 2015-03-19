@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use frontend\assets\AppAsset;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -55,6 +56,8 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $this->layout = 'dashboard';
+        // add css and java script
         return $this->render('index');
     }
 

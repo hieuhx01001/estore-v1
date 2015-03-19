@@ -97,11 +97,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->order_code];
 
             <div class="col-xs-12">
                 <p class="lead">Status</p>
-
                 <?= $this->render('_form', [
                     'model' => $model,
                 ]) ?>
-
             </div>
         </div><!-- /.col -->
         <div class="col-xs-6">
