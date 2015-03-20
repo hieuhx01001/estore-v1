@@ -150,7 +150,7 @@ $this->title = 'My Yii Application';
                     </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+                    <a href="<?php echo Yii::$app->getUrlManager()->createUrl(['order/index'])?>" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
                 </div><!-- /.box-footer -->
             </div><!-- /.box -->
         </div><!-- /.col -->
@@ -168,7 +168,11 @@ $this->title = 'My Yii Application';
                                     <img src="http://placehold.it/50x50/d2d6de/ffffff" alt="Product Image"/>
                                 </div>
                                 <div class="product-info">
-                                    <a href="javascript::;" class="product-title"><?php echo $product->name?><span class="label label-success pull-right"><?php echo Yii::$app->formatter->asCurrency($product->price) ?></span></a>
+                                    <a href="<?php echo Yii::$app->getUrlManager()->createUrl(['product/update', 'id' => $product->id])?>" class="product-title">
+                                        <?php echo $product->name?>
+                                        <span class="label label-success pull-right">
+                                            <?php echo Yii::$app->formatter->asCurrency($product->price) ?>
+                                        </span></a>
                                     <span class="product-description">
                                       <?php echo $product->description?>
                                     </span>
@@ -178,7 +182,7 @@ $this->title = 'My Yii Application';
                     </ul>
                 </div><!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="javascript::;" class="uppercase">View All Products</a>
+                    <a href="<?php echo Yii::$app->getUrlManager()->createUrl(['product/index'])?>" class="uppercase">View All Products</a>
                 </div><!-- /.box-footer -->
             </div><!-- /.box -->
         </div><!-- /.col -->
