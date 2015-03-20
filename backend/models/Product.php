@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  * @property ProductCategory[] $productCategories
  * @property ProductCategory $mainProductCategory
  * @property Category $mainCategory
+ * @property ProductAttribute[] $productAttributes
  */
 class Product extends ActiveRecord
 {
@@ -96,5 +97,58 @@ class Product extends ActiveRecord
     {
         return ($mainProductCategory = $this->mainProductCategory) ?
             $mainProductCategory->category : null;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductAttributes()
+    {
+        return $this->hasMany(ProductAttribute::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * Get the value of an attribute of this product
+     *
+     * @param $attributeId
+     * @return mixed|null
+     */
+    public function getAttrValue($attributeId)
+    {
+        // Find the Product-Attribute link
+        $pa = ProductAttribute::findOne([
+            'product_id' => $this->id,
+            'attribute_id' => $attributeId,
+        ]);
+
+        // Return the attribute value get from the link,
+        // or nothing if not found the link
+        return ($pa != null) ? $pa->value : null;
+    }
+
+    public function setAttrValue($attributeId, $value)
+    {
+        $attribute = Attribute::findOne($attributeId);
+        $attrType = $attribute->type;
+
+        // Find the Product-Attribute link
+        $pa = ProductAttribute::findOne([
+            'product_id' => $this->id,
+            'attribute_id' => $attributeId,
+        ]);
+
+        // It not found the link, this is the first time value setting.
+        // Create a new link
+        if ($pa == null) {
+            $pa = new ProductAttribute();
+        }
+
+        $pa->setAttributes([
+            'product_id' => $this->id,
+            'attribute_id' => $attributeId,
+            'value_' . $attrType => $value,
+        ]);
+
+        return $pa->save();
     }
 }

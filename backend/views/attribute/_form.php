@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Attribute */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $attributeTypes Array */
 ?>
 
 <div class="attribute-form">
@@ -14,9 +15,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'type')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'type')->dropDownList($attributeTypes, ['class' => 'form-control']) ?>
 
-    <?= $form->field($model, 'is_required')->textInput() ?>
+    <?= $form->field($model, 'is_required')->checkbox(['value' => true]) ?>
 
     <?= $form->field($model, 'regex')->textInput(['maxlength' => 255]) ?>
 

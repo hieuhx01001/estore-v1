@@ -5,6 +5,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Attribute */
+/* @var $attributeTypes Array */
 
 $this->title = Yii::t('app', 'Create {modelClass}', [
     'modelClass' => 'Attribute',
@@ -17,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'model'          => $model,
+        'attributeTypes' => $attributeTypes,
     ]) ?>
 
 </div>

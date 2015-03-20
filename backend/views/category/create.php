@@ -5,6 +5,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Category */
+/* @var $attributes \backend\models\Attribute[] */
+/* @var $selectedAttributeIds array */
 
 $this->title = 'Create Category';
 $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
@@ -15,7 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'model'                 => $model,
+        'attributes'            => $attributes,
+        'selectedAttributeIds'  => $selectedAttributeIds,
     ]) ?>
 
 </div>

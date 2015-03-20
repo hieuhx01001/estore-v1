@@ -17,7 +17,9 @@ use Yii;
  * @property string $value_text
  *
  * @property Product $product
- * @property Attribute $attribute
+ * @property Attribute $attr
+ * @property mixed $value
+ * @property strong $valueType
  */
 class ProductAttribute extends \yii\db\ActiveRecord
 {
@@ -72,8 +74,28 @@ class ProductAttribute extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAttribute()
+    public function getAttr()
     {
         return $this->hasOne(Attribute::className(), ['id' => 'attribute_id']);
+    }
+
+    public function getValue()
+    {
+        return $this->{'value_' . $this->valueType};
+    }
+
+    public function setValue()
+    {
+        $this->{'value_' . $this->valueType};
+    }
+
+    /**
+     * Get product attribute value type
+     *
+     * @return string
+     */
+    protected function getValueType()
+    {
+        return $this->attr->type;
     }
 }

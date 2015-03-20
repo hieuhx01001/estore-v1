@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Category;
 use backend\repositories\CategoryRepository;
+use backend\repositories\ProductAttributeRepository;
 use backend\repositories\ProductCategoryRepository;
 use Yii;
 use backend\models\Product;
@@ -134,6 +135,44 @@ class ProductController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Set attributes for a product
+     *
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionAttributes($id)
+    {
+        $req = Yii::$app->request;
+
+        $product = $this->findModel($id);
+
+        if ('POST' == $req->method) {
+            $attributes = $req->post('attributes');
+
+            $result = (new ProductAttributeRepository())->setProductAttributes($product, $attributes);
+
+            if ($result) {
+                return $this->redirect(['view', 'id' => $product->id]);
+            }
+            else {
+                die('Failed to set attributes\' value for this Product');
+            }
+        }
+        else {
+            // These attributes are those linked with this product's category.
+            // A product will have attributes linked to its category.
+            $category = $product->mainCategory;
+            $attributes = $category->fullAttributes;
+
+            return $this->render('attributes', [
+                'product' => $product,
+                'attributes' => $attributes,
+            ]);
+        }
     }
 
     /**

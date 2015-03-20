@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Category */
+/* @var $selectedAttributeIds array */
 
 $this->title = 'Update Category: ' . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
@@ -16,6 +17,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'attributes'            => $attributes,
+        'selectedAttributeIds'  => $selectedAttributeIds,
     ]) ?>
 
 </div>

@@ -14,6 +14,15 @@ use yii\filters\VerbFilter;
  */
 class AttributeController extends Controller
 {
+    /** @var array List of supported attribute data types */
+    protected $attributeTypes = [
+        'boolean'   => 'Yes/No',
+        'int'       => 'Integer',
+        'double'    => 'Numeric',
+        'varchar'   => 'Short Text (255 Characters)',
+        'text'      => 'Paragraph',
+    ];
+
     public function behaviors()
     {
         return [
@@ -67,6 +76,7 @@ class AttributeController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'attributeTypes' => $this->attributeTypes,
             ]);
         }
     }
@@ -85,7 +95,8 @@ class AttributeController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model'          => $model,
+                'attributeTypes' => $this->attributeTypes,
             ]);
         }
     }

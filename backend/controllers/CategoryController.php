@@ -2,9 +2,13 @@
 
 namespace backend\controllers;
 
+use backend\models\Attribute;
+use backend\models\CategoryAttribute;
+use backend\repositories\CategoryRepository;
 use Yii;
 use backend\models\Category;
 use backend\models\CategorySearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -48,8 +52,12 @@ class CategoryController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $categoryAttributes = $model->categoryAttributes;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'categoryAttributes' => $categoryAttributes,
         ]);
     }
 
@@ -60,13 +68,35 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
+        $req = Yii::$app->request;
         $model = new Category();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if ('POST' == $req->method) {
+
+            $categoryRepo = new CategoryRepository();
+
+            // Collect attribute data and assign to the entity
+            $model->load(Yii::$app->request->post());
+
+            // Collect all selected attribute ids
+            $attributeIds = $req->post('attribute_ids');
+
+            $result = $categoryRepo->saveCategory($model, $attributeIds);
+
+            if ($result) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            else {
+                die ('Failed to save Category and Category-Attribute links');
+            }
+        }
+        else {
+            $attributes = Attribute::find()->all();
+
             return $this->render('create', [
-                'model' => $model,
+                'model'                 => $model,
+                'attributes'            => $attributes,
+                'selectedAttributeIds'  => null,
             ]);
         }
     }
@@ -79,13 +109,40 @@ class CategoryController extends Controller
      */
     public function actionUpdate($id)
     {
+        $req = Yii::$app->request;
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if ('POST' == $req->method) {
+
+            $categoryRepo = new CategoryRepository();
+
+            // Collect attribute data and assign to the entity
+            $model->load(Yii::$app->request->post());
+
+            // Collect all selected attribute ids
+            $attributeIds = $req->post('attribute_ids');
+
+            $result = $categoryRepo->saveCategory($model, $attributeIds);
+
+            if ($result) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            else {
+                die ('Failed to save Category and Category-Attribute links');
+            }
+        }
+        else {
+            $attributes = Attribute::find()->all();
+
+            $selectedAttributes = ArrayHelper::getColumn(
+                $model->categoryAttributes,
+                CategoryRepository::FIELD_ATTRIBUTE_ID
+            );
+
             return $this->render('update', [
-                'model' => $model,
+                'model'                 => $model,
+                'attributes'            => $attributes,
+                'selectedAttributeIds'  => $selectedAttributes,
             ]);
         }
     }

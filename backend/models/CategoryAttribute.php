@@ -11,7 +11,7 @@ use Yii;
  * @property integer $category_id
  * @property integer $attribute_id
  *
- * @property Attribute $attribute
+ * @property Attribute $attr
  * @property Category $category
  */
 class CategoryAttribute extends \yii\db\ActiveRecord
@@ -50,7 +50,7 @@ class CategoryAttribute extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAttribute()
+    public function getAttr()
     {
         return $this->hasOne(Attribute::className(), ['id' => 'attribute_id']);
     }
