@@ -1,6 +1,10 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Customer;
+use backend\models\Order;
+use backend\models\Product;
+use backend\models\ProductSearch;
 use frontend\assets\AppAsset;
 use Yii;
 use yii\filters\AccessControl;
@@ -57,8 +61,20 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'dashboard';
-        // add css and java script
-        return $this->render('index');
+        $orderData = Order::find()->indexBy('id')->with('customer')->orderBy(['order_date' => SORT_DESC])->limit(5)->all();
+        $productData = Product::find()->indexBy('id')->orderBy(['id' => SORT_DESC])->limit(5)->all();
+        $totalProduct = Product::find()->count();
+        $totalOrder = Order::find()->count();
+        $totalCustomer = Customer::find()->count();
+        //var_dump($totalProduct);die();
+        return $this->render('index',
+        [
+            'orderData' => $orderData,
+            'productData' => $productData,
+            'totalProduct' => $totalProduct,
+            'totalOrder' => $totalOrder,
+            'totalCustomer' => $totalCustomer
+        ]);
     }
 
     public function actionLogin()

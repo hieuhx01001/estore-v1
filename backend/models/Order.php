@@ -26,6 +26,7 @@ class Order extends \yii\db\ActiveRecord
     const STATUS_CANCEL = 3;
     const STATUS_PROCESSING = 2;
     const STATUS_FINISH = 1;
+    const STATUS_NEW = 0;
 
     private $_shipmentStatus;
     const STATUS_SHIPMENT_PROCESSING = 2;
@@ -117,6 +118,8 @@ class Order extends \yii\db\ActiveRecord
             self::STATUS_CANCEL => Yii::t('app', 'CANCEL'),
             self::STATUS_PROCESSING => Yii::t('app', 'PROCESSING'),
             self::STATUS_FINISH => Yii::t('app', 'FINISHED'),
+            self::STATUS_NEW => Yii::t('app', 'NEW'),
+
         ];
     }
 
