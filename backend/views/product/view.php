@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Product Attributes', ['attributes', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -25,18 +26,35 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'code',
-            'price',
-            'quantity',
-            'description:ntext',
-            'short_description:ntext',
-            'feature:ntext',
-        ],
-    ]) ?>
+    <div class="row">
+        <div class="col-sm-6">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'name',
+                    'code',
+                    'mainCategory.name',
+                    'price',
+                    'quantity',
+                    'description:ntext',
+                    'short_description:ntext',
+                    'feature:ntext',
+                ],
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-bordered table-striped">
+                <?php foreach ($model->productAttributes as $pa) : ?>
+                    <tr>
+                        <td><?= $pa->attr->name ?></td>
+                        <td><?= $pa->value ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </table>
+        </div>
+    </div>
 
 </div>

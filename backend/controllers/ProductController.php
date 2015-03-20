@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use backend\models\Category;
+use backend\repositories\CategoryRepository;
+use backend\repositories\ProductAttributeRepository;
 use backend\repositories\ProductCategoryRepository;
 use Yii;
 use backend\models\Product;
@@ -77,10 +79,10 @@ class ProductController extends Controller
                 return $this->redirect(['view', 'id' => $product->id]);
             }
             else {
-                die('Failed to creating product by ProductCategoryRepository');
+                die('Failed to create product by ProductCategoryRepository');
             }
         }
-        elseif ('GET' == $requestMethod) {
+        else {
             return $this->render('create', [
                 'model' => $product,
                 'categories' => $this->getCategories(),
@@ -96,14 +98,28 @@ class ProductController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $product = $this->findModel($id);
+        $requestMethod = Yii::$app->request->method;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if ('POST' == $requestMethod) {
+            $pcRepository = new ProductCategoryRepository();
+
+            $product->load(Yii::$app->request->post());
+            $categoryId = Yii::$app->request->post('category_id');
+
+            $result = $pcRepository->updateProduct($product, $categoryId);
+
+            if ($result) {
+                return $this->redirect(['view', 'id' => $product->id]);
+            }
+            else {
+                die('Failed to update product by ProductCategoryRepository');
+            }
+        }
+        else {
             return $this->render('update', [
-                'model' => $model,
-                'categories' => $this->getCategories(),
+                'model' => $product,
+                'categories' => $this->getCategories()
             ]);
         }
     }
@@ -119,6 +135,44 @@ class ProductController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Set attributes for a product
+     *
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionAttributes($id)
+    {
+        $req = Yii::$app->request;
+
+        $product = $this->findModel($id);
+
+        if ('POST' == $req->method) {
+            $attributes = $req->post('attributes');
+
+            $result = (new ProductAttributeRepository())->setProductAttributes($product, $attributes);
+
+            if ($result) {
+                return $this->redirect(['view', 'id' => $product->id]);
+            }
+            else {
+                die('Failed to set attributes\' value for this Product');
+            }
+        }
+        else {
+            // These attributes are those linked with this product's category.
+            // A product will have attributes linked to its category.
+            $category = $product->mainCategory;
+            $attributes = $category->fullAttributes;
+
+            return $this->render('attributes', [
+                'product' => $product,
+                'attributes' => $attributes,
+            ]);
+        }
     }
 
     /**
@@ -139,10 +193,7 @@ class ProductController extends Controller
 
     protected function getCategories()
     {
-        $categories = Category::find()
-//            ->orderBy(['level', 'parent_id', 'name'])
-            ->all();
-
+        $categories = (new CategoryRepository())->getAll();
         return $categories;
     }
 }

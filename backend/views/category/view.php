@@ -35,4 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <div>
+        <h4>Category Attributes</h4>
+        <ul class="list-group">
+            <?php foreach ($categoryAttributes as $ca) : ?>
+                <li class="list-group-item">
+                    <?= $ca->attr->name ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+
 </div>

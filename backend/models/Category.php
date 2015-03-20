@@ -15,6 +15,9 @@ use Yii;
  * @property Category $parent
  * @property Category[] $subCategories
  * @property ProductCategory[] $productCategories
+ * @property CategoryAttribute[] $categoryAttributes
+ * @property Attribute[] $attrs
+ * @property Attribute[] $fullAttributes
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -118,11 +121,45 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * Retrieve all top level categories
+     * @return \yii\db\ActiveQuery
      */
-    public static function getTopCategories()
+    public function getCategoryAttributes()
     {
-        return Category::find()->where(['=', 'level', 1])->all();
+        return $this->hasMany(CategoryAttribute::className(), ['category_id' => 'id']);
+    }
+
+    /**
+     * @return static
+     */
+    public function getAttrs()
+    {
+        return $this->hasMany(Attribute::className(), ['id' => 'attribute_id'])
+            ->via('categoryAttributes');
+    }
+
+    /**
+     * Retrieve not only this category's linked attributes,
+     * but also its every ancestors' linked attributes.
+     *
+     * @return mixed
+     */
+    public function getFullAttributes()
+    {
+        // Retrieve its own attributes
+        $attributes = $this->attrs;
+
+        // Get the very first ancestor
+        $parent = $this->parent;
+
+        while ($parent) {
+            // Retrieve the current ancestor's attributes
+            $attributes = array_merge($attributes, $parent->attrs);
+
+            // Point to the higher level ancestor (ancestor of current ancestor)
+            $parent = $parent->parent;
+        }
+
+        return $attributes;
     }
 
     /**
