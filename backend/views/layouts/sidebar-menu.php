@@ -14,7 +14,22 @@ echo Menu::widget(
                 'active' => Yii::$app->request->url === Yii::$app->homeUrl
             ],
             [
-                'label' => Yii::t('app', 'Order & Invoice'),
+                'label' => Yii::t('app', 'Category'),
+                'url' => ['/category/index'],
+                'icon' => 'fa-folder',
+            ],
+            [
+                'label' => Yii::t('app', 'Product'),
+                'url' => ['/product/index'],
+                'icon' => 'fa-gift',
+            ],
+            [
+                'label' => Yii::t('app', 'Attribute'),
+                'url' => ['/attribute/index'],
+                'icon' => 'fa-tag',
+            ],
+            [
+                'label' => Yii::t('app', 'Order'),
                 'url' => ['/order/index'],
                 'icon' => 'fa-money',
             ],
