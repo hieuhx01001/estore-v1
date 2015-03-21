@@ -64,6 +64,12 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
+        // Check if there's any category currently
+        if (Category::find()->count() == 0) {
+            // Show a message page if there's currently no category
+            return $this->render('message');
+        }
+
         $product = new Product();
         $requestMethod = Yii::$app->request->method;
 
