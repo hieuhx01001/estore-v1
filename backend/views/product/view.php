@@ -46,76 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
         </div><!-- END: Product data column -->
         <!-- BEGIN: Product-Attributes & Product Images -->
         <div class="col-sm-6">
-            <!-- BEGIN: Product-Attributes data -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="panel-title">
-                        <i class="fa fa-tags"></i> Product Attributes
-                    </span>
-                </div>
-                <?php if (empty($productAttributes = $model->productAttributes)) : ?>
-                    <div class="panel-body">
-                        <p>
-                            This product currently has no attributes.
-                            Its because the product's main category and
-                            every ancestor categories has no attributes.
-                        </p>
-                        <p>
-                            Edit this product's main category or any
-                            of the ancestor categories to add attributes.
-                        </p>
-                    </div>
-                <?php else : ?>
-                    <table class="table table-bordered table-striped table-responsive">
-                        <tbody>
-                        <?php foreach ($productAttributes as $pa) : ?>
-                            <tr>
-                                <th><?= $pa->attr->name ?></th>
-                                <td><?= $pa->value ?></td>
-                            </tr>
-                        <?php endforeach ?>
-                        </tbody>
-                    </table>
-                    <div class="panel-footer text-right">
-                        <a href="<?= $urlManager->createUrl("product/attributes/{$model->id}") ?>"
-                           class="btn btn-primary">
-                            <i class="fa fa-edit"></i> Edit
-                        </a>
-                    </div>
-                <?php endif ?>
-            </div><!-- END: Product-Attributes data -->
-            <!-- BEGIN: Product-Images data -->
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="panel-title">
-                        <i class="fa fa-picture-o"></i> Product Images
-                    </span>
-                </div>
-                <?php if (empty($productImages = $model->images)) : ?>
-                    <div class="panel-body">
-                        This product currently has no images.
-                        Click <kbd>Edit</kbd> button below to add images.
-                    </div>
-                <?php else : ?>
-                    <div class="panel-body">
-                        <?php $count = 0 ?>
-                        <?php foreach ($productImages as $img) : ?>
-                            <?php ++ $count ?>
-                            <?php if (1 === $count % 2) : ?><div class="row"><?php endif ?>
-                            <div class="col-xs-6" style="margin-bottom: 15px;">
-                                <img src="<?= $urlManager->createUrl("img/product/{$img->product_id}/{$img->name}") ?>">
-                            </div>
-                            <?php if (0 === $count % 2) : ?></div><?php endif ?>
-                        <?php endforeach ?>
-                    </div>
-                <?php endif ?>
-                <div class="panel-footer text-right">
-                    <a href="<?= $urlManager->createUrl("product/images/{$model->id}") ?>"
-                       class="btn btn-primary">
-                        <i class="fa fa-edit"></i> Edit
-                    </a>
-                </div>
-            </div><!-- END: Product-Images data -->
+            <!-- BEGIN: Product Attributes table -->
+            <?= $this->render('_product-attributes-table', [
+                'model' => $model,
+            ]) ?>
+            <!-- BEGIN: Product Images table -->
+            <?= $this->render('_product-images-table', [
+                'model' => $model,
+            ]) ?>
         </div><!-- END: Product-Attributes & Product Images -->
     </div>
 
