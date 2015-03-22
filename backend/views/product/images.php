@@ -2,6 +2,8 @@
 /** @var \backend\models\Product $product */
 /** @var \backend\models\Image[] $images */
 
+$urlManager = Yii::$app->getUrlManager();
+
 // Register Breadcrumbs
 $this->title = $product->name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
@@ -12,7 +14,7 @@ $this->params['breadcrumbs'][] = 'Images';
 \backend\assets\ProductImageAsset::register($this);
 ?>
 
-<form method="post" action="/product/add-image" enctype="multipart/form-data">
+<form method="post" action="<?= $urlManager->createUrl('product/add-image') ?>" enctype="multipart/form-data">
     <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
     <input type="hidden" name="product_id" value="<?= $product->id ?>">
     <div class="form-group">
@@ -32,11 +34,11 @@ $this->params['breadcrumbs'][] = 'Images';
         <?php ++ $count ?>
         <div class="col-sm-4 col-md-4 col-lg-3">
             <div class="product-image-container <?= $img->is_main ? 'main' : '' ?>">
-                <img src="<?= "/img/product/{$img->product_id}/{$img->name}" ?>" alt="<?= $img->name ?>">
+                <img src="<?= $urlManager->createUrl("img/product/{$img->product_id}/{$img->name}") ?>" alt="<?= $img->name ?>">
                 <div class="btn-group">
-                    <a href="/product/remove-image?id=<?= $img->id ?>"
+                    <a href="<?= $urlManager->createUrl(['product/remove-image', 'id' => $img->id]) ?>"
                        class="btn btn-danger">Remove</a>
-                    <a href="<?= \yii\helpers\Url::to(['product/set-main-image', 'product_id' => $product->id, 'image_id' => $img->id]) ?>"
+                    <a href="<?= $urlManager->createUrl(['product/set-main-image', 'product_id' => $product->id, 'image_id' => $img->id]) ?>"
                        <?= $img->is_main ? 'disabled' : '' ?>
                        class="btn btn-primary">Set main</a>
                 </div>
