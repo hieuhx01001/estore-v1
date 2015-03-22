@@ -73,7 +73,7 @@ class ProductController extends Controller
         // Check if there's any category currently
         if (Category::find()->count() == 0) {
             // Show a message page if there's currently no category
-            return $this->render(['message', 'message' => 'There\'s currently no category. Create one before creating a product.']);
+            return $this->render('message', ['message' => 'There\'s currently no category. Create one before creating a product.']);
         }
 
         $product = new Product();
