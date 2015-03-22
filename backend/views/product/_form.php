@@ -8,6 +8,8 @@ use backend\repositories\CategoryRepository;
 /* @var $model backend\models\Product */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $attributes \backend\models\Attribute[] */
+
+$urlManager = Yii::$app->getUrlManager();
 ?>
 
 <div class="product-form">
@@ -56,7 +58,7 @@ use backend\repositories\CategoryRepository;
 </div>
 
 <!-- CKEditor Support -->
-<script src="/vendor/ckeditor/ckeditor.js"></script>
+<script src="<?= $urlManager->createUrl('vendor/ckeditor/ckeditor.js') ?>"></script>
 <script>
     var ids = ["short_description", "description", "feature"];
     for (var i in ids) {
