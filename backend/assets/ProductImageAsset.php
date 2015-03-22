@@ -6,6 +6,9 @@ use yii\web\AssetBundle;
 
 class ProductImageAsset extends AssetBundle
 {
+    public $basePath = '@webroot';
+    public $baseUrl = '@web';
+    
     public $css = [
         'css/product-images.css',
     ];
