@@ -22,6 +22,8 @@ use yii\db\ActiveRecord;
  * @property ProductCategory $mainProductCategory
  * @property Category $mainCategory
  * @property ProductAttribute[] $productAttributes
+ * @property Image[] $images
+ * @property Image $mainImage
  */
 class Product extends ActiveRecord
 {
@@ -105,6 +107,25 @@ class Product extends ActiveRecord
     public function getProductAttributes()
     {
         return $this->hasMany(ProductAttribute::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImages()
+    {
+        return $this->hasMany(Image::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * @return static
+     */
+    public function getMainImage()
+    {
+        return Image::findOne([
+            'product_id' => $this->id,
+            'is_main'    => 1,
+        ]);
     }
 
     /**

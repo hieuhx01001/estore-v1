@@ -1,0 +1,20 @@
+.product-image-container {
+    position: relative;
+    margin-bottom: 15px;
+    border: solid 5px #d3d3d3;
+}
+.product-image-container.main {
+    border: solid 5px deepskyblue;
+}
+.product-image-container > img {
+    width: 100%;
+}
+.product-image-container > .btn-group {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.product-image-container:hover > .btn-group {
+    display: block;
+}
