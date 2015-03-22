@@ -155,7 +155,23 @@ class CategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $category = $this->findModel($id);
+
+        // If this category containing product, it cannot be removed
+        if (! empty($category->productCategories)) {
+            return $this->render('message', [
+                'message' => 'This category cannot be deleted because it is currently containing products']
+            );
+        }
+
+        // Process deletion
+        $deletionResult = $category->delete();
+
+        if ($deletionResult === false) {
+            return $this->render('message', [
+                'message' => 'Failed to delete the requested category']
+            );
+        }
 
         return $this->redirect(['index']);
     }

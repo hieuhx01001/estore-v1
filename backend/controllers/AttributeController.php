@@ -109,7 +109,24 @@ class AttributeController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $attribute = $this->findModel($id);
+
+        // If this attribute is currently being used by any category,
+        // it cannot be removed
+        if (! empty($attribute->categoryAttributes)) {
+            return $this->render('message', [
+                'message' => 'This attribute cannot be deleted because it is currently being used by at least a category'
+            ]);
+        }
+
+        // Process deletion
+        $deletionResult = $attribute->delete();
+
+        if ($deletionResult === false) {
+            return $this->render('message', [
+                'message' => 'Failed to delete the requested attribute'
+            ]);
+        }
 
         return $this->redirect(['index']);
     }
