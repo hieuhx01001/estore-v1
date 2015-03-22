@@ -28,26 +28,34 @@ $this->params['breadcrumbs'][] = 'Images';
 
 <hr>
 
-<div class="row">
-    <?php $count = 0 ?>
-    <?php foreach ($images as $img) : ?>
-        <?php ++ $count ?>
-        <div class="col-sm-4 col-md-4 col-lg-3">
-            <div class="product-image-container <?= $img->is_main ? 'main' : '' ?>">
-                <img src="<?= $urlManager->createUrl("img/product/{$img->product_id}/{$img->name}") ?>" alt="<?= $img->name ?>">
-                <div class="btn-group">
-                    <a href="<?= $urlManager->createUrl(['product/remove-image', 'id' => $img->id]) ?>"
-                       class="btn btn-danger">Remove</a>
-                    <a href="<?= $urlManager->createUrl(['product/set-main-image', 'product_id' => $product->id, 'image_id' => $img->id]) ?>"
-                       <?= $img->is_main ? 'disabled' : '' ?>
-                       class="btn btn-primary">Set main</a>
+<?php if (empty($images)) : ?>
+
+    <?= $this->render('message', ['message' => 'This product currently has no images. Use the form above to add new images.']) ?>
+
+<?php else : ?>
+
+    <div class="row">
+        <?php $count = 0 ?>
+        <?php foreach ($images as $img) : ?>
+            <?php ++ $count ?>
+            <div class="col-sm-4 col-md-4 col-lg-3">
+                <div class="product-image-container <?= $img->is_main ? 'main' : '' ?>">
+                    <img src="<?= $urlManager->createUrl("img/product/{$img->product_id}/{$img->name}") ?>" alt="<?= $img->name ?>">
+                    <div class="btn-group btn-group-sm">
+                        <a href="<?= $urlManager->createUrl(['product/remove-image', 'id' => $img->id]) ?>"
+                           class="btn btn-danger">Remove</a>
+                        <a href="<?= $urlManager->createUrl(['product/set-main-image', 'product_id' => $product->id, 'image_id' => $img->id]) ?>"
+                            <?= $img->is_main ? 'disabled' : '' ?>
+                           class="btn btn-primary">Set main</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <?php if (3 === $count) : ?>
-            <div class="clearfix visible-sm visible-md"></div>
-        <?php elseif (4 === $count) : ?>
-            <div class="clearfix visible-lg"></div>
-        <?php endif ?>
-    <?php endforeach ?>
-</div>
+            <?php if (3 === $count) : ?>
+                <div class="clearfix visible-sm visible-md"></div>
+            <?php elseif (4 === $count) : ?>
+                <div class="clearfix visible-lg"></div>
+            <?php endif ?>
+        <?php endforeach ?>
+    </div>
+
+<?php endif ?>
