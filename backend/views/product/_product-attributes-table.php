@@ -11,7 +11,8 @@ $urlManager = Yii::$app->getUrlManager();
                         <i class="fa fa-tags"></i> Product Attributes
                     </span>
     </div>
-    <?php if (empty($productAttributes = $model->productAttributes)) : ?>
+    <?php // Check if this product categories has any attributes
+    if (empty($model->mainCategory->fullAttributes)) : ?>
         <div class="panel-body">
             <p>
                 This product currently has no attributes.
@@ -26,7 +27,7 @@ $urlManager = Yii::$app->getUrlManager();
     <?php else : ?>
         <table class="table table-bordered table-striped table-responsive">
             <tbody>
-            <?php foreach ($productAttributes as $pa) : ?>
+            <?php foreach ($model->productAttributes as $pa) : ?>
                 <tr>
                     <th><?= $pa->attr->name ?></th>
                     <td><?= $pa->value ?></td>

@@ -2,6 +2,8 @@
 /** @var \backend\models\Product $model */
 
 $urlManager = Yii::$app->getUrlManager();
+
+$productImages = $model->images;
 ?>
 
 <!-- BEGIN: Product-Images data -->
@@ -11,7 +13,7 @@ $urlManager = Yii::$app->getUrlManager();
                         <i class="fa fa-picture-o"></i> Product Images
                     </span>
     </div>
-    <?php if (empty($productImages = $model->images)) : ?>
+    <?php if (empty($productImages)) : ?>
         <div class="panel-body">
             This product currently has no images.
             Click <kbd>Edit</kbd> button below to add images.
