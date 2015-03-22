@@ -55,9 +55,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <?php if (empty($productAttributes = $model->productAttributes)) : ?>
                     <div class="panel-body">
-                        This product currently has no attributes.
-                        Its because the product's main category and
-                        every ancestor categories has no attributes.
+                        <p>
+                            This product currently has no attributes.
+                            Its because the product's main category and
+                            every ancestor categories has no attributes.
+                        </p>
+                        <p>
+                            Edit this product's main category or any
+                            of the ancestor categories to add attributes.
+                        </p>
                     </div>
                 <?php else : ?>
                     <table class="table table-bordered table-striped table-responsive">

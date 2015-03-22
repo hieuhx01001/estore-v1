@@ -14,7 +14,24 @@ $this->params['breadcrumbs'][] = 'Attributes';
 ?>
 
 <div class="col-sm-6">
-    <?php $form = ActiveForm::begin() ?>
+
+    <?php if (empty($attributes)) : ?>
+
+        <?= $this->render('message', [
+            'message' => "<p>
+                            This product currently has no attributes.
+                            Its because the product's main category and
+                            every ancestor categories has no attributes.
+                        </p>
+                        <p>
+                            Edit this product's main category or any
+                            of the ancestor categories to add attributes.
+                        </p>
+                        "]) ?>
+
+    <?php else : ?>
+
+        <?php $form = ActiveForm::begin() ?>
         <?php foreach ($attributes as $attr) : ?>
             <?= $this->render('attribute_input/' . $attr->type, [
                 'product' => $product,
@@ -24,5 +41,8 @@ $this->params['breadcrumbs'][] = 'Attributes';
         <div class="form-group">
             <button class="btn btn-primary">Save</button>
         </div>
-    <?php $form->end() ?>
+        <?php $form->end() ?>
+
+    <?php endif ?>
+
 </div>
