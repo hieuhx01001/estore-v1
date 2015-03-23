@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!--<h1><?/*= Html::encode($this->title) */?></h1>-->
 
     <div class="col-sm-6">
         <?= $this->render('_form', [
