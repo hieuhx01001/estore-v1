@@ -154,7 +154,7 @@ class Auth extends \yii\db\ActiveRecord
         $tablePrefix = Yii::$app->getDb()->tablePrefix;
         return Auth::find()
                 ->where(['name' => $name])
-                ->leftJoin("{$tablePrefix}auth_assignment", ['item_name' => $name])
+                ->innerJoin("{$tablePrefix}auth_assignment", ['item_name' => $name])
                 ->count();
     }
 
@@ -162,7 +162,7 @@ class Auth extends \yii\db\ActiveRecord
         $tablePrefix = Yii::$app->getDb()->tablePrefix;
         return Auth::find()
                 ->where(['name' => $name])
-                ->leftJoin("{$tablePrefix}auth_item_child", ['child' => $name])
+                ->innerJoin("{$tablePrefix}auth_item_child", ['parent' => $name])
                 ->count();
     }
 }

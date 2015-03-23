@@ -8,6 +8,8 @@
  */
 namespace backend\controllers;
 
+use backend\models\AuthAssignment;
+use backend\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\HttpException;
@@ -79,6 +81,10 @@ class RoleController extends Controller
         }
     }
 
+    /**
+     * @param $name
+     * @return string|\yii\web\Response
+     */
     public function actionUpdate($name)
     {
         if($name == 'admin') {
@@ -103,28 +109,40 @@ class RoleController extends Controller
         }
     }
 
+    /**
+     * @param $name
+     * @return \yii\web\Response
+     * @throws \yii\web\HttpException
+     */
     public function actionDelete($name)
     {
-        if(!Yii::$app->user->can('deleteRole')) throw new HttpException(500, 'No Auth');
+        if(Yii::$app->user->can('deleteRole')){
+            if ($name) {
+                if(!(intval(Auth::hasUsersByRole($name)) > 0) ) {
+                    $auth = Yii::$app->getAuthManager();
+                    $role = $auth->getRole($name);
 
-        if ($name) {
-            if(!Auth::hasUsersByRole($name)) {
-                $auth = Yii::$app->getAuthManager();
-                $role = $auth->getRole($name);
+                    // clear asset permissions
+                    $permissions = $auth->getPermissionsByRole($name);
 
-                // clear asset permissions
-                $permissions = $auth->getPermissionsByRole($name);
-                foreach($permissions as $permission) {
-                    $auth->removeChild($role, $permission);
+                    foreach($permissions as $permission) {
+                        $auth->removeChild($role, $permission);
+                    }
+                    if($auth->remove($role)) {
+
+                        Yii::$app->session->setFlash('success', " '$name' " . Yii::t('app', 'successfully removed'));
+                    }
+                } else {
+                    $authAssignment = AuthAssignment::findOne(['item_name' => $name ]);
+                    Yii::$app->session->setFlash('warning', 'Role '." '$name' " . Yii::t('app', 'still used by user '). User::findOne(['id' => $authAssignment->user_id ])->username );
                 }
-                if($auth->remove($role)) {
-                    Yii::$app->session->setFlash('success', " '$name' " . Yii::t('app', 'successfully removed'));
-                }
-            } else {
-                Yii::$app->session->setFlash('warning', " '$name' " . Yii::t('app', 'still used'));
             }
+            return $this->redirect(['index']);
+        }else{
+            throw new HttpException(500, 'No Auth');
         }
-        return $this->redirect(['index']);
+
+
     }
 
     public function actionView($name)

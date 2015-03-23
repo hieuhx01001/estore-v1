@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\AuthAssignment;
 use Yii;
 use backend\models\User;
 use backend\models\UserSearch;
@@ -127,10 +128,19 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        if(Yii::$app->user->can('updateUser')){
-            $this->findModel($id)->delete();
+        if(Yii::$app->user->can('deleteUser')){
+            $userModel = $this->findModel($id);
+            //delete child in auth_assignment
+            $authAssignment = AuthAssignment::findOne(['item_name' => $userModel->username ]);
 
-            return $this->redirect(['index']);
+            if ($authAssignment->delete() && $userModel->delete() ){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'successfully removed'));
+                return $this->redirect(['index']);
+            }else {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Something wrong'));
+                return $this->redirect(['index']);
+            }
+
         } else {
             throw new HttpException(500, 'You don not have permission');
         }

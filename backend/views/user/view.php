@@ -7,7 +7,7 @@ use backend\models\User;
 /* @var $this yii\web\View */
 /* @var $model backend\models\User */
 
-$this->title = $model->id;
+$this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
