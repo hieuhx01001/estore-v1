@@ -32,7 +32,9 @@ class Supplier extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'address'], 'required'],
-            [['name', 'address', 'phone', 'email'], 'string', 'max' => 255]
+            [['name', 'address', 'phone', 'email'], 'string', 'max' => 255],
+            ['email', 'email'],
+            ['phone', 'integer'],
         ];
     }
 

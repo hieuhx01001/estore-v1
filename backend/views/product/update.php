@@ -4,6 +4,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
+/* @var $manufacturers \backend\models\Manufacturer[] */
+/* @var $suppliers \backend\models\Supplier[] */
 
 $this->title = 'Update Product: ' . ' ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
@@ -21,6 +23,8 @@ $this->params['breadcrumbs'][] = 'Update';
             <?= $this->render('_form', [
                 'model' => $model,
                 'categories' => $categories,
+                'manufacturers' => $manufacturers,
+                'suppliers' => $suppliers,
             ]) ?>
         </div><!-- BEGIN: Left column - Product Form -->
         <!-- BEGIN: Right column - Product Attributes & Product Images -->

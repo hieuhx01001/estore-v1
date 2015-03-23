@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\repositories\CategoryRepository;
@@ -8,6 +9,8 @@ use backend\repositories\CategoryRepository;
 /* @var $model backend\models\Product */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $attributes \backend\models\Attribute[] */
+/* @var $manufacturers \backend\models\Manufacturer[] */
+/* @var $suppliers \backend\models\Supplier[] */
 
 $urlManager = Yii::$app->getUrlManager();
 ?>
@@ -24,6 +27,14 @@ $urlManager = Yii::$app->getUrlManager();
         <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
 
         <?= $form->field($model, 'code')->textInput(['maxlength' => 255]) ?>
+
+        <?= $form->field($model, 'manufacturer_id')->dropDownList(
+            ArrayHelper::map($manufacturers, 'id', 'name')
+        ) ?>
+
+        <?= $form->field($model, 'supplier_id')->dropDownList(
+            ArrayHelper::map($suppliers, 'id', 'name')
+        ) ?>
 
         <?= $form->field($model, 'price')->textInput(['maxlength' => 10]) ?>
 

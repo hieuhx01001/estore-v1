@@ -5,6 +5,8 @@ namespace backend\controllers;
 use backend\models\Category;
 use backend\models\forms\ImageUploaderForm;
 use backend\models\Image;
+use backend\models\Manufacturer;
+use backend\models\Supplier;
 use backend\repositories\CategoryRepository;
 use backend\repositories\ProductAttributeRepository;
 use backend\repositories\ProductCategoryRepository;
@@ -95,9 +97,14 @@ class ProductController extends Controller
             }
         }
         else {
+            $manufacturers = $this->getManufacturers();
+            $suppliers     = $this->getSuppliers();
+
             return $this->render('create', [
                 'model' => $product,
                 'categories' => $this->getCategories(),
+                'manufacturers' => $manufacturers,
+                'suppliers' => $suppliers,
             ]);
         }
     }
@@ -129,9 +136,14 @@ class ProductController extends Controller
             }
         }
         else {
+            $manufacturers = $this->getManufacturers();
+            $suppliers     = $this->getSuppliers();
+
             return $this->render('update', [
                 'model' => $product,
-                'categories' => $this->getCategories()
+                'categories' => $this->getCategories(),
+                'manufacturers' => $manufacturers,
+                'suppliers' => $suppliers,
             ]);
         }
     }
@@ -348,5 +360,35 @@ class ProductController extends Controller
     {
         $categories = (new CategoryRepository())->getAll();
         return $categories;
+    }
+
+    protected function getManufacturers()
+    {
+        $manufacturers = Manufacturer::find()->all();
+
+        $emptyManufacturer = new Manufacturer();
+        $emptyManufacturer->setAttributes([
+            'id' => null,
+            'name' => '--- No Manufacturer ---',
+        ]);
+
+        array_unshift($manufacturers, $emptyManufacturer);
+
+        return $manufacturers;
+    }
+
+    protected function getSuppliers()
+    {
+        $suppliers = Supplier::find()->all();
+
+        $emptySupplier = new Supplier();
+        $emptySupplier->setAttributes([
+            'id' => null,
+            'name' => '--- No Supplier ---',
+        ]);
+
+        array_unshift($suppliers, $emptySupplier);
+
+        return $suppliers;
     }
 }
