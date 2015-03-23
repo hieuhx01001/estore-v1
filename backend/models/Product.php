@@ -187,7 +187,7 @@ class Product extends ActiveRecord
      */
     public function getManufacturer()
     {
-        return $this->hasOne(Manufacturer::className(), ['id' => 'manufacturer_id'])
+        return $this->hasOne(Manufacturer::className(), ['id' => 'manufacturer_id']);
     }
 
     /**
