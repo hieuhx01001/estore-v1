@@ -24,6 +24,8 @@ use yii\db\ActiveRecord;
  * @property ProductAttribute[] $productAttributes
  * @property Image[] $images
  * @property Image $mainImage
+ * @property Manufacturer $manufacturer
+ * @property Supplier $supplier
  */
 class Product extends ActiveRecord
 {
@@ -124,7 +126,7 @@ class Product extends ActiveRecord
     {
         return Image::findOne([
             'product_id' => $this->id,
-            'is_main'    => 1,
+            'is_main' => 1,
         ]);
     }
 
@@ -147,6 +149,13 @@ class Product extends ActiveRecord
         return ($pa != null) ? $pa->value : null;
     }
 
+    /**
+     * Set value for the requested attribute of this product
+     *
+     * @param $attributeId
+     * @param $value
+     * @return bool
+     */
     public function setAttrValue($attributeId, $value)
     {
         $attribute = Attribute::findOne($attributeId);
@@ -171,5 +180,21 @@ class Product extends ActiveRecord
         ]);
 
         return $pa->save();
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getManufacturer()
+    {
+        return $this->hasOne(Manufacturer::className(), ['id' => 'manufacturer_id'])
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSupplier()
+    {
+        return $this->hasOne(Supplier::className(), ['id' => 'supplier_id']);
     }
 }
