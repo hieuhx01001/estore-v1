@@ -51,6 +51,39 @@ class ProductCategory extends ActiveRecord
         ];
     }
 
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        /*
+         * Remove all Product-Attribute links of this Category
+         * after being deleted successfully
+         */
+
+        $categoryId = $this->category_id;
+        $productId = $this->product_id;
+
+        // Find all attributes that the category this Product-Category link to has
+        $attributes = Category::findOne($categoryId)
+            ->getAttrs()
+            ->select('id')
+            ->all();
+
+        // Start unlink
+        foreach ($attributes as $attr) {
+            $pa = ProductAttribute::findOne([
+                'product_id' => $productId,
+                'attribute_id' => $attr->id,
+            ]);
+
+            if ($pa === null) { continue; }
+
+            if ($pa->delete() == false) {
+                throw new Exception("Failed to delete Product-Attribute link of pId={$productId} and aId={$attr->id}");
+            }
+        }
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
