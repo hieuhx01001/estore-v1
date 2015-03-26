@@ -67,7 +67,14 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $this->layout = 'dash_board';
         return $this->render('index');
+    }
+
+    public function actionProduct()
+    {
+        $this->layout = 'main_store';
+        return $this->render('product');
     }
 
     public function actionLogin()
