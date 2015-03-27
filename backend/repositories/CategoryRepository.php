@@ -5,6 +5,7 @@ use backend\models\Category;
 use backend\models\CategoryAttribute;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 class CategoryRepository
 {
@@ -54,27 +55,29 @@ class CategoryRepository
             /*
              * Remove any selected category that ancestors have
              */
-            // Get IDs of ancestors' attributes
-            $ancestorAttrIds = [];
-            foreach ($category->allAncestors as $ancestor) {
-                $ancestorAttrIds = array_merge($ancestorAttrIds, ArrayHelper::getColumn($ancestor->attrs, 'id'));
-            }
-            // Filter attributes
-            $selectedAttrIds = array_diff($selectedAttrIds, $ancestorAttrIds);
+            if (! empty($selectedAttrIds)) {
+                // Get IDs of ancestors' attributes
+                $ancestorAttrIds = [];
+                foreach ($category->allAncestors as $ancestor) {
+                    $ancestorAttrIds = array_merge($ancestorAttrIds, ArrayHelper::getColumn($ancestor->attrs, 'id'));
+                }
+                // Filter attributes
+                $selectedAttrIds = array_diff($selectedAttrIds, $ancestorAttrIds);
 
-            // Link the category with selected attributes
-            if ($selectedAttrIds) {
-                foreach ($selectedAttrIds as $attrId) {
-                    // Create a new instance of Category-Attribute link
-                    $ca = new CategoryAttribute();
-                    // Assign data
-                    $ca->setAttributes([
-                        static::FIELD_CATEGORY_ID => $category->id,
-                        static::FIELD_ATTRIBUTE_ID => $attrId,
-                    ]);
-                    // Save the link
-                    if ($ca->save() == false) {
-                        throw new Exception("Failed to save Category[{$category->id}]-Attribute[{$attrId}] link");
+                // Link the category with selected attributes
+                if ($selectedAttrIds) {
+                    foreach ($selectedAttrIds as $attrId) {
+                        // Create a new instance of Category-Attribute link
+                        $ca = new CategoryAttribute();
+                        // Assign data
+                        $ca->setAttributes([
+                            static::FIELD_CATEGORY_ID => $category->id,
+                            static::FIELD_ATTRIBUTE_ID => $attrId,
+                        ]);
+                        // Save the link
+                        if ($ca->save() == false) {
+                            throw new Exception("Failed to save Category[{$category->id}]-Attribute[{$attrId}] link");
+                        }
                     }
                 }
             }
