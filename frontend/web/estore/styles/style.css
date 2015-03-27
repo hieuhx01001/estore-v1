@@ -1,4 +1,4 @@
-/* 
+/*
 
 Lastore - CSS File
 
@@ -125,8 +125,8 @@ img.alignnone {
 }
 
 
-img.alignleft, 
-img.alignright, 
+img.alignleft,
+img.alignright,
 img.aligncenter
 {
 	margin-bottom: 10px;
@@ -160,7 +160,7 @@ ul ol,
 ol ul {
 	margin-bottom: 0;
 }
-	
+
 blockquote {
     background-image: url("../images/quote.png");
     background-position: 0 0;
@@ -173,13 +173,13 @@ blockquote {
 	line-height:30px
 }
 
-	
+
 blockquote.left, blockquote.right  {
 	float:right;
 	margin:0 0 0 20px;
 	width:65%;
 	}
-	
+
 blockquote.left{
 	float:left;
 	margin-left:0px;
@@ -235,7 +235,7 @@ code {
 
 /* Search */
 #logo-wrapper #searchform {position: relative;  display:inline-block; margin:0px 0 3px;}
-#logo-wrapper #searchform #s {  padding: 8px 0px 8px 9px !important; vertical-align:top; width:200px; margin-bottom:0px;}
+#logo-wrapper #searchform #s {  padding: 8px 0px 8px 9px !important; vertical-align:top; width:190px; margin-bottom:0px;}
 #logo-wrapper .searchbutton {
     height:30px;
     width: 27px;
@@ -402,7 +402,7 @@ ul.sf-menu li li li.sfHover ul {
 
 .sf-menu ul li a:hover{}
 .sf-menu li ul {
-	
+
 }
 .sf-menu a.sf-with-ul {
 	min-width:		1px; /* trigger IE7 hasLayout so spans position accurately */
@@ -419,7 +419,7 @@ ul.sf-menu li li li.sfHover ul {
 }
 
 
-	
+
 /* dropdown mobile */
 .tinynav { display: none }
 
@@ -445,14 +445,14 @@ ul.sf-menu li li li.sfHover ul {
 .positionright .padcontent{padding-right:0px; padding-left:20px;}
 
 .header-wrapper{ margin-bottom:14px; clear:both;}
-.header-wrapper span{ 
+.header-wrapper span{
     border-bottom: 1px solid #EEEEEE;
     display: block;
     height: 8px;
     margin-left: auto;
     width: 100%;
 }
-.header-wrapper h2{ 
+.header-wrapper h2{
    	background-color: #FFFFFF;
     border: 0 none;
     float: left;
@@ -524,7 +524,7 @@ ul.sf-menu li li li.sfHover ul {
 
 
 .alert{ margin-bottom:20px; padding:10px 21px; width:35%;}
-			
+
 /*=== List ===*/
 ul.list{list-style-type: square; list-style-position:inside; padding:0; margin:0;}
 ul.list li{padding:3px 0 3px 0px; border-bottom:1px dotted #c3c3c3;}
@@ -566,7 +566,7 @@ textarea, input[type="password"]{
 select{
 	padding:4px 2px;
 	font-size:11px;
-	margin-bottom:15px;	
+	margin-bottom:15px;
 	}
 
 textarea{width:90%;}
@@ -617,7 +617,7 @@ textarea:focus{outline:0;}
     line-height: 47px;
     margin: 6px 8px 0 0;
     text-align: center;
-    width: 47px;	
+    width: 47px;
 }
 .dropcap3{
 	display:block;
@@ -632,7 +632,7 @@ textarea:focus{outline:0;}
 }
 
 /*== Highlight ==*/
-.highlight1{padding:2px 5px;}	
+.highlight1{padding:2px 5px;}
 .highlight2{padding:2px 5px;}
 
 /*=== Pullquotes ===*/
@@ -680,7 +680,7 @@ ul.tabs li a {
 }
 
 .tab-content { }
-	
+
 ul.tabs li:hover{}
 .tab-body{padding:20px 30px 10px 30px; float:left;}
 
@@ -762,7 +762,7 @@ tr.odd td {}
 	list-style-type:none;
 	margin:0;
 	padding:0;
-	
+
 }
 .sidebar .widget-container{margin-bottom:20px; padding-bottom:0px; }
 .sidebar li.widget-container:last-child{margin-bottom:0; padding-bottom:10px}
@@ -854,7 +854,7 @@ ul.flickr li.nomargin{margin-right:0 !important;}
 .es-nav span.es-nav-prev{
 	background:url(../images/nav-prev.png) no-repeat top;
 	left:18px;
-	
+
 }
 .es-nav span:hover{ background-position:0 -18px;}
 
@@ -879,8 +879,8 @@ ul.flickr li.nomargin{margin-right:0 !important;}
 #copyright a, #copyright a:visited{}
 
 /* Social */
-.sn{list-style-type:none; margin:0 0 0 0; padding:16px 10px 0 0px; float:right;} 
-.sn li{list-style-type:none; margin:0; padding:0 0px 0 5px; display:inline; background:transparent} 
+.sn{list-style-type:none; margin:0 0 0 0; padding:16px 10px 0 0px; float:right;}
+.sn li{list-style-type:none; margin:0; padding:0 0px 0 5px; display:inline; background:transparent}
 .sn span{height:23px; width:23px; display:inline-block;
 	  -webkit-transition: all 0.4s ease;  /* Saf3.2+, Chrome */
      -moz-transition: all 0.4s ease;  /* FF4+ */
@@ -889,3 +889,36 @@ ul.flickr li.nomargin{margin-right:0 !important;}
 }
 .sn .icon-img{background-position:0 -31px !important;}
 .sn .icon-img:hover{background-position:0 0px !important;}
+
+
+.priceInfo {
+    width: 60%;
+    display: inline-block;
+    float: left;
+    transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    -moz-transition: opacity .3s;
+    -ms-transition: opacity .3s;
+    -o-transition: opacity .3s;
+}
+span.old-price {
+    float: left;
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: line-through;
+    margin-top: 0;
+}
+
+span.price {
+    display: block;
+    color: #ee3124;
+    font-size: 14px;
+    font-weight: 700;
+    margin-right: 6px;
+}
+.cart-sale {
+    position: relative;
+    top: 18px
+}

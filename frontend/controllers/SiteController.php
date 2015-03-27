@@ -1,7 +1,9 @@
 <?php
 namespace frontend\controllers;
 
+use backend\models\Product;
 use Yii;
+
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -68,7 +70,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'dash_board';
-        return $this->render('index');
+        $newProducts = Product::find()->indexBy('id')->orderBy(['id' => SORT_DESC])->limit(10)->all();
+
+        return $this->render('index',
+            array(
+                'newProducts' => $newProducts
+            ));
     }
 
     public function actionProduct()
