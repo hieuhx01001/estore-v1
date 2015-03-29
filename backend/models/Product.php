@@ -4,7 +4,9 @@ namespace backend\models;
 
 use Yii;
 use yii\base\Exception;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "product".
@@ -66,10 +68,27 @@ class Product extends ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'short_description' => Yii::t('app', 'Short Description'),
             'feature' => Yii::t('app', 'Feature'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Last Updated At'),
+
+            'manufacturer_id' => 'Manufacturer',
+            'supplier' => 'Supplier',
 
             'mainCategory.name' => Yii::t('app', 'Category'),
             'manufacturer.name' => Yii::t('app', 'Manufacturer'),
             'supplier.name' => Yii::t('app', 'Supplier'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ]
         ];
     }
 

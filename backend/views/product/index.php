@@ -9,6 +9,8 @@ use yii\grid\GridView;
 
 $this->title = 'Products';
 $this->params['breadcrumbs'][] = $this->title;
+
+$formatter = new \yii\i18n\Formatter();
 ?>
 <div class="product-index">
 
@@ -27,9 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             'price',
             'quantity',
-            // 'description:ntext',
-            // 'short_description:ntext',
-            // 'feature:ntext',
+            [
+                'attribute' => 'created_at',
+                'content' => function($model) use ($formatter)
+                {
+                    return $formatter->asDate($model->created_at);
+                }
+            ],
+            [
+                'attribute' => 'updated_at',
+                'content' => function($model) use ($formatter)
+                {
+                    return $formatter->asDate($model->updated_at);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
