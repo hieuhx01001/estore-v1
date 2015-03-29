@@ -33,8 +33,7 @@ class Attribute extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['is_required'], 'integer'],
-            [['name', 'type', 'regex'], 'string', 'max' => 255],
+            [['name', 'type'], 'string', 'max' => 255],
             [['name'], 'unique']
         ];
     }
@@ -48,8 +47,6 @@ class Attribute extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'type' => Yii::t('app', 'Type'),
-            'is_required' => Yii::t('app', 'Is Required'),
-            'regex' => Yii::t('app', 'Regex'),
         ];
     }
 

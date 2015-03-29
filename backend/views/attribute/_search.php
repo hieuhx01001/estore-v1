@@ -21,10 +21,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type') ?>
 
-    <?= $form->field($model, 'is_required') ?>
-
-    <?= $form->field($model, 'regex') ?>
-
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>

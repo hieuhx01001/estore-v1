@@ -31,8 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'type',
-            'is_required',
-            'regex',
         ],
     ]) ?>
 
