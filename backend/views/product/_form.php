@@ -38,6 +38,8 @@ $urlManager = Yii::$app->getUrlManager();
 
         <?= $form->field($model, 'price')->textInput(['maxlength' => 10]) ?>
 
+        <?= $form->field($model, 'sales_price')->textInput(['maxlength' => 10]) ?>
+
         <?= $form->field($model, 'quantity')->textInput() ?>
 
         <?= $form->field($model, 'short_description')->textarea([
