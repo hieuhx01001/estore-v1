@@ -11,6 +11,8 @@ $urlManager = Yii::$app->getUrlManager();
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$formatter = new \yii\i18n\Formatter();
 ?>
 <div class="product-view">
 
@@ -38,11 +40,24 @@ $this->params['breadcrumbs'][] = $this->title;
                     'mainCategory.name',
                     'manufacturer.name',
                     'supplier.name',
-                    'price',
+                    [
+                        'attribute' => 'price',
+                        'value' => $formatter->asCurrency($model->price, 'VND')
+                    ],
+                    [
+                        'attribute' => 'sales_price',
+                        'value' => $model->sales_price ? $formatter->asCurrency($model->sales_price, 'VND') : null
+                    ],
                     'quantity',
-                    'description:ntext',
-                    'short_description:ntext',
                     'feature:ntext',
+                    [
+                        'attribute' => 'created_at',
+                        'value' => $formatter->asDate($model->created_at)
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'value' => $formatter->asDate($model->updated_at)
+                    ],
                 ],
             ]) ?>
         </div><!-- END: Product data column -->
