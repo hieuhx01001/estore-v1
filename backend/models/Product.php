@@ -47,7 +47,7 @@ class Product extends ActiveRecord
     {
         return [
             [['name', 'code', 'price', 'quantity'], 'required'],
-            [['price'], 'number'],
+            [['price', 'sales_price'], 'number'],
             [['quantity', 'manufacturer_id', 'supplier_id'], 'integer'],
             [['description', 'short_description', 'feature'], 'string'],
             [['name', 'code'], 'string', 'max' => 255]
@@ -64,6 +64,7 @@ class Product extends ActiveRecord
             'code' => Yii::t('app', 'Code'),
             'name' => Yii::t('app', 'Name'),
             'price' => Yii::t('app', 'Price'),
+            'sales_price' => Yii::t('app', 'Sales Price'),
             'quantity' => Yii::t('app', 'Quantity'),
             'description' => Yii::t('app', 'Description'),
             'short_description' => Yii::t('app', 'Short Description'),
