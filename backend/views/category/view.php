@@ -36,12 +36,26 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <div>
-        <h4>Category Attributes</h4>
         <ul class="list-group">
+            <li class="list-group-item list-group-item-heading list-group-item-info">
+                <b>Category Attributes</b>
+            </li>
             <?php foreach ($categoryAttributes as $ca) : ?>
                 <li class="list-group-item">
                     <?= $ca->attr->name ?>
                 </li>
+            <?php endforeach ?>
+        </ul>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-heading list-group-item-info">
+                <b>Inherited Attributes</b>
+            </li>
+            <?php foreach ($model->allAncestors as $ancestor) : ?>
+                <?php foreach ($ancestor->attrs as $attr) : ?>
+                    <li class="list-group-item">
+                        <?= $attr->name ?>
+                    </li>
+                <?php endforeach ?>
             <?php endforeach ?>
         </ul>
     </div>
