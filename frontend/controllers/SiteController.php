@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use backend\models\OrderItem;
 use backend\models\Product;
 use Yii;
 
@@ -70,11 +71,26 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'dash_board';
-        $newProducts = Product::find()->indexBy('id')->orderBy(['id' => SORT_DESC])->limit(10)->all();
+        $newProducts = Product::find()->indexBy('id')
+            ->orderBy(['updated_at' => SORT_ASC])
+            ->limit(10)->all();
+
+        $saleProducts = Product::find()->indexBy('id')
+            ->where('sales_price > 0')
+            ->orderBy(['updated_at' => SORT_ASC])
+            ->limit(10)->all();
+
+        $hotProduct = OrderItem::find()->indexBy('product_id')
+            ->with('product')
+            ->groupBy('product_id')
+            ->orderBy('count(product_id) DESC')
+            ->all();
 
         return $this->render('index',
             array(
-                'newProducts' => $newProducts
+                'newProducts' => $newProducts,
+                'saleProducts' => $saleProducts,
+                'hotProducts' => $hotProduct
             ));
     }
 

@@ -1,4 +1,5 @@
 <?php
+$urlManager = Yii::$app->getUrlManager();
 ?>
 <div id="outerheader">
     <header>
@@ -7,7 +8,7 @@
                 <div class="row">
                     <div id="topmenu" class=" six columns">
                         <ul id="topnav">
-                            <li><a href="#">Giới Thiệu</a></li>
+                            <li><a href="<?php $urlManager->createUrl("site/intro")?>">Giới Thiệu</a></li>
                             <li><a href="#">Liên Hệ</a></li>
                             <li><a href="#">Sơ Đồ</a></li>
                         </ul>
@@ -72,9 +73,9 @@
                 <div class="row">
                     <nav id="nav-wrap" class="twelve columns">
                         <ul id="sf-nav" class="sf-menu">
-                            <li class="<?php if ($page == 'dashboard') {echo 'current';}?>"><a href="index.html">Trang chủ</a></li>
+                            <li class="<?php if ($page == 'dashboard') {echo 'current';}?>"><a href="<? $urlManager->createUrl("site/index")?>">Trang chủ</a></li>
                             </li>
-                            <li class="<?php if ($page == 'product') {echo 'current';}?>"><a href="product-grid.html">Sản Phẩm</a>
+                            <li class="<?php if ($page == 'product') {echo 'current';}?>"><a href="<?$urlManager->createUrl("product/index")?>">Sản Phẩm</a>
                                 <ul>
                                 <li><a href="product-grid.html">Product Grid</a></li>
                                 <li><a href="product-list.html">Product List</a></li>

@@ -32,6 +32,15 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
+        'urlManagerBackEnd' => [
+            'class' => 'yii\web\urlManager',
+            'baseUrl' => '/estore/backend/web',
+            'enablePrettyUrl' => false,
+            'showScriptName' => false,
+            'rules' => [
+            ],
+        ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
