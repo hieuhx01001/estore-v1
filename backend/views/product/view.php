@@ -49,7 +49,8 @@ $formatter = new \yii\i18n\Formatter();
                         'value' => $model->sales_price ? $formatter->asCurrency($model->sales_price, 'VND') : null
                     ],
                     'quantity',
-                    'feature:ntext',
+                    'short_description:ntext',
+                   /* 'feature:ntext',*/
                     [
                         'attribute' => 'created_at',
                         'value' => $formatter->asDate($model->created_at)

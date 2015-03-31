@@ -22,7 +22,9 @@ class ProductAsset extends AssetBundle
         'estore/styles/inner.css',
         'estore/styles/layout.css',
         'estore/styles/layerslider.css',
+        'estore/styles/flexslider.css',
         'estore/styles/color.css',
+        'estore/styles/prettyPhoto.css',
     ];
     public $js = [
         'estore/js/jquery-1.7.1.min.js',
@@ -30,11 +32,14 @@ class ProductAsset extends AssetBundle
         'estore/js/superfish.js',
         'estore/js/supersubs.js',
         'estore/js/jquery.elastislide.js',
+        'estore/js/jquery.prettyPhoto.js',
+        'estore/js/fade.js',
         'estore/js/tinynav.min.js',
         'estore/js/custom.js',
         'estore/js/jquery-easing-1.3.js',
         'estore/js/layerslider.js',
-        'estore/js/dashboard/dashboard.js',
+        'estore/js/jquery.flexslider-min.js',
+        'estore/js/product/product.js',
     ];
     public $depends = [
     ];

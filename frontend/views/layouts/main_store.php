@@ -8,7 +8,8 @@ use frontend\widgets\Alert;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-DashBoardAsset::register($this);
+\frontend\assets\ProductAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

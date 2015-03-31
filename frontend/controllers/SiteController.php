@@ -15,6 +15,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -99,6 +100,17 @@ class SiteController extends Controller
         $this->layout = 'main_store';
         return $this->render('product');
     }
+
+    public function actionDetail($id)
+    {
+        $this->layout = 'main_store';
+        $product = $this->findModelProduct($id);
+
+        return $this->render('detail',
+            array('product' => $product)
+        );
+    }
+
 
     public function actionLogin()
     {
@@ -197,5 +209,14 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    protected function findModelProduct($id)
+    {
+        if (($model = Product::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 }
