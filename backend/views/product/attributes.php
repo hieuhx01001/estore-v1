@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
 
 $this->title = 'Product Attributes of ' . $product->name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $product->name;
+$this->params['breadcrumbs'][] = ['label' => $product->name, 'url' => ['view', 'id' => $product->id]];
 $this->params['breadcrumbs'][] = 'Attributes';
 ?>
 

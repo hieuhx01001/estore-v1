@@ -34,7 +34,7 @@ return [
         ],
         'urlManagerBackEnd' => [
             'class' => 'yii\web\urlManager',
-            'baseUrl' => '/estore/backend/web',
+            'baseUrl' => '/backend/web',
             'enablePrettyUrl' => false,
             'showScriptName' => false,
             'rules' => [

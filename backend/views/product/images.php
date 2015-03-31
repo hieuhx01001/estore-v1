@@ -7,7 +7,7 @@ $urlManager = Yii::$app->getUrlManager();
 // Register Breadcrumbs
 $this->title = $product->name;
 $this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $product->name, 'url' => ['view', 'id' => $product->id]];
 $this->params['breadcrumbs'][] = 'Images';
 
 // Register assets

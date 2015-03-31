@@ -27,7 +27,14 @@ $formatter = new \yii\i18n\Formatter();
         'columns' => [
             'name',
             'code',
-            'price',
+            [
+                'attribute'=>'price',
+                'value'=> function($model) use ($formatter)
+                {
+                    return $formatter->asCurrency($model->price);
+                },
+            ],
+
             'quantity',
             [
                 'attribute' => 'created_at',

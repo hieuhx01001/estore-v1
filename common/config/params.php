@@ -5,12 +5,12 @@ return [
     'user.passwordResetTokenExpire' => 3600,
     'params' => [
         'maskMoneyOptions' => [
-            'prefix' => 'US$ ',
-            'suffix' => ' c',
+            'prefix' => 'đ ',
+            'suffix' => ' đ',
             'affixesStay' => true,
             'thousands' => ',',
             'decimal' => '.',
-            'precision' => 2,
+            'precision' => false,
             'allowZero' => false,
             'allowNegative' => false,
         ]

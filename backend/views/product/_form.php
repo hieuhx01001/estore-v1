@@ -4,7 +4,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\repositories\CategoryRepository;
-
+use kartik\money\MaskMoney;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Product */
 /* @var $form yii\widgets\ActiveForm */
@@ -36,9 +36,25 @@ $urlManager = Yii::$app->getUrlManager();
             ArrayHelper::map($suppliers, 'id', 'name')
         ) ?>
 
-        <?= $form->field($model, 'price')->textInput(['maxlength' => 10]) ?>
+        <?= $form->field($model, 'price')->textInput(['maxlength' => 10])
+            ->widget(MaskMoney::classname(), [
+                'pluginOptions' => [
+                    'prefix' => '',
+                    'suffix' => ' đ',
+                    'precision' => 0,
+                    'allowNegative' => false
+                ]
+            ]) ?>
 
-        <?= $form->field($model, 'sales_price')->textInput(['maxlength' => 10]) ?>
+        <?= $form->field($model, 'sales_price')->textInput(['maxlength' => 10])
+            ->widget(MaskMoney::classname(), [
+                'pluginOptions' => [
+                    'prefix' => '',
+                    'suffix' => ' đ',
+                    'precision' => 0,
+                    'allowNegative' => false
+                ]
+            ]) ?>
 
         <?= $form->field($model, 'quantity')->textInput() ?>
 
