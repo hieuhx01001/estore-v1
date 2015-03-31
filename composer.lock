@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c256c65fbc24fcdbeb740cbacaed6cf",
+    "hash": "48c00b0be6c2ccf65ef10ce0c4458843",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -363,16 +363,16 @@
         },
         {
             "name": "kartik-v/yii2-money",
-            "version": "v1.2.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-money.git",
-                "reference": "70e7275a7015fabc9d9428276242862df936c2e2"
+                "reference": "9e106f1f22be765e384c21d12144e4575f08bf72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-money/zipball/70e7275a7015fabc9d9428276242862df936c2e2",
-                "reference": "70e7275a7015fabc9d9428276242862df936c2e2",
+                "url": "https://api.github.com/repos/kartik-v/yii2-money/zipball/9e106f1f22be765e384c21d12144e4575f08bf72",
+                "reference": "9e106f1f22be765e384c21d12144e4575f08bf72",
                 "shasum": ""
             },
             "require": {
@@ -409,7 +409,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-11-25 09:21:12"
+            "time": "2015-02-26 15:05:48"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -996,7 +996,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kartik-v/yii2-money": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

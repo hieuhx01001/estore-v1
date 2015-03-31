@@ -17,13 +17,13 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
     </div>
     <?php $index = 0; $row1 = ''; $row2 = '';?>
     <?php foreach($newProducts as $key => $product){ ?>
-        <?
+        <?php
             $imgLink = $baseBackEndUrl."/img/product/default.jpeg";
             if(isset($product->mainImage->product_id)){
                 $imgLink = $baseBackEndUrl."/img/product/".$product->mainImage->product_id."/".$product->mainImage->name;
             };
         ?>
-        <? if ($index < 4):?>
+        <?php if ($index < 4):?>
             <?php
                 $priceHtml = '';
                 if ($product->sales_price > 0) {
@@ -56,7 +56,7 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                             </div>
                          </div>';
             ?>
-        <? else: ?>
+        <?php else: ?>
              <?php $row2 = '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <span class="new"></span>
@@ -69,7 +69,7 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                                 </div>
                             </div>
                          </div>';?>
-        <? endif; ?>
+        <?php endif; ?>
         <?php $index++;?>
     <?php } ?>
 
@@ -88,13 +88,14 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
     </div>
     <?php $index = 0; $saleRow1 = '';$saleRow2 = '';?>
     <?php foreach($saleProducts as $key => $product){ ?>
-        <?
+        <?php
         $imgLink = $baseBackEndUrl."/img/product/default.jpeg";
         if(isset($product->mainImage->product_id)){
             $imgLink = $baseBackEndUrl."/img/product/".$product->mainImage->product_id."/".$product->mainImage->name;
         };
+
         ?>
-        <? if ($index < 4):?>
+        <?php if ($index < 4):?>
             <?php
             $saleRow1 .= '<div class="one_fifth columns">
                             <div class="product-wrapper">
@@ -115,7 +116,7 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                             </div>
                          </div>';
             ?>
-        <? else: ?>
+        <?php else: ?>
             <?php $saleRow2 = '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <!--<span class="new"></span>-->
@@ -134,14 +135,14 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                                 </div>
                             </div>
                          </div>';?>
-        <? endif; ?>
+        <?php endif; ?>
         <?php $index++;?>
     <?php } ?>
     <div class="row">
-        <? echo $saleRow1 ?>
+        <?php echo $saleRow1 ?>
     </div>
     <div class="row">
-        <? echo $saleRow2 ?>
+        <?php echo $saleRow2 ?>
     </div>
 </div>
 
@@ -153,13 +154,13 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
 
     <?php $index = 0; $hotRow1 = ''; $hotRow2 = '';?>
     <?php foreach($hotProducts as $key => $product){ ?>
-        <?
+        <?php
         $imgLink = $baseBackEndUrl."/img/product/default.jpeg";
         if(isset($product->product->mainImage->product_id)){
             $imgLink = $baseBackEndUrl."/img/product/".$product->product->mainImage->product_id."/".$product->product->mainImage->name;
         };
         ?>
-        <? if ($index < 4):?>
+        <?php if ($index < 4):?>
             <?php
             $priceHtml = '';
             if ($product->product->sales_price > 0) {
@@ -191,7 +192,7 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                             </div>
                          </div>';
             ?>
-        <? else: ?>
+        <?php else: ?>
             <?php $hotRow2 = '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <!--<span class="new"></span>-->
@@ -204,7 +205,7 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                                 </div>
                             </div>
                          </div>';?>
-        <? endif; ?>
+        <?php endif; ?>
         <?php $index++;?>
     <?php } ?>
     <div class="row">
