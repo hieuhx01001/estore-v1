@@ -1,4 +1,5 @@
 <?php
+use backend\models\Category;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -9,6 +10,42 @@ use frontend\widgets\Alert;
 /* @var $this \yii\web\View */
 /* @var $content string */
 \frontend\assets\ProductAsset::register($this);
+
+/** @var \yii\web\UrlManager $urlMgr */
+$GLOBALS['urlMgr'] = Yii::$app->urlManager;
+
+/**
+ * Generate a category list
+ */
+function generateCategoryList($categories)
+{
+    if (! empty($categories)) {
+
+        $html = '<ul>';
+        $urlMgr = $GLOBALS['urlMgr'];
+
+        foreach ($categories as $cate) {
+
+            $html .= '<li>';
+
+            $html .= "<a href='{$urlMgr->createUrl(['site/product', 'categoryId' => $cate->id])}'>{$cate->name}</a>";
+
+            $children = $cate->children;
+
+            if (! empty($children) or $cate->level == 1) {
+                $html .= '<span class="btn-sub-category">&gt;</span>';
+            }
+
+            $html .= generateCategoryList($cate->children);
+
+            $html .= '</li>';
+        }
+
+        $html .= '</ul>';
+
+        return $html;
+    }
+}
 
 ?>
 <?php $this->beginPage() ?>
@@ -54,23 +91,10 @@ use frontend\widgets\Alert;
                                 <ul>
                                     <li class="widget-container">
                                         <h2 class="widget-title">Danh mục sản phẩm</h2>
-                                        <ul>
-                                            <li><a href="#">Điện Trở</a>
-                                                <ul>
-                                                    <li><a href="#">Trở Cắm</a></li>
-                                                    <li><a href="#">Điện Trở SMD</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Tụ Điện</a>
-                                                <ul>
-                                                    <li><a href="#">Tụ Gốm</a></li>
-                                                    <li><a href="#">Tụ Sứ</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Cuộn Cảm</a></li>
-                                            <li><a href="#">Vi Điều Khiển</a></li>
-                                            <li><a href="#">Cảm Biến</a></li>
-                                        </ul>
+                                        <!-- BEGIN: Generate list of categories -->
+                                        <div id="category-list">
+                                            <?= generateCategoryList(Category::findAll(['level'=> 1])) ?>
+                                        </div>
                                     </li>
                                     <li class="widget-container" style="margin-bottom: 15px !important;">
                                         <h2 class="widget-title">Nổi Bật</h2>
@@ -111,3 +135,29 @@ use frontend\widgets\Alert;
 
 </html>
 <?php $this->endPage() ?>
+
+<script>
+    $(function () {
+
+        $(".btn-sub-category", "#category-list").click(function () {
+            $(this).siblings("ul").toggle();
+        });
+
+        $(".btn-sub-category", "#category-list").click();
+    });
+</script>
+
+<style>
+    .sidebar li li {
+        background-image: none;
+    }
+    .btn-sub-category {
+        display: block;
+        float: left;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+    .btn-sub-category ~ ul {
+        margin-left: 10px;
+    }
+</style>
