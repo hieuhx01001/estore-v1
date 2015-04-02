@@ -1,171 +1,92 @@
 <?php
 /* @var $this yii\web\View */
+/* @var $products backend\models\ProductCategory */
+
+$urlManager = Yii::$app->getUrlManager();
+$baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
 $this->title = 'Product Grid';
+$selected = 'selected="selected"';
 ?>
 <section id="maincontent" class="ten columns positionleft">
     <div class="padcontent">
         <section class="content" id="product-container">
-
             <div class="breadcrumb"><a href="index.html">Trang Chủ</a> / Sản Phẩm / Điện Trở </div>
-            <img src="images/content/clothing.jpg" alt=""/>
-
+            <!--<img src="images/content/clothing.jpg" alt=""/>-->
             <div class="sortPagiBar">
-                <form action="index.html" class="productsSortForm">
-                    <p class="select">
+                <form style="width: 100%" id="search_by" action="<?php echo $urlManager->createUrl("site/product")?>" method="get" class="productsSortForm">
+                    <p style="float:left" class="select">
                         <label for="selectProductSort">Xem theo</label>
-                        <select class="selectProductSort">
-                            <option selected="selected" value="position:asc">Mặc định</option>
-                            <option value="price:asc">Giá: giá thấp nhất</option>
-                            <option value="price:desc">Giá: giá cao nhất</option>
-                            <option value="name:asc">Tên Sản Phẩm: A to Z</option>
-                            <option value="name:desc">Tên Sản Phẩm: Z to A</option>
-                            <option value="quantity:desc">Còn Trong Kho</option>
+                        <select id="search_dropdown" name="search_dropdown" class="selectProductSort">
+                            <option <?php if ($searchBy == '') echo $selected ?> selected="selected" value="default">Mặc định</option>
+                            <option <?php if ($searchBy == 'price:asc') echo $selected ?> value="price:asc">Giá: giá thấp nhất</option>
+                            <option <?php if ($searchBy == 'price:desc') echo $selected ?> value="price:desc">Giá: giá cao nhất</option>
+                            <option <?php if ($searchBy == 'name:asc') echo $selected ?> value="name:asc">Tên Sản Phẩm: A to Z</option>
+                            <option <?php if ($searchBy == 'name:desc') echo $selected ?> value="name:desc">Tên Sản Phẩm: Z to A</option>
+                            <!--<option value="quantity:desc">Còn Trong Kho</option>-->
                         </select>
                     </p>
-                </form>
 
-                <form action="index.html" class="productsShowForm">
                     <p class="select">
-                        <label for="selectPrductSort">Hiển Thị:</label>
-                        <select class="selectProductSort">
-                            <option selected="selected"> 4 </option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        <label style="margin-left: 10px" for="selectPrductSort">Hiển Thị:</label>
+                        <select id="show_dropdown" name="show_dropdown" class="selectProductSort">
+                            <option <?php if ($showBy == Yii::$app->params['listPerPage']) echo $selected ?> value="<?php echo Yii::$app->params['listPerPage']?>"> Mặc định </option>
+                            <option <?php if ($showBy == '1') echo $selected ?> value="1">1</option>
+                            <option <?php if ($showBy == '2') echo $selected ?> value="2">2</option>
+                            <option <?php if ($showBy == '3') echo $selected ?> value="3">3</option>
+                            <option <?php if ($showBy == '4') echo $selected ?> value="4">4</option>
                         </select>
                     </p>
                 </form>
-                <a href="#" class="button">So Sánh</a>
-
             </div>
 
             <div class="row">
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <span class="new"></span>
-                        <a title="Woman's Dress Flower" href="product-details.html"><img src="images/content/products/product1.jpg" alt=""/></a>
-                        <h3><a title="Woman's Dress Flower" href="product-details.html">ADC0838CCN</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                120.000 VND
+                <?php foreach($products as $productCategory):?>
+                    <?php $product = $productCategory->product?>
+                    <?php
+                        $imgLink = $baseBackEndUrl."/img/product/default_noimage.jpg";
+                        if(isset($product->mainImage->product_id)){
+                            $imgLink = $baseBackEndUrl."/img/product/".$product->mainImage->product_id."/".$product->mainImage->name;
+                        };
+                        $priceHtml = '';
+                        if ($product->sales_price > 0) {
+                            $priceHtml = '<div class="priceInfo">
+                                            <span class="old-price">'.Yii::$app->formatter->asCurrency($product->price) .'</span>
+                                            <span class="price">'.Yii::$app->formatter->asCurrency($product->sales_price) .'</span>
+                                        </div>
+                                        <div class="cart cart-sale">
+                                            <a href="'.$urlManager->createUrl("site/detail/".$product->id).'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        </div>';
+                        }else {
+                            $priceHtml = '<div class="price">
+                                            '.Yii::$app->formatter->asCurrency($product->price) .'
+                                        </div>
+                                        <div class="cart">
+                                            <a href="'.$urlManager->createUrl("site/detail/".$product->id).'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        </div>';
+                        }
+                    ?>
+                    <div class="one_fourth columns">
+                        <div class="product-wrapper">
+                            <a title="<? echo $product->name?>" href="<? echo $urlManager->createUrl("site/detail/".$product->id)?>">
+                                <img src="<?php echo $imgLink?>" alt=""/></a>
+                            <h3>
+                                <a title="<? echo $product->name?>" href="<? echo $urlManager->createUrl("site/detail/".$product->id)?>"><?php echo $product->name?></a>
+                            </h3>
+                            <div class="price-cart-wrapper">
+                                <?php echo $priceHtml?>
+                                <div class="clear"></div>
                             </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more" alt="Chi tiết">Chi tiết</a> | <a href="checkout.html" class="buy">Mua</a>
-                            </div>
-                            <div class="clear"></div>
                         </div>
                     </div>
-                </div>
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <a title="Gold Dress" href="product-details.html"><img src="images/content/products/product2.jpg" alt=""/></a>
-                        <h3><a title="Gold Dress" href="product-details.html">KBJ3510</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                120.000 VND
-                            </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more">more</a> | <a href="checkout.html" class="buy">buy</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <a title="Blue &amp; White" href="product-details.html"><img src="images/content/products/product3.jpg" alt=""/></a>
-                        <h3><a title="Blue &amp; White" href="product-details.html">1N5822</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                20.000 VND
-                            </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more">more</a> | <a href="checkout.html" class="buy">buy</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <a title="Brown Dress" href="product-details.html"><img src="images/content/products/product4.jpg" alt=""/></a>
-                        <h3><a title="Brown Dress" href="product-details.html">AT43301-AU</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                1.500.000 VND
-                            </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more">more</a> | <a href="checkout.html" class="buy">buy</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <a title="Brown Dress" href="product-details.html"><img src="images/content/products/product5.jpg" alt=""/></a>
-                        <h3><a title="Brown Dress" href="product-details.html">LPC2148FBD64</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                180.000 VND
-                            </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more">more</a> | <a href="checkout.html" class="buy">buy</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <a title="White Dress" href="product-details.html"><img src="images/content/products/product6.jpg" alt=""/></a>
-                        <h3><a title="White Dress" href="product-details.html">TRANSISTOR NPN</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                750.000 VND
-                            </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more">more</a> | <a href="checkout.html" class="buy">buy</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <a title="Unique Dress" href="product-details.html"><img src="images/content/products/product7.jpg" alt=""/></a>
-                        <h3><a title="Unique Dress" href="product-details.html">AT43301-AU</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                30.000 VND
-                            </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more">more</a> | <a href="checkout.html" class="buy">buy</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="one_fourth columns">
-                    <div class="product-wrapper">
-                        <a title="Flower Dress" href="product-details.html"><img src="images/content/products/product8.jpg" alt=""/></a>
-                        <h3><a title="Flower Dress" href="product-details.html">LL4148 - SMD</a></h3>
-                        <div class="price-cart-wrapper">
-                            <div class="price">
-                                140.000 VND
-                            </div>
-                            <div class="cart">
-                                <a href="product-details.html"  class="more">more</a> | <a href="checkout.html" class="buy">buy</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach;?>
             </div>
             <div class="wp-pagenavi">
-                <a href="#" class="page">1</a><span class="current"><span>2</span></span><a href="#" class="page">3</a> &nbsp;&nbsp;Hiển thị 1 của 3 (3 trang)
+                <?php
+                // display pagination
+                echo \yii\widgets\LinkPager::widget([
+                        'pagination' => $pages,
+                    ]);
+                ?>
             </div>
 
         </section>

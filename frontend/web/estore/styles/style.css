@@ -134,7 +134,7 @@ img.aligncenter
 
 /* lists, blockquotes and paragraphs */
 p, ul, ol, blockquote {
-	margin-bottom:20px;
+	margin-bottom:5px;
 }
 ul {
 	list-style: disc;
@@ -682,7 +682,7 @@ ul.tabs li a {
 .tab-content { }
 
 ul.tabs li:hover{}
-.tab-body{padding:20px 30px 10px 30px; float:left;}
+.tab-body{padding:20px 30px 10px 30px; float:left; width: 95%}
 
 
 /*==== jQuery Toggles ====*/

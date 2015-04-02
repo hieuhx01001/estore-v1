@@ -18,4 +18,11 @@ jQuery(window).load(function() {
         slideshow: false,
         sync: "#carouselslider"
     });
+
+    $('#search_dropdown').on('change', function(){
+        $('#search_by').submit();
+    });
+    $('#show_dropdown').on('change', function(){
+        $('#search_by').submit();
+    });
 });

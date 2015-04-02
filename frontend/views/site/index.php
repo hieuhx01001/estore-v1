@@ -16,7 +16,7 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
         <div class="clear"></div>
     </div>
     <?php $index = 0; $row1 = ''; $row2 = '';?>
-    <?php foreach($newProducts as $key => $product){ ?>
+        <?php foreach($newProducts as $key => $product){ ?>
         <?php
             $imgLink = $baseBackEndUrl."/img/product/default.jpeg";
             if(isset($product->mainImage->product_id)){

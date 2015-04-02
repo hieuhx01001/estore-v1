@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use backend\models\OrderItem;
 use backend\models\Product;
+use backend\models\ProductCategory;
 use Yii;
 
 use common\models\LoginForm;
@@ -11,6 +12,8 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
+use yii\console\Request;
+use yii\data\Pagination;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -95,10 +98,64 @@ class SiteController extends Controller
             ));
     }
 
+    public function actionProductAll()
+    {
+
+    }
     public function actionProduct()
     {
         $this->layout = 'main_store';
-        return $this->render('product');
+        $request = Yii::$app->request;
+        $sortPriceStatus = '';
+        $sortNameStatus = '';
+        $searchBy = '';
+        $pageSize = Yii::$app->params['listPerPage'];
+        if ($request->get('search_dropdown') != null ){
+            $searchBy = $request->get('search_dropdown');
+            if ($searchBy == 'default'){
+                $sortPriceStatus = SORT_ASC;
+                $sortNameStatus = SORT_ASC;
+            }elseif($searchBy == 'price:asc'){
+                $sortPriceStatus = SORT_ASC;
+            }elseif($searchBy == 'price:desc'){
+                $sortPriceStatus = SORT_DESC;
+            }elseif($searchBy == 'name:asc'){
+                $sortNameStatus =  SORT_ASC;
+            }elseif($searchBy == 'name:desc'){
+                $sortNameStatus = SORT_DESC;
+            }
+        }
+
+        if ($request->get('show_dropdown') != null ){
+            $pageSize = $request->get('show_dropdown');
+        }
+
+        // init option to show only for test
+        $categoryId = 3;
+
+        //$pageSize = Yii::$app->params['listPerPage'];
+        // query with some option
+        $productCate = ProductCategory::find()
+            ->leftJoin('product', '`product`.`id` = `product_category`.`product_id`')
+            ->where(['category_id'=> $categoryId] );
+        if (isset($sortPriceStatus) && $sortPriceStatus != ''){
+            $productCate->addOrderBy(['product.price' => @$sortPriceStatus]);
+        }else if (isset($sortNameStatus) && $sortNameStatus != ''){
+            $productCate->addOrderBy(['product.name' => @$sortNameStatus]);
+        }
+        // find with page size
+        $countQuery = clone $productCate;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize'=>$pageSize]);
+        $products = $productCate->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        return $this->render('product',
+            array('products' => $products,
+                  'pages' => $pages,
+                  'searchBy' => $searchBy,
+                  'showBy' => $pageSize
+            )
+        );
     }
 
     public function actionDetail($id)

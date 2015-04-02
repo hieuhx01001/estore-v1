@@ -1,4 +1,4 @@
-/* 
+/*
 
 Lastore - CSS File
 
@@ -96,9 +96,9 @@ USE THIS STYLE SHEET FOR INNER PAGE
 
 /* PRODUCTS */
 #product-container .columns{ margin-bottom:50px;}
-.sortPagiBar{ margin:20px 0 0;  clear:both;}
+.sortPagiBar{ margin:30px 0 0;  clear:both;}
 .sortPagiBar form{ display:inline-block; margin-right:20px;}
-.productsShowForm{ width:100px;}
+.productsShowForm{ width:110px;}
 .productsShowForm select{ width:50%;}
 .sortPagiBar .button{ padding:7px 17px;}
 
@@ -113,10 +113,10 @@ USE THIS STYLE SHEET FOR INNER PAGE
 
 #product-list-container .compare label{ vertical-align:top;}
 #product-list-container .price-cart-wrapper{ padding:0 0 0 18px; margin-left:-10px; min-height:160px;}
-#product-list-container .but-wrapper .more-link, #product-list-container .but-wrapper .cart{ 
-	padding:6px 15px 6px 36px; 
-	float:none; 
-	display:block; 
+#product-list-container .but-wrapper .more-link, #product-list-container .but-wrapper .cart{
+	padding:6px 15px 6px 36px;
+	float:none;
+	display:block;
 	font-size:13px;
 	width:70px;
 }
@@ -126,9 +126,9 @@ USE THIS STYLE SHEET FOR INNER PAGE
 
 #product-detail .product_attributes{ margin-bottom:0px;}
 #product-detail .cart{
-	padding:6px 15px 6px 36px; 
-	float:none; 
-	display:block; 
+	padding:6px 15px 6px 36px;
+	float:none;
+	display:block;
 	font-size:13px;
 	width:70px;
 	margin-bottom:15px;
@@ -199,7 +199,7 @@ USE THIS STYLE SHEET FOR INNER PAGE
     text-align: left;
 }
 #payment ul.payment_methods li input {
-    margin: 0 1em 0 0;     
+    margin: 0 1em 0 0;
 	display: inline;
     float: none;
     padding-left: 5px;
@@ -235,7 +235,7 @@ USE THIS STYLE SHEET FOR INNER PAGE
 .ts-display-pf-img a.image img{ display:block;}
 .ts-display-pf-img{
 	overflow:hidden;
-	display:block;	
+	display:block;
 	position:relative;
 }
 .ts-display-pf-img a.image{
@@ -325,7 +325,7 @@ USE THIS STYLE SHEET FOR INNER PAGE
 #login-process{ width:68%; margin:0 auto 30px;}
 #login-process span{width:19%; padding-bottom:10px; float:left; text-align:center; background:url(../images/step_standard.gif) center bottom no-repeat; position:relative; margin-bottom:-5px;}
 #login-process span.active, #login-process span.old{background:url(../images/step_current.gif) center bottom no-repeat; }
-#login-process span.active{ color:#ff5555;} 
+#login-process span.active{ color:#ff5555;}
 #login-process span.first{width:5%; text-align:left; background:url(../images/step_start.gif) left bottom no-repeat;}
 #login-process span.last{background:url(../images/step_end.gif) left bottom no-repeat;}
 
@@ -345,7 +345,7 @@ span.error{color:red;text-align:left; font-size:11px; padding-bottom:5px; displa
 	width:90%;
 	padding:10px;
 }
-#contactform textarea{ width:95%; overflow:hidden;} 
+#contactform textarea{ width:95%; overflow:hidden;}
 #message{ margin-left:0px; }
 #message h2	{}
 #message p{margin:6px 0px; }
@@ -386,4 +386,15 @@ span.error{color:red;text-align:left; font-size:11px; padding-bottom:5px; displa
     background: #fff;
     margin-top: 20px;
     padding: 1px 1px 1px 1px;
+}
+
+.wp-pagenavi ul li {
+    display: inline;
+}
+
+.wp-pagenavi > ul > li.active > a{
+    background: white;
+    pointer-events: none;
+    cursor: default;
+    color: red;
 }
