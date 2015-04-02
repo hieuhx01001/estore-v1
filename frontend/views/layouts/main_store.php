@@ -143,7 +143,7 @@ function generateCategoryList($categories)
             $(this).siblings("ul").toggle();
         });
 
-        $(".btn-sub-category", "#category-list").click();
+        //$(".btn-sub-category", "#category-list").click();
     });
 </script>
 

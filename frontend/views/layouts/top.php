@@ -75,7 +75,7 @@ $urlManager = Yii::$app->getUrlManager();
                         <ul id="sf-nav" class="sf-menu">
                             <li class="<?php if ($page == 'dashboard') {echo 'current';}?>"><a href="<?php echo $urlManager->createUrl("site/index")?>">Trang chủ</a></li>
                             </li>
-                            <li class="<?php if ($page == 'product') {echo 'current';}?>"><a href="<?php echo $urlManager->createUrl("site/product")?>">Sản Phẩm</a>
+                            <li class="<?php if ($page == 'product') {echo 'current';}?>"><a href="<?php echo $urlManager->createUrl("site/all")?>">Sản Phẩm</a>
                                 <ul>
                                 <li><a href="product-grid.html">Product Grid</a></li>
                                 <li><a href="product-list.html">Product List</a></li>

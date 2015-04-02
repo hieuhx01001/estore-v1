@@ -10,10 +10,10 @@ $selected = 'selected="selected"';
 <section id="maincontent" class="ten columns positionleft">
     <div class="padcontent">
         <section class="content" id="product-container">
-            <div class="breadcrumb"><a href="index.html">Trang Chủ</a> / Sản Phẩm / Điện Trở </div>
+            <div class="breadcrumb">Trang Chủ / Sản Phẩm / <?php echo \backend\models\Category::findOne(['id'=> $categoryId])->name?> </div>
             <!--<img src="images/content/clothing.jpg" alt=""/>-->
             <div class="sortPagiBar">
-                <form style="width: 100%" id="search_by" action="<?php echo $urlManager->createUrl("site/product")?>" method="get" class="productsSortForm">
+                <form style="width: 100%" id="search_by" action="<?php echo $urlManager->createUrl("site/product",['categoryId' =>$categoryId])?>" method="get" class="productsSortForm">
                     <p style="float:left" class="select">
                         <label for="selectProductSort">Xem theo</label>
                         <select id="search_dropdown" name="search_dropdown" class="selectProductSort">
@@ -36,6 +36,7 @@ $selected = 'selected="selected"';
                             <option <?php if ($showBy == '4') echo $selected ?> value="4">4</option>
                         </select>
                     </p>
+                    <input type="hidden" name="categoryId" value="<?php echo $categoryId?>">
                 </form>
             </div>
 

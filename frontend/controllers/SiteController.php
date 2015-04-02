@@ -102,7 +102,7 @@ class SiteController extends Controller
     {
 
     }
-    public function actionProduct()
+    public function actionProduct($categoryId)
     {
         $this->layout = 'main_store';
         $request = Yii::$app->request;
@@ -131,8 +131,9 @@ class SiteController extends Controller
         }
 
         // init option to show only for test
-        $categoryId = 3;
-
+        if ($request->get('categoryId') != null ){
+            $categoryId = $request->get('categoryId');
+        }
         //$pageSize = Yii::$app->params['listPerPage'];
         // query with some option
         $productCate = ProductCategory::find()
@@ -153,7 +154,8 @@ class SiteController extends Controller
             array('products' => $products,
                   'pages' => $pages,
                   'searchBy' => $searchBy,
-                  'showBy' => $pageSize
+                  'showBy' => $pageSize,
+                  'categoryId' => $categoryId
             )
         );
     }

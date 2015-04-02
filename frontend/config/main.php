@@ -31,7 +31,7 @@ return [
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 'site/detail/<id:\d+>'=>'site/detail',
-                'site/product/<id:\d+>'=>'site/product',
+                'site/product/<categoryId:\d+>'=>'site/product',
             ],
         ],
         'urlManagerBackEnd' => [
