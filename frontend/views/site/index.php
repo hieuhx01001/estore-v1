@@ -4,6 +4,7 @@
 $this->title = 'My Yii Application';
 $urlManager = Yii::$app->getUrlManager();
 $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
+
 ?>
 <div class="container">
 <div class="row">

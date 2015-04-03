@@ -76,12 +76,12 @@ $urlManager = Yii::$app->getUrlManager();
                             <li class="<?php if ($page == 'dashboard') {echo 'current';}?>"><a href="<?php echo $urlManager->createUrl("site/index")?>">Trang chủ</a></li>
                             </li>
                             <li class="<?php if ($page == 'product') {echo 'current';}?>"><a href="<?php echo $urlManager->createUrl("site/all")?>">Sản Phẩm</a>
-                                <ul>
+                                <!--<ul>
                                 <li><a href="product-grid.html">Product Grid</a></li>
                                 <li><a href="product-list.html">Product List</a></li>
                                 <li><a href="product-details.html">Product Details</a></li>
                                 <li><a href="checkout.html">Checkout</a></li>
-                                </ul>
+                                </ul>-->
                             </li>
                             <li><a href="portfolio.html">Tin Tức</a></li>
                             <li><a href="contact.html">Liên Hệ</a></li>
