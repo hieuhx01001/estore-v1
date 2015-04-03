@@ -6,7 +6,38 @@ $urlManager = Yii::$app->getUrlManager();
 $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
 
 $productImages = $product->images;
+$productMainImage = $product->mainImage;
+if (empty($productMainImage)){
+    $imgMainLink = $urlManager->createUrl("estore/images/default_noimage.jpg");
+}else {
+    $imgMainLink = $baseBackEndUrl."/img/product/".$productMainImage->product_id."/".$productMainImage->name;
+}
+
 $productAttributes = $product->productAttributes;
+// store recently product view
+$productRecentlyView = array();
+$productRecentlyView['name'] = $product->name;
+$productRecentlyView['price'] = $product->price;
+$productRecentlyView['id'] = $product->id;
+$productRecentlyView['img'] = $imgMainLink;
+$session = Yii::$app->session;
+
+if(!empty($session['items'])){
+    $items = $session['items'];
+    $added = false;
+    foreach($items as $item){
+        if($item['id'] == $productRecentlyView['id'] ){
+            $added = true;
+        }
+    }
+    if ($added == false){
+        $items[] = $productRecentlyView;
+        $session['items'] =  $items;
+    }
+}else {
+    $items[] = $productRecentlyView;
+    $session['items'] = $items;
+}
 ?>
 <section id="maincontent" class="ten columns positionleft">
     <div class="padcontent">

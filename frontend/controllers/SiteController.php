@@ -160,6 +160,62 @@ class SiteController extends Controller
         );
     }
 
+    public function actionAll()
+    {
+        $this->layout = 'main_store';
+        $request = Yii::$app->request;
+        $sortPriceStatus = '';
+        $sortNameStatus = '';
+        $searchBy = '';
+        $pageSize = Yii::$app->params['listPerPage'];
+        if ($request->get('search_dropdown') != null ){
+            $searchBy = $request->get('search_dropdown');
+            if ($searchBy == 'default'){
+                $sortPriceStatus = SORT_ASC;
+                $sortNameStatus = SORT_ASC;
+            }elseif($searchBy == 'price:asc'){
+                $sortPriceStatus = SORT_ASC;
+            }elseif($searchBy == 'price:desc'){
+                $sortPriceStatus = SORT_DESC;
+            }elseif($searchBy == 'name:asc'){
+                $sortNameStatus =  SORT_ASC;
+            }elseif($searchBy == 'name:desc'){
+                $sortNameStatus = SORT_DESC;
+            }
+        }
+
+        if ($request->get('show_dropdown') != null ){
+            $pageSize = $request->get('show_dropdown');
+        }
+
+        // init option to show only for test
+        if ($request->get('categoryId') != null ){
+            $categoryId = $request->get('categoryId');
+        }
+        //$pageSize = Yii::$app->params['listPerPage'];
+        // query with some option
+        $productCate = Product::find();
+        if (isset($sortPriceStatus) && $sortPriceStatus != ''){
+            $productCate->addOrderBy(['price' => @$sortPriceStatus]);
+        }else if (isset($sortNameStatus) && $sortNameStatus != ''){
+            $productCate->addOrderBy(['name' => @$sortNameStatus]);
+        }
+        // find with page size
+        $countQuery = clone $productCate;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize'=>$pageSize]);
+        $products = $productCate->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        return $this->render('all',
+            array('products' => $products,
+                'pages' => $pages,
+                'searchBy' => $searchBy,
+                'showBy' => $pageSize,
+            )
+        );
+    }
+
+
     public function actionDetail($id)
     {
         $this->layout = 'main_store';

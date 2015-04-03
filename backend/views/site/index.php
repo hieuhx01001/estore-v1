@@ -170,7 +170,7 @@ $this->title = 'My Yii Application';
                                 <div class="product-info">
                                     <a href="javascript::;" class="product-title"><?php echo $product->name?><span class="label label-success pull-right"><?php echo Yii::$app->formatter->asCurrency($product->price) ?></span></a>
                                     <span class="product-description">
-                                      <?php echo $product->description?>
+                                      <?php echo $product->short_description?>
                                     </span>
                                 </div>
                             </li><!-- /.item -->

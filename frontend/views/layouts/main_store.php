@@ -90,29 +90,30 @@ function generateCategoryList($categories)
                             <div class="sidebar">
                                 <ul>
                                     <li class="widget-container">
-                                        <h2 class="widget-title">Danh mục sản phẩm</h2>
+                                        <h2 class="widget-title" style="text-align: center">Danh mục sản phẩm</h2>
                                         <!-- BEGIN: Generate list of categories -->
                                         <div id="category-list">
                                             <?= generateCategoryList(Category::findAll(['level'=> 1])) ?>
                                         </div>
                                     </li>
-                                    <li class="widget-container" style="margin-bottom: 15px !important;">
-                                        <h2 class="widget-title">Nổi Bật</h2>
-                                        <ul class="sp-widget">
-                                            <li>
-                                                <img src="images/content/products/product9.jpeg" alt="" />
-                                                <h3><a href="#">TL084 - DIP14</a></h3>
-                                                <div class="price">8.500 VND</div>
-                                            </li>
-                                            <li>
-                                                <img src="images/content/products/product10.jpg" alt="" />
-                                                <h3><a href="#">Module Joystick</a></h3>
-                                                <div class="price">120.000 VND</div>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    <?php if(!empty(Yii::$app->session['items'])): ?>
+                                        <li class="widget-container" style="margin-bottom: 15px !important;">
+                                            <h2 class="widget-title" style="text-align: center">Vừa mới xem</h2>
+                                            <ul class="sp-widget">
+                                                <?php foreach(array_reverse(Yii::$app->session['items']) as $key => $item):?>
+                                                    <?php if($key < 5): ?>
+                                                        <li>
+                                                            <a class="image" href="<?echo $GLOBALS['urlMgr']->createUrl(['site/detail','id'=>$item['id']])?>"><img src="<?php echo $item['img']?>" alt="" /></a>
+                                                            <h3><a href="<?echo $GLOBALS['urlMgr']->createUrl(['site/detail','id'=>$item['id']])?>"><?php echo $item['name']?></a></h3>
+                                                            <div class="price"><?php echo Yii::$app->formatter->asCurrency($item['price'])?></div>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </li>
+                                    <?php endif; ?>
                                     <li class="widget-container">
-                                        <a href="#"><img src="images/content/banner.gif" alt="" /></a>
+                                        <a href="#"><img src="/frontend/web/estore/images/content/banner.gif" alt="" /></a>
                                     </li>
                                 </ul>
                             </div>

@@ -228,54 +228,25 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
         <div class="clear"></div>
     </div>
     <div class="row">
-        <div class="one_fifth columns">
-            <div class="product-wrapper">
+        <?php if(!empty(Yii::$app->session['items'])): ?>
+            <?php foreach(array_reverse(Yii::$app->session['items']) as $key => $item):?>
+                <?php if($key < 5): ?>
+                    <div class="one_fifth columns">
+                        <div class="product-wrapper">
 
-                <a title="White Dress" href="product-details.html"><img src="images/content/products/product3.jpg" alt=""/></a>
-                <h3><a title="White Dress" href="product-details.html">KBJ3510</a></h3>
-                <div class="price-cart-wrapper">
-                    <div class="price">
-                        20.000 VND
+                            <a title="<?php echo $item['name']?>" href="<?echo $urlManager->createUrl(['site/detail','id'=>$item['id']])?>"><img src="<?php echo $item['img']?>" alt=""/></a>
+                            <h3><a title="White Dress" href="<?echo $urlManager->createUrl(['site/detail','id'=>$item['id']])?>"><?php echo $item['name']?></a></h3>
+                            <div class="price-cart-wrapper">
+                                <div class="price" style="float: none">
+                                    <?php echo Yii::$app->formatter->asCurrency($item['price'])?>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cart">
-                        <a href="product-details.html" class="more">more</a> | <a href="#" class="buy">buy</a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </div>
-        <div class="one_fifth columns">
-            <div class="product-wrapper">
-
-                <a title="Flower Handbag" href="product-details.html"><img src="images/content/products/product4.jpg" alt=""/></a>
-                <h3><a title="Flower Handbag" href="product-details.html">1N5822</a></h3>
-                <div class="price-cart-wrapper">
-                    <div class="price">
-                        12.000 VND
-                    </div>
-                    <div class="cart">
-                        <a href="product-details.html" class="more">more</a> | <a href="#" class="buy">buy</a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </div>
-        <div class="one_fifth columns">
-            <div class="product-wrapper">
-
-                <a title="Red High Heels" href="product-details.html"><img src="images/content/products/product5.jpg" alt=""/></a>
-                <h3><a title="Red High Heels" href="product-details.html">AT43301-AU</a></h3>
-                <div class="price-cart-wrapper">
-                    <div class="price">
-                        200.000 VND
-                    </div>
-                    <div class="cart">
-                        <a href="product-details.html" class="more">more</a> | <a href="#" class="buy">buy</a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <input type="hidden" id="baseUrl" value="<?php echo Yii::getAlias("@web") ?>">
 
     </div>

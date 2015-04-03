@@ -9,6 +9,9 @@ use frontend\widgets\Alert;
 /* @var $this \yii\web\View */
 /* @var $content string */
 DashBoardAsset::register($this);
+
+$GLOBALS['urlMgr'] = Yii::$app->urlManager;
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
