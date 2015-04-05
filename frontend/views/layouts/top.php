@@ -1,5 +1,17 @@
 <?php
 $urlManager = Yii::$app->getUrlManager();
+$cart = \frontend\models\Cart::getInstance();
+$formatter = Yii::$app->formatter;
+
+function calculateCartTotalCost($items) {
+    $total = 0;
+
+    foreach ($items as $item) {
+        $total += $item['quantity'] * $item['details']->finalPrice;
+    }
+
+    return $total;
+}
 ?>
 <div id="outerheader">
     <header>
@@ -38,21 +50,23 @@ $urlManager = Yii::$app->getUrlManager();
                         </form>
 
                         <div id="shopping-cart-wrapper">
-                            <div id="shopping_cart"><a href="#" id="shop-bag">Giỏ Hàng : (2) sản phẩm</a><a class="btncart" href="#"></a>
+                            <div id="shopping_cart">
+                                <a href="#" id="shop-bag">
+                                    Giỏ Hàng : (<span class="cart-count"><?= count($cart->getAll()) ?></span>) sản phẩm
+                                </a>
+                                <a class="btncart" href="#"></a>
                                 <ul class="shop-box">
-                                    <li>
-                                        <h2>TL084 - DIP14</h2>
-                                        <div class="price">1 x 150.000</div>
-                                        <div class="clear"></div>
-                                    </li>
-                                    <li>
-                                        <h2>TRANSISTOR NPN</h2>
-                                        <div class="price">1 x 750.000</div>
-                                        <div class="clear"></div>
-                                    </li>
+                                    <?php foreach ($cart->getAll() as $item) : ?>
+                                        <li class="cart-item">
+                                            <h2 class="name"><?= $item['details']->name ?></h2>
+                                            <div class="price">
+                                                <?= $item['quantity'] ?> x <?= $formatter->asCurrency($item['details']->finalPrice) ?>
+                                            </div>
+                                        </li>
+                                    <?php endforeach ?>
                                     <li class="total">
                                         <h2>Tổng</h2>
-                                        <div class="price"> 900.000</div>
+                                        <div class="price"><?= $formatter->asCurrency(calculateCartTotalCost($cart->getAll())) ?></div>
                                         <div class="clear"></div>
                                     </li>
                                     <li class="btn-wrapper">
@@ -94,3 +108,14 @@ $urlManager = Yii::$app->getUrlManager();
         <div class="clear"></div>
     </header>
 </div>
+
+
+<style>
+    .btn-wrapper a {
+        padding: 5px !important;
+    }
+
+    .shop-box .name {
+        display: block;
+    }
+</style>

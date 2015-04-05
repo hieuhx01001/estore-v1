@@ -40,7 +40,7 @@ class ProductAsset extends AssetBundle
         'estore/js/layerslider.js',
         'estore/js/jquery.flexslider-min.js',
         'estore/js/product/product.js',
-    ];
-    public $depends = [
+        'estore/js/order/order.js',
+        'estore/js/common/topbar-cart.js',
     ];
 }
