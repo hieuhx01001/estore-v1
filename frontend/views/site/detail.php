@@ -81,16 +81,20 @@ if(!empty($session['items'])){
                                 </div>
                             </div>
 
+                            <?php if (count((array)$productImages)>1):?>
                             <div id="thumbslider">
                                 <div id="carouselslider" class="flexslider">
                                     <ul class="slides">
+
                                         <?php foreach ($productImages as $img) : ?>
                                             <? $imgLink = $baseBackEndUrl."/img/product/".$img->product_id."/".$img->name; ?>
                                             <li><img src="<? echo $imgLink ?>" alt="" /></li>
                                         <?php endforeach ?>
+
                                     </ul>
                                 </div>
                             </div>
+                            <?php endif;?>
                         <?php endif; ?>
 
                         <form action="#" method="get" class="product_attributes">

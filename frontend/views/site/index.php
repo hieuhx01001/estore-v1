@@ -33,23 +33,23 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                                         <span class="price">'.Yii::$app->formatter->asCurrency($product->sales_price) .'</span>
                                     </div>
                                     <div class="cart cart-sale">
-                                        <a href="'.$urlManager->createUrl("site/product").'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        <a href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'" class="more">more</a> | <a href="#" class="buy">buy</a>
                                     </div>';
                 }else {
                     $priceHtml = '<div class="price">
                                         '.Yii::$app->formatter->asCurrency($product->price) .'
                                     </div>
                                     <div class="cart">
-                                        <a href="'.$urlManager->createUrl("site/product").'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        <a href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'" class="more">more</a> | <a href="#" class="buy">buy</a>
                                     </div>';
                 }
 
                 $row1 .= '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <span class="new"></span>
-                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl("site/product").'">
+                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">
                                     <img src="'.$imgLink.'" alt=""/></a>
-                                    <h3><a title="" href="'.$urlManager->createUrl("site/product").'">'.$product->name.'</a></h3>
+                                    <h3><a title="" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">'.$product->name.'</a></h3>
                                 <div class="price-cart-wrapper">
                                     '.$priceHtml.'
                                 <div class="clear"></div>
@@ -61,9 +61,9 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
              <?php $row2 = '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <span class="new"></span>
-                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl("site/product").'">
+                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">
                                     <img src="'.$imgLink.'" alt=""/></a>
-                                    <h3><a title="" href="'.$urlManager->createUrl("site/product").'">'.$product->name.'</a></h3>
+                                    <h3><a title="" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">'.$product->name.'</a></h3>
                                 <div class="price-cart-wrapper">
                                     '.$priceHtml.'
                                 <div class="clear"></div>
@@ -101,16 +101,16 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
             $saleRow1 .= '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <!--<span class="new"></span>-->
-                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl("site/product").'">
+                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">
                                     <img src="'.$imgLink.'" alt=""/></a>
-                                    <h3><a title="" href="'.$urlManager->createUrl("site/product").'">'.$product->name.'</a></h3>
+                                    <h3><a title="" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">'.$product->name.'</a></h3>
                                 <div class="price-cart-wrapper">
                                     <div class="priceInfo">
                                         <span class="old-price">'.Yii::$app->formatter->asCurrency($product->price) .'</span>
                                         <span class="price">'.Yii::$app->formatter->asCurrency($product->sales_price) .'</span>
                                     </div>
                                     <div class="cart cart-sale">
-                                        <a href="'.$urlManager->createUrl("site/product").'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        <a href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'" class="more">more</a> | <a href="#" class="buy">buy</a>
                                     </div>
                                 <div class="clear"></div>
                                 </div>
@@ -121,16 +121,16 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
             <?php $saleRow2 = '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <!--<span class="new"></span>-->
-                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl("site/product").'">
+                                    <a title="'.$product->name.'" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">
                                     <img src="'.$imgLink.'" alt=""/></a>
-                                    <h3><a title="" href="'.$urlManager->createUrl("site/product").'">'.$product->name.'</a></h3>
+                                    <h3><a title="" href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'">'.$product->name.'</a></h3>
                                 <div class="price-cart-wrapper">
                                     <div class="priceInfo">
                                         <span class="old-price">'.Yii::$app->formatter->asCurrency($product->price) .'</span>
                                         <span class="price">'.Yii::$app->formatter->asCurrency($product->sales_price) .'</span>
                                     </div>
                                     <div class="cart cart-sale">
-                                        <a href="'.$urlManager->createUrl("site/product").'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        <a href="'.$urlManager->createUrl(['site/detail','id'=>$product->id]).'" class="more">more</a> | <a href="#" class="buy">buy</a>
                                     </div>
                                 <div class="clear"></div>
                                 </div>
@@ -170,22 +170,22 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
                                         <span class="price">'.Yii::$app->formatter->asCurrency($product->product->sales_price) .'</span>
                                     </div>
                                     <div class="cart cart-sale">
-                                        <a href="'.$urlManager->createUrl("site/product").'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        <a href="'.$urlManager->createUrl(['site/detail','id'=>$product->product->id]).'" class="more">more</a> | <a href="#" class="buy">buy</a>
                                     </div>';
             }else {
                 $priceHtml = '<div class="price">
                                         '.Yii::$app->formatter->asCurrency($product->product->price) .'
                                     </div>
                                     <div class="cart">
-                                        <a href="'.$urlManager->createUrl("site/product").'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                        <a href="'.$urlManager->createUrl(['site/detail','id'=>$product->product->id]).'" class="more">more</a> | <a href="#" class="buy">buy</a>
                                     </div>';
             }
             $hotRow1 .= '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <!--<span class="new"></span>-->
-                                    <a title="'.$product->product->name.'" href="'.$urlManager->createUrl("site/product").'">
+                                    <a title="'.$product->product->name.'" href="'.$urlManager->createUrl(['site/detail','id'=>$product->product->id]).'">
                                     <img src="'.$imgLink.'" alt=""/></a>
-                                    <h3><a title="" href="'.$urlManager->createUrl("site/product").'">'.$product->product->name.'</a></h3>
+                                    <h3><a title="" href="'.$urlManager->createUrl(['site/detail','id'=>$product->product->id]).'">'.$product->product->name.'</a></h3>
                                 <div class="price-cart-wrapper">
                                     '.$priceHtml.'
                                 <div class="clear"></div>
@@ -197,9 +197,9 @@ $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
             <?php $hotRow2 = '<div class="one_fifth columns">
                             <div class="product-wrapper">
                                 <!--<span class="new"></span>-->
-                                    <a title="'.$product->product->name.'" href="'.$urlManager->createUrl("site/product").'">
+                                    <a title="'.$product->product->name.'" href="'.$urlManager->createUrl(['site/detail','id'=>$product->product->id]).'">
                                     <img src="'.$imgLink.'" alt=""/></a>
-                                    <h3><a title="" href="'.$urlManager->createUrl("site/product").'">'.$product->product->name.'</a></h3>
+                                    <h3><a title="" href="'.$urlManager->createUrl(['site/detail','id'=>$product->product->id]).'">'.$product->product->name.'</a></h3>
                                 <div class="price-cart-wrapper">
                                     '.$priceHtml.'
                                 <div class="clear"></div>

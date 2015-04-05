@@ -1,21 +1,24 @@
 <?php
+$urlMng = Yii::$app->urlManager;
 ?>
 <footer id="footer">
     <div id="carousel"  class="es-carousel-wrapper">
         <div class="es-carousel">
             <ul>
-                <li><a title="Audio Jungle"  href="#"><img alt="Audio Jungle" src="/frontend/web/estore/images/content/audiojungle.png"></a></li>
-                <li><a title="Active Den"  href="#"><img alt="Active Den" src="/frontend/web/estore/images/content/activeden.png"></a></li>
-                <li><a title="Graphic River"  href="#"><img alt="Graphic River" src="/frontend/web/estore/images/content/graphicriver.png"></a></li>
-                <li><a title="Photo Dune"  href="#"><img alt="Photo Dune" src="/frontend/web/estore/images/content/photodune.png"></a></li>
-                <li><a title="Theme Forest"  href="#"><img alt="Theme Forest" src="/frontend/web/estore/images/content/themeforest.png"></a></li>
-                <li><a title="Video Hive"  href="#"><img alt="Video Hive" src="/frontend/web/estore/images/content/videohive.png"></a></li>
-                <li><a title="Audio Jungle"  href="#"><img alt="Audio Jungle" src="/frontend/web/estore/images/content/audiojungle.png"></a></li>
-                <li><a title="Active Den"  href="#"><img alt="Active Den" src="/frontend/web/estore/images/content/activeden.png"></a></li>
-                <li><a title="Graphic River"  href="#"><img alt="Graphic River" src="/frontend/web/estore/images/content/graphicriver.png"></a></li>
-                <li><a title="Photo Dune"  href="#"><img alt="Photo Dune" src="/frontend/web/estore/images/content/photodune.png"></a></li>
-                <li><a title="Theme Forest"  href="#"><img alt="Theme Forest" src="/frontend/web/estore/images/content/themeforest.png"></a></li>
-                <li><a title="Video Hive"  href="#"><img alt="Video Hive" src="/frontend/web/estore/images/content/videohive.png"></a></li>
+                <li><a title="Audio Jungle"  href="#"><img alt="Audio Jungle" src="<?echo $urlMng->createUrl('estore/images/content/audiojungle.png')?>"></a></li>
+                <li><a title="Active Den"  href="#"><img alt="Active Den" src="<?echo $urlMng->createUrl('estore/images/content/activeden.png')?>"></a></li>
+                <li><a title="Graphic River"  href="#"><img alt="Graphic River" src="<?echo $urlMng->createUrl('estore/images/content/graphicriver.png')?>"></a></li>
+                <li><a title="Photo Dune"  href="#"><img alt="Photo Dune" src="<?echo $urlMng->createUrl('estore/images/content/photodune.png')?>"></a></li>
+                <li><a title="Theme Forest"  href="#"><img alt="Theme Forest" src="<?echo $urlMng->createUrl('estore/images/content/themeforest.png')?>"></a></li>
+                <li><a title="Video Hive"  href="#"><img alt="Video Hive" src="<?echo $urlMng->createUrl('estore/images/content/videohive.png')?>"></a></li>
+                <li><a title="Audio Jungle"  href="#"><img alt="Audio Jungle" src="<?echo $urlMng->createUrl('estore/images/content/audiojungle.png')?>"></a></li>
+                <li><a title="Active Den"  href="#"><img alt="Active Den" src="<?echo $urlMng->createUrl('estore/images/content/activeden.png')?>"></a></li>
+                <li><a title="Graphic River"  href="#"><img alt="Graphic River" src="<?echo $urlMng->createUrl('estore/images/content/graphicriver.png')?>"></a></li>
+                <li><a title="Photo Dune"  href="#"><img alt="Photo Dune" src="<?echo $urlMng->createUrl('estore/images/content/photodune.png')?>"></a></li>
+                <li><a title="Theme Forest"  href="#"><img alt="Theme Forest" src="<?echo $urlMng->createUrl('estore/images/content/themeforest.png')?>"></a></li>
+                <li><a title="Video Hive"  href="#"><img alt="Video Hive" src="<?echo $urlMng->createUrl('estore/images/content/videohive.png')?>"></a></li>
+                <li><a title="Audio Jungle"  href="#"><img alt="Audio Jungle" src="<?echo $urlMng->createUrl('estore/images/content/audiojungle.png')?>"></a></li>
+
             </ul>
         </div>
         <div class="clear"></div>

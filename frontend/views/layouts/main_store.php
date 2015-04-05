@@ -113,7 +113,7 @@ function generateCategoryList($categories)
                                         </li>
                                     <?php endif; ?>
                                     <li class="widget-container">
-                                        <a href="#"><img src="/frontend/web/estore/images/content/banner.gif" alt="" /></a>
+                                        <a href="#"><img src="<?php echo $GLOBALS['urlMgr']->createUrl('estore/images/content/banner.gif')?>" alt="" /></a>
                                     </li>
                                 </ul>
                             </div>
