@@ -1,5 +1,14 @@
 $(function () {
 
+    function getFinalPrice (item) {
+        var product = item.details;
+
+        var price = product.sales_price > 0 ?
+            product.sales_price : product.price;
+
+        return price;
+    }
+
     /**
      * Calculate total cost of a specific item in the cart
      *
@@ -31,6 +40,45 @@ $(function () {
         return total;
     };
 
+    function redrawCart(items) {
+        redrawCartItems(items);
+        redrawCartTotal(items);
+    }
+
+    function redrawCartItems(items) {
+        var shopBox = $('.shop-box');
+
+        // Clear the current cart list
+        $('.cart-item', shopBox).remove();
+
+        for (var id in items) {
+            var item = items[id];
+            var product = item.details;
+
+            var nameComponent = $('<h2>')
+                .text(product.name)
+                .addClass('name');
+
+            var priceComponent = $('<div>')
+                .text(item.quantity + ' x ' + getFinalPrice(item))
+                .addClass('price');
+
+            var itemComponent = $('<li>')
+                .addClass('cart-item')
+                .append(nameComponent)
+                .append(priceComponent);
+
+            shopBox.prepend(itemComponent);
+        }
+    }
+
+    function redrawCartTotal(items) {
+        $('.shop-box .total .price').text(calculateCartTotal(items));
+    }
+
+    /**
+     * On button Update click
+     */
     $('.btn-update').click(function (evt) {
 
         var btn = $(this);
@@ -61,6 +109,9 @@ $(function () {
 
                     // Set the new quantity as the previous quantity
                     txtProductQty.data('prev-value', qty);
+
+                    // Redraw
+                    redrawCart(data.items);
                 }
                 else {
                     alert(data.message);
@@ -74,6 +125,9 @@ $(function () {
         });
     });
 
+    /**
+     * On button Remove click
+     */
     $('.btn-remove').click(function (evt) {
 
         if (! confirm('Bạn thực sự muốn xóa sản phẩm này khỏi giỏ hàng?')) {
@@ -98,6 +152,9 @@ $(function () {
                     // Calculate new cart's total cost
                     var cartTotalCost = calculateCartTotal(data.items);
                     $('.tbl-cart .cart-total-cost').text(cartTotalCost);
+
+                    // Redraw
+                    redrawCart(data.items);
                 }
                 else {
                     alert(data.message);
@@ -109,6 +166,9 @@ $(function () {
         })
     });
 
+    /**
+     * On button Checkout click
+     */
     $('.btn-checkout').click(function (evt) {
 
         evt.preventDefault();
@@ -119,13 +179,13 @@ $(function () {
 
         $.ajax({
             url: url,
-            method: 'POST',
+            type: 'POST',
             data: frmCheckoutData,
             success: function (data) {
                 var success = data.success;
 
                 if (success) {
-                    alert('Success');
+                    alert('Xin cảm ơn. Bạn đã đặt hàng thành công.');
                     location.reload();
                 }
                 else {
@@ -142,4 +202,5 @@ $(function () {
             }
         });
     });
+
 });

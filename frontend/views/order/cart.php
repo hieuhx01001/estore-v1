@@ -4,8 +4,9 @@ use yii\i18n\Formatter;
 
 /** @var Product[] $items */
 
-$urlManager = Yii::$app->urlManager;
-$GLOBALS['backendRootUrl'] = $backendRootUrl = Yii::$app->get('urlManagerBackend')->baseUrl;
+$app = Yii::$app;
+$urlManager = $app->urlManager;
+$GLOBALS['backendRootUrl'] = $backendRootUrl = $app->get('urlManagerBackend')->baseUrl;
 $formatter = new Formatter();
 
 function generateImageSrc($item) {
@@ -40,8 +41,10 @@ function calculateCartTotal($items)
 
 <section id="maincontent" class="ten columns positionleft">
 
+    <div class="breadcrumb"><a href="index.html">Trang Chủ</a> / Giỏ Hàng</div>
+
     <?php if (! empty($items)) : ?>
-        <p class="well well-sm" style="color: deepskyblue;">
+        <p class="well well-sm" style="color: #009900;">
             <b>Hướng dẫn</b>: Để xóa sản phẩm khỏi giỏ hàng, ấn nút "Xóa"
             Để thay đổi số lượng, điền số lượng sản phẩm vào ô và ấn nút "Cập nhật"
         </p>
@@ -75,11 +78,11 @@ function calculateCartTotal($items)
                     <td class="cart_description"><?= $item['details']->name ?></td>
                     <td class="cart_unit text-right"><?= $formatter->asCurrency($item['details']->finalPrice) ?></td>
                     <td class="cart_quantity">
-                        <div class="input-group input-group-sm">
+                        <div class="form-group">
                             <input type="text" min="1" class="product-qty form-control"
                                    value="<?= $item['quantity'] ?>"
                                    data-prev-value="<?= $item['quantity'] ?>">
-                    <span class="input-group-btn">
+                        </div>
                         <button class="btn-update btn btn-default"
                                 data-url="<?= $urlManager->createUrl('order/ajax-set-in-cart') ?>"
                                 data-id="<?= $id ?>">
@@ -90,8 +93,6 @@ function calculateCartTotal($items)
                                 data-id="<?= $id ?>">
                             <span>Xóa</span>
                         </button>
-                    </span>
-                        </div>
                     </td>
                     <td class="total-cost cart_total text-right"><?= $formatter->asCurrency(calculateTotal($item)) ?></td>
                 </tr>
@@ -112,31 +113,31 @@ function calculateCartTotal($items)
         <div class="col-sm-4">
             <form id="frm-checkout">
                 <div class="form-group">
-                    <label>Tên khách hàng</label>
-                    <input type="text" name="name" class="form-control" required>
+                    <label>Tên khách hàng *</label>
+                    <input type="text" name="customer[name]" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Giới tính</label>
+                    <label>Giới tính *</label>
                     <ul class="list-group list-group-inline">
                         <li class="list-group-item">
-                            <input type="radio" name="gender" value="1" checked> Nam
+                            <input type="radio" name="customer[gender]" value="1"> Nam
                         </li>
                         <li class="list-group-item">
-                            <input type="radio" name="gender" value="0"> Nữ
+                            <input type="radio" name="customer[gender]" value="0"> Nữ
                         </li>
                     </ul>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="text" name="email" class="form-control">
+                    <input type="text" name="customer[email]" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>Số điện thoại</label>
-                    <input type="text" name="phone" class="form-control" required>
+                    <label>Số điện thoại *</label>
+                    <input type="text" name="customer[phone]" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Địa chỉ</label>
-                    <input type="text" name="address1" class="form-control" required>
+                    <label>Địa chỉ *</label>
+                    <input type="text" name="customer[address1]" class="form-control" required>
                 </div>
                 <div class="form-group text-right">
                     <a class="btn btn-default btn-sm"
@@ -149,8 +150,6 @@ function calculateCartTotal($items)
     </div>
 </section>
 
-<div class="breadcrumb"><a href="index.html">Trang Chủ</a> / Giỏ Hàng</div>
-
 <style>
     .form-group {
         width: 100%;
@@ -162,10 +161,10 @@ function calculateCartTotal($items)
         font-weight: bold;
     }
     .form-control {
+        display: block;
         width: 100%;
         line-height: 15px;
         margin: 0;
-        padding: 0 0 15px 0;
     }
 
     .list-group {

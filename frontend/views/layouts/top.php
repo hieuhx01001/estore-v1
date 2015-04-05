@@ -56,21 +56,27 @@ function calculateCartTotalCost($items) {
                                 </a>
                                 <a class="btncart" href="#"></a>
                                 <ul class="shop-box">
-                                    <?php foreach ($cart->getAll() as $item) : ?>
-                                        <li class="cart-item">
-                                            <h2 class="name"><?= $item['details']->name ?></h2>
-                                            <div class="price">
-                                                <?= $item['quantity'] ?> x <?= $formatter->asCurrency($item['details']->finalPrice) ?>
-                                            </div>
+                                    <?php if (empty($cart->getAll())) : ?>
+                                        <li class="cart-item" style="text-align: center; font-weight: bold;">
+                                            <span>Giỏ hàng hiện đang trống</span>
                                         </li>
-                                    <?php endforeach ?>
+                                    <?php else : ?>
+                                        <?php foreach ($cart->getAll() as $item) : ?>
+                                            <li class="cart-item">
+                                                <h2 class="name"><?= $item['details']->name ?></h2>
+                                                <div class="price">
+                                                    <?= $item['quantity'] ?> x <?= $formatter->asCurrency($item['details']->finalPrice) ?>
+                                                </div>
+                                            </li>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
                                     <li class="total">
                                         <h2>Tổng</h2>
                                         <div class="price"><?= $formatter->asCurrency(calculateCartTotalCost($cart->getAll())) ?></div>
                                         <div class="clear"></div>
                                     </li>
                                     <li class="btn-wrapper">
-                                        <a href="#" class="cart">Giỏ hàng</a> <a href="#" class="checkout">Thanh toán</a>
+                                        <a href="<?= $urlManager->createUrl('order/cart') ?>"">Giỏ hàng</a>
                                         <div class="clear"></div>
                                     </li>
                                 </ul>

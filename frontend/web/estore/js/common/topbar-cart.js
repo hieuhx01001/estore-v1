@@ -91,6 +91,8 @@ $(function () {
                 alert('Lỗi xảy ra trên máy chủ');
             }
         });
+
+        return false;
     });
 
     $('.cart').click(function (evt) {
@@ -125,6 +127,8 @@ $(function () {
                 alert('Lỗi xảy ra trên máy chủ');
             }
         });
+
+        return false;
     });
 
 });

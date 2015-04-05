@@ -36,6 +36,9 @@ class OrderController extends Controller
 
         // Setup layout
         $this->layout = 'main_store';
+
+        // Disable CSRF
+        $this->app->request->enableCsrfValidation = false;
     }
 
     /**
@@ -140,7 +143,7 @@ class OrderController extends Controller
     }
 
     /**
-     * POST /checkout
+     * POST /ajax-checkout
      *
      * @throws MethodNotAllowedHttpException
      */
@@ -159,11 +162,6 @@ class OrderController extends Controller
             throw new UnauthorizedHttpException();
         }
 
-        // If this is not a POST request, throw an exception for method not allowed
-        if (! $req->isPost) {
-            throw new MethodNotAllowedHttpException();
-        }
-
         // Validate cart
         if ($cart->isEmpty()) {
             return [
@@ -172,8 +170,17 @@ class OrderController extends Controller
             ];
         }
 
+        // Retrieve and validate customer info
+        $customerInfo = $req->post('customer');
+        $errorMessage = $this->validateCustomerInfo($customerInfo);
+        if ($errorMessage) {
+            return [
+                'success' => false,
+                'message' => $errorMessage,
+            ];
+        }
+
         // Checkout process
-        $customerInfo = $req->post();
         $result = $cart->checkout($customerInfo);
 
         $message = (! $result) ? 'Có lỗi trong quá trình tạo đơn đặt hàng' : null;
@@ -198,5 +205,39 @@ class OrderController extends Controller
     protected function setResponseFormatAjax()
     {
         \Yii::$app->response->format = Response::FORMAT_JSON;
+    }
+
+    /**
+     * Validate customer information.
+     *
+     * If failed, return an error message, else return NULL
+     *
+     * @param array $customerInfo
+     * @return null|string
+     */
+    protected function validateCustomerInfo(array $customerInfo)
+    {
+        $requiredFields = ['name', 'gender', 'phone', 'address1'];
+
+        // Check for any missing required field
+        foreach ($requiredFields as $field) {
+            if (!isset($customerInfo[$field])
+                or empty(trim($customerInfo[$field]))) {
+                return 'Xin hãy điền những thông tin cần thiết (được đánh dấu *)';
+            }
+        }
+
+        // Check phone number format
+        if (! ctype_digit($customerInfo['phone'])) {
+            return 'Chỉ được nhập số trong số điện thoại';
+        }
+
+        // Check email format
+        if (! empty($customerInfo['email'])
+            and ! filter_var($customerInfo['email'], FILTER_VALIDATE_EMAIL)) {
+            return 'Email chưa đúng';
+        }
+
+        return null;
     }
 }
