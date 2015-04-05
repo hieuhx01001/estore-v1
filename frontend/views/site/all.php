@@ -54,14 +54,16 @@ $selected = 'selected="selected"';
                                             <span class="price">'.Yii::$app->formatter->asCurrency($product->sales_price) .'</span>
                                         </div>
                                         <div class="cart cart-sale">
-                                            <a href="'.$urlManager->createUrl("site/detail/".$product->id).'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                            <a href="'.$urlManager->createUrl("site/detail/".$product->id).'" class="more">more</a> |
+                                            <a href="#" class="buy" data-id="'.$product->id.'" data-url="'.$urlManager->createUrl('order/ajax-add-to-cart').'">buy</a>
                                         </div>';
                         }else {
                             $priceHtml = '<div class="price">
                                             '.Yii::$app->formatter->asCurrency($product->price) .'
                                         </div>
                                         <div class="cart">
-                                            <a href="'.$urlManager->createUrl("site/detail/".$product->id).'" class="more">more</a> | <a href="#" class="buy">buy</a>
+                                            <a href="'.$urlManager->createUrl("site/detail/".$product->id).'" class="more">more</a> |
+                                            <a href="#" class="buy" data-id="'.$product->id.'" data-url="'.$urlManager->createUrl('order/ajax-add-to-cart').'">buy</a>
                                         </div>';
                         }
                     ?>

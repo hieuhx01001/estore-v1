@@ -33,6 +33,9 @@ class OrderController extends Controller
 
         // Retrieve Cart singleton instance
         $this->cart = Cart::getInstance();
+
+        // Setup layout
+        $this->layout = 'main_store';
     }
 
     /**

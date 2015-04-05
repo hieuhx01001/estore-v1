@@ -103,16 +103,18 @@ if(!empty($session['items'])){
                                 <label class="qty_label">Số lượng:</label>
                                 <div class="qty_list">
                                     <select>
-                                        <option title="1" selected="selected">1</option>
-                                        <option title="2">2</option>
-                                        <option title="3">3</option>
-                                        <option title="4">4</option>
+                                        <option value="1" selected="selected">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
                                     </select>
                                 </div>
                             </fieldset>
                         </form>
 
-                        <a href="checkout.html" class="cart">Đặt Hàng</a>
+                        <a href="checkout.html" class="cart"
+                           data-id="<?= $product->id ?>"
+                           data-url="<?= $urlManager->createUrl('order/ajax-set-in-cart') ?>">Đặt Hàng</a>
                         <!--<ul id="usefull_link_block">-->
                         <!--<li class="print"><a href="#">Print</a></li>-->
                         <!--<li class="share_fb"><a href="#">Share on Facebook</a> </li>-->

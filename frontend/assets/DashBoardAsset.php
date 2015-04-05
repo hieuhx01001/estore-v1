@@ -35,6 +35,7 @@ class DashBoardAsset extends AssetBundle
         'estore/js/jquery-easing-1.3.js',
         'estore/js/layerslider.js',
         'estore/js/dashboard/dashboard.js',
+        'estore/js/common/topbar-cart.js',
     ];
     public $depends = [
     ];
