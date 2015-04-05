@@ -14,11 +14,14 @@ use yii\db\Expression;
  * @property integer $id
  * @property string $name
  * @property string $code
- * @property string $price
+ * @property double $price
+ * @property double $sales_price
  * @property integer $quantity
  * @property string $description
  * @property string $short_description
  * @property string $feature
+ *
+ * @property double $finalPrice
  *
  * @property OrderItem[] $orderItems
  * @property ProductCategory[] $productCategories
@@ -91,6 +94,19 @@ class Product extends ActiveRecord
                 'value' => new Expression('NOW()'),
             ]
         ];
+    }
+
+    /**
+     * Return the final price
+     *
+     * @return float|mixed
+     */
+    public function getFinalPrice()
+    {
+        if ($this->sales_price > 0) {
+            return $this->sales_price;
+        }
+        return $this->price;
     }
 
     /**
