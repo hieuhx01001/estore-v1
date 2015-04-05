@@ -181,7 +181,7 @@ class Cart
         $this->saveItemsInSession();
     }
 
-    public function checkout(Customer $customer)
+    public function checkout(array $customerInfo)
     {
         $items = $this->items;
 
@@ -190,12 +190,34 @@ class Cart
 
         try {
             /*
+             * Create a new Customer
+             */
+            $customer = new Customer();
+            $customer->setAttributes($customerInfo);
+
+            if (! $customer->save()) {
+                $transaction->rollBack();
+                return false;
+            }
+
+            /*
              * Create a new Order
              */
+            $orderCode = $this->generateRandomOrderCode();
+            $orderDetail = '...';
+            $tax = 10;
+            $shipmentPrice = null;
+
             $order = new Order();
             $order->setAttributes([
                 'customer_id'   => $customer->id,
-                'order_code'    => '0000',
+                'order_code'    => $orderCode,
+                'order_status'  => Order::STATUS_NEW,
+                'order_date'    => time(),
+                'order_detail'  => $orderDetail,
+                'shipment_status' => Order::STATUS_SHIPMENT_NO,
+                'tax'           => $tax,
+                'shipment_price' => $shipmentPrice,
             ]);
 
             if (! $order->save()) {
@@ -249,6 +271,16 @@ class Cart
     }
 
     /**
+     * Check if the cart is currently empty
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->items);
+    }
+
+    /**
      * The the product having the given ID.
      *
      * @param integer $id
@@ -281,5 +313,29 @@ class Cart
     protected function saveItemsInSession()
     {
         $this->session->set(static::SESSION_CART_KEY, $this->items);
+    }
+
+    /**
+     * Generate a random order code
+     *
+     * @return string
+     */
+    protected function generateRandomOrderCode()
+    {
+        $numbers    = '0123456789';
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code = '';
+
+        // Generate 2 random characters
+        for ($i = 0; $i < 2; ++$i) {
+            $code .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        // Generate 5 random numbers
+        for ($i = 0; $i < 5; ++$i) {
+            $code .= $numbers[rand(0, strlen($numbers) - 1)];
+        }
+
+        return $code;
     }
 }

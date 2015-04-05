@@ -161,17 +161,22 @@ class OrderController extends Controller
             throw new MethodNotAllowedHttpException();
         }
 
-        /*
-         * TODO: Do some checkout process here...
-         */
-        $customer = Customer::findOne(1);
-        $result = $cart->checkout($customer);
+        // Validate cart
+        if ($cart->isEmpty()) {
+            return [
+                'success' => false,
+                'message' => 'Giỏ hàng hiện đang trống',
+            ];
+        }
 
-        /*
-         * TODO: Return a successful message page
-         */
+        // Checkout process
+        $customerInfo = $req->post();
+        $result = $cart->checkout($customerInfo);
+
+        $message = (! $result) ? 'Có lỗi trong quá trình tạo đơn đặt hàng' : null;
         return [
             'success' => $result,
+            'message' => $message,
         ];
     }
 

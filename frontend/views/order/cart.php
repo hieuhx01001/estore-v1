@@ -82,11 +82,46 @@ function calculateCartTotal($items)
 
 </table>
 
-<p class="text-right">
-    <a class="btn btn-default btn-sm"
-       href="<?= $urlManager->createUrl('site/all') ?>">Tiếp tục xem hàng</a>
-    <a class="btn-checkout btn btn-primary btn-sm">Thực hiện</a>
-</p>
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Thông tin khách hàng</h3>
+        <hr>
+        <form id="frm-checkout">
+            <div class="form-group">
+                <label>Tên khách hàng</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Giới tính</label>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <input type="radio" name="gender" value="1" checked> Nam
+                    </li>
+                    <li class="list-group-item">
+                        <input type="radio" name="gender" value="0"> Nữ
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="text" name="phone" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <input type="text" name="address1" class="form-control" required>
+            </div>
+            <div class="form-group text-right">
+                <a class="btn btn-default btn-sm"
+                   href="<?= $urlManager->createUrl('site/all') ?>">Tiếp tục xem hàng</a>
+                <button class="btn-checkout btn btn-primary btn-sm">Thực hiện</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script>
@@ -200,17 +235,24 @@ function calculateCartTotal($items)
         });
 
         $('.btn-checkout').click(function (evt) {
+
+            evt.preventDefault();
+
+            var frmCheckoutData = $('#frm-checkout').serializeArray();
+
             $.ajax({
                 url: '<?= $urlManager->createUrl('order/ajax-checkout') ?>',
                 method: 'POST',
+                data: frmCheckoutData,
                 success: function (data) {
                     var success = data.success;
 
                     if (success) {
                         alert('Success');
+                        location.reload();
                     }
                     else {
-                        alert('Failed');
+                        alert(data.message);
                     }
                 },
                 error: function (data) {
