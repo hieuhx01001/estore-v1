@@ -6,7 +6,7 @@ use yii\i18n\Formatter;
 
 $app = Yii::$app;
 $urlManager = $app->urlManager;
-$GLOBALS['backendRootUrl'] = $backendRootUrl = $app->get('urlManagerBackend')->baseUrl;
+$GLOBALS['backendRootUrl'] = $backendRootUrl = $app->get('urlManagerBackEnd')->baseUrl;
 $formatter = new Formatter();
 
 function generateImageSrc($item) {
