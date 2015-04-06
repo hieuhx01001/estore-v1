@@ -60,7 +60,7 @@ $(function () {
         $('.shop-box .total .price').text(calculateCartTotal(items));
     }
 
-    $('.buy').click(function (evt) {
+    $('a.buy, button.buy').click(function (evt) {
 
         evt.preventDefault();
 
@@ -95,7 +95,7 @@ $(function () {
         return false;
     });
 
-    $('.cart').click(function (evt) {
+    $('a.cart, button.cart').click(function (evt) {
 
         evt.preventDefault();
 
