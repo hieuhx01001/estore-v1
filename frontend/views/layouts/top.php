@@ -52,7 +52,7 @@ function calculateCartTotalCost($items) {
                         <div id="shopping-cart-wrapper">
                             <div id="shopping_cart">
                                 <a href="#" id="shop-bag">
-                                    Giỏ Hàng : (<span class="cart-count"><?= count($cart->getAll()) ?></span>) sản phẩm
+                                    Giỏ Hàng : (<span class="cart-count"><?= $cart->countProductTypes() ?></span>) sản phẩm
                                 </a>
                                 <a class="btncart" href="#"></a>
                                 <ul class="shop-box">

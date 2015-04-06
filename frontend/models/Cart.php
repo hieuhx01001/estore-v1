@@ -281,6 +281,16 @@ class Cart
     }
 
     /**
+     * Retrieve the number of item types in the list
+     *
+     * @return int
+     */
+    public function countProductTypes()
+    {
+        return count($this->items);
+    }
+
+    /**
      * The the product having the given ID.
      *
      * @param integer $id
