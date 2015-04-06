@@ -39,6 +39,7 @@ class ProductAsset extends AssetBundle
         'estore/js/jquery-easing-1.3.js',
         'estore/js/layerslider.js',
         'estore/js/jquery.flexslider-min.js',
+        'vendor/accountingjs/accounting.min.js',
         'estore/js/product/product.js',
         'estore/js/order/order.js',
         'estore/js/common/topbar-cart.js',

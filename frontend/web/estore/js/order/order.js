@@ -1,5 +1,26 @@
 $(function () {
 
+    /**
+     * This immediately-invoked function is used to
+     * setting the accounting library for later use.
+     */
+    (function () {
+        accounting.settings = {
+            currency: {
+                symbol: '₫',
+                format: '%v %s',
+                decimal: ',',
+                thousand: '.',
+                precision: 0
+            },
+            number: {
+                precision: 0,
+                decimal: ',',
+                thousand: '.'
+            }
+        };
+    })();
+
     function getFinalPrice (item) {
         var product = item.details;
 
@@ -9,27 +30,11 @@ $(function () {
         return price;
     }
 
-    /**
-     * Calculate total cost of a specific item in the cart
-     *
-     * @param {JSON} item
-     * @returns {number}
-     */
-    var calculateTotal = function (item) {
-        var price = item.details.sales_price > 0 ?
-            item.details.sales_price : item.details.price;
-        var qty = item.quantity;
+    function calculateTotal(item) {
+        return getFinalPrice(item) * item.quantity;
+    }
 
-        return price * qty;
-    };
-
-    /**
-     * Calculate cart's total cost
-     *
-     * @param {Array} items
-     * @returns {number}
-     */
-    var calculateCartTotal = function (items) {
+    function calculateCartTotal(items) {
         var total = 0;
 
         for (var id in items) {
@@ -38,11 +43,24 @@ $(function () {
         }
 
         return total;
-    };
+    }
+
+    function countItems(items) {
+        var count = 0;
+        for (var i in items) {
+            ++count;
+        }
+        return count;
+    }
 
     function redrawCart(items) {
+        redrawCartCount(items);
         redrawCartItems(items);
         redrawCartTotal(items);
+    }
+
+    function redrawCartCount(items) {
+        $('.cart-count').text(countItems(items));
     }
 
     function redrawCartItems(items) {
@@ -54,13 +72,14 @@ $(function () {
         for (var id in items) {
             var item = items[id];
             var product = item.details;
+            var finalPrice = getFinalPrice(item);
 
             var nameComponent = $('<h2>')
                 .text(product.name)
                 .addClass('name');
 
             var priceComponent = $('<div>')
-                .text(item.quantity + ' x ' + getFinalPrice(item))
+                .text(item.quantity + ' x ' + accounting.formatMoney(finalPrice))
                 .addClass('price');
 
             var itemComponent = $('<li>')
@@ -73,7 +92,8 @@ $(function () {
     }
 
     function redrawCartTotal(items) {
-        $('.shop-box .total .price').text(calculateCartTotal(items));
+        var cartTotal = calculateCartTotal(items);
+        $('.shop-box .total .price').text(accounting.formatMoney(cartTotal));
     }
 
     /**
