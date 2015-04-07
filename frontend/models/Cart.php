@@ -2,6 +2,7 @@
 namespace frontend\models;
 
 use backend\models\Customer;
+use backend\models\Invoice;
 use backend\models\Order;
 use backend\models\OrderItem;
 use frontend\models\exceptions\ProductNotFoundException;
@@ -181,6 +182,15 @@ class Cart
         $this->saveItemsInSession();
     }
 
+    /**
+     * Create an Order and an Invoice for the current cart.
+     * Then clear the cart.
+     *
+     * @param array $customerInfo
+     * @return bool
+     * @throws \Exception
+     * @throws \yii\db\Exception
+     */
     public function checkout(array $customerInfo)
     {
         $items = $this->items;
@@ -203,17 +213,17 @@ class Cart
             /*
              * Create a new Order
              */
-            $orderCode = $this->generateRandomOrderCode();
-            $orderDetail = '...';
-            $tax = 10;
-            $shipmentPrice = null;
+            $orderCode      = $this->generateRandomOrderCode();
+            $orderDetail    = '';
+            $tax            = 0;
+            $shipmentPrice  = 0;
 
             $order = new Order();
             $order->setAttributes([
                 'customer_id'   => $customer->id,
                 'order_code'    => $orderCode,
                 'order_status'  => Order::STATUS_NEW,
-                'order_date'    => time(),
+                'order_date'    => date("Y-m-d H:i:s"),
                 'order_detail'  => $orderDetail,
                 'shipment_status' => Order::STATUS_SHIPMENT_NO,
                 'tax'           => $tax,
@@ -244,6 +254,38 @@ class Cart
                     $transaction->rollBack();
                     return false;
                 }
+            }
+
+            /*
+             * Create a new Invoice after finishing the Order
+             */
+            $fnCalculateOrderTotal = function (array $items) {
+                $total = 0;
+
+                foreach ($items as $item) {
+                    $product = $item['details'];
+                    $qty     = $item['quantity'];
+
+                    $total += $product->finalPrice * $qty;
+                }
+
+                return $total;
+            };
+
+            $invoice = new Invoice();
+            $invoice->setAttributes([
+                'id'             => $order->id,
+                'invoice_status' => Invoice::PAYMENT_STATUS_NO,
+                'invoice_date'   => $order->order_date,
+                'payment_date'   => null,
+                'total_amount'   => $fnCalculateOrderTotal($items),
+                'other_detail'   => null,
+                'invoice_code'   => $order->order_code,
+            ]);
+
+            if (! $invoice->save()) {
+                $transaction->rollBack();
+                return false;
             }
 
             // Finish the transaction
