@@ -19,6 +19,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -324,6 +325,86 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionAjaxSearch()
+    {
+        $app = Yii::$app;
+        $req = $app->request;
+        $resp = $app->response;
+
+        // Set the response' content to be JSON
+        $resp->format = Response::FORMAT_JSON;
+
+        /*
+         * Get input
+         */
+        $name = $req->get('name');
+        $categoryId = (int) $req->get('category_id');
+        $minPrice = (double) $req->get('min_price');
+        $maxPrice = (double) $req->get('max_price');
+        $isInStock = (bool) $req->get('is_in_stock');
+
+        /*
+         * Build query
+         */
+        $query = Product::find();
+        $where = ['AND'];
+
+        if (! empty($categoryId)) {
+            $query->innerJoin('product_category', [
+                'AND',
+                'product.id = product_category.product_id',
+                "product_category.category_id = :categoryId",
+            ], [
+                ':categoryId' => $categoryId,
+            ]);
+        }
+
+        if (! empty($name)) {
+            $where[] = ['LIKE', 'name', $name];
+        }
+
+        if (! empty($minPrice)) {
+            $where[] = [
+                'OR',
+                ['>=', 'price', $minPrice],
+                [
+                    'AND',
+                    ['>', 'sales_price', 0],
+                    ['>=', 'sales_price', $minPrice]
+                ],
+            ];
+        }
+
+        if (! empty($maxPrice)) {
+            $where[] = [
+                'OR',
+                ['<=', 'price', $maxPrice],
+                [
+                    'AND',
+                    ['>', 'sales_price', 0],
+                    ['<=', 'sales_price', $maxPrice]
+                ],
+            ];
+        }
+
+        if (! empty($isInStock)) {
+            $where[] = ['>', 'quantity', 0];
+        }
+
+        $query->where($where);
+
+        /*
+         * Retrieve query result
+         */
+//        return [$query->prepare(Yii::$app->db->queryBuilder)->createCommand()->rawSql];
+        $products = $query->all();
+
+        return [
+            'success' => true,
+            'data'    => $products,
+        ];
     }
 
     protected function findModelProduct($id)
