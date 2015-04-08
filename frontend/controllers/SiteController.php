@@ -327,14 +327,50 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionAjaxSearch()
+    public function actionSearch()
+    {
+        // Search for products requested
+        $products = $this->searchProducts();
+
+        // Return result as HTML if this is an HTML request,
+        // or as JSON if this is an AJAX request
+        if (Yii::$app->request->isAjax) {
+
+            $this->setResponseFormatJson();
+
+            return [
+                'success' => true,
+                'data'    => $products,
+            ];
+        }
+        else {
+
+            $this->layout = 'main_store';
+
+            return $this->render('search', [
+                'products' => $products,
+            ]);
+        }
+    }
+
+    protected function findModelProduct($id)
+    {
+        if (($model = Product::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    /**
+     * Search for products using data given from HTTP request
+     *
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    protected function searchProducts()
     {
         $app = Yii::$app;
         $req = $app->request;
-        $resp = $app->response;
-
-        // Set the response' content to be JSON
-        $resp->format = Response::FORMAT_JSON;
 
         /*
          * Get input
@@ -361,10 +397,12 @@ class SiteController extends Controller
             ]);
         }
 
+        // Add searching for name if required
         if (! empty($name)) {
             $where[] = ['LIKE', 'name', $name];
         }
 
+        // Add searching for minimum price if required
         if (! empty($minPrice)) {
             $where[] = [
                 'OR',
@@ -377,6 +415,7 @@ class SiteController extends Controller
             ];
         }
 
+        // Add searching for maximum price if required
         if (! empty($maxPrice)) {
             $where[] = [
                 'OR',
@@ -389,30 +428,27 @@ class SiteController extends Controller
             ];
         }
 
+        // Add searching for in-stock if required
         if (! empty($isInStock)) {
             $where[] = ['>', 'quantity', 0];
         }
 
+        // Apply all those filters to the query
         $query->where($where);
 
         /*
          * Retrieve query result
          */
-//        return [$query->prepare(Yii::$app->db->queryBuilder)->createCommand()->rawSql];
         $products = $query->all();
 
-        return [
-            'success' => true,
-            'data'    => $products,
-        ];
+        return $products;
     }
 
-    protected function findModelProduct($id)
+    /**
+     * Set the response' content to be JSON
+     */
+    protected function setResponseFormatJson()
     {
-        if (($model = Product::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
     }
 }
