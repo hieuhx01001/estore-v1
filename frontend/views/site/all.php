@@ -40,6 +40,7 @@ $selected = 'selected="selected"';
             </div>
 
             <div class="row">
+                <?php $count = 1 ?>
                 <?php foreach($products as $product):?>
 
                     <?php
@@ -80,6 +81,10 @@ $selected = 'selected="selected"';
                             </div>
                         </div>
                     </div>
+                    <?php if(($count%4) == 0):?>
+                        <div class="clear"></div>
+                    <?php endif; ?>
+                    <?php $count++?>
                 <?php endforeach;?>
             </div>
             <div class="wp-pagenavi">

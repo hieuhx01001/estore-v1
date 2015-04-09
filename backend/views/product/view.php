@@ -49,7 +49,10 @@ $formatter = new \yii\i18n\Formatter();
                         'value' => $model->sales_price ? $formatter->asCurrency($model->sales_price, 'VND') : null
                     ],
                     'quantity',
-                    'short_description:ntext',
+                    [
+                        'attribute' => 'short_description',
+                        'value' =>  strip_tags($model->short_description)
+                    ],
                    /* 'feature:ntext',*/
                     [
                         'attribute' => 'created_at',
