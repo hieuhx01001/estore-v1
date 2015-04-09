@@ -3,6 +3,7 @@ namespace backend\repositories;
 
 use backend\models\Category;
 use backend\models\CategoryAttribute;
+use backend\models\ProductAttribute;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yii\helpers\VarDumper;
@@ -34,6 +35,10 @@ class CategoryRepository
 
     public function saveCategory(Category $category, $selectedAttrIds)
     {
+        if ($selectedAttrIds == null) {
+            $selectedAttrIds = [];
+        }
+
         // Check if this is a new Category or an existed one
         $isNew = $category->isNewRecord;
 
@@ -81,6 +86,32 @@ class CategoryRepository
                     }
                 }
             }
+
+            // Update Product-Attribute links
+            $productIds = [];
+            foreach ($category->productCategories as $pc) {
+                $productIds[] = $pc->product_id;
+            }
+
+            $attrIds = array_merge([], $selectedAttrIds);
+
+            foreach ($category->children as $child) {
+                foreach ($child->attrs as $attr) {
+                    $attrIds[] = $attr->id;
+                }
+            }
+
+            foreach ($category->allAncestors as $ancestor) {
+                foreach ($ancestor->attrs as $attr) {
+                    $attrIds[] = $attr->id;
+                }
+            }
+
+            ProductAttribute::deleteAll([
+                'AND',
+                ['IN', 'product_id', $productIds],
+                ['NOT IN', 'attribute_id', $attrIds],
+            ]);
 
             // Commit transaction after everything got done
             $transaction->commit();
