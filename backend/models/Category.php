@@ -335,9 +335,19 @@ class Category extends \yii\db\ActiveRecord
         // Build a query
         $query = static::find();
 
-        // Query excepts the given Category entity if it exists
+        // Get children category ids
+        $childrenIds = [];
+        foreach ($category->children as $child) {
+            $childrenIds[] = $child->id;
+        }
+
+        // Query excepts the given Category entity if it exists, and also its children
         if ($entityId = $category->id) {
-            $query->where('`id` != :entityId', [':entityId' => $entityId]);
+            $query->where([
+                'AND',
+                ['!=', 'id', $entityId],
+                ['NOT IN', 'id', $childrenIds],
+            ]);
         }
 
         // Execute the query, and retrieve the result
