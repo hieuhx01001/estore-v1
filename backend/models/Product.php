@@ -236,4 +236,46 @@ class Product extends ActiveRecord
     {
         return $this->hasOne(Supplier::className(), ['id' => 'supplier_id']);
     }
+
+    /**
+     * Return the currently lowest price
+     *
+     * @return mixed
+     */
+    public static function getMinPrice()
+    {
+        $db = Yii::$app->db;
+
+        $minPrice = $db->createCommand(
+            'SELECT MIN(price) FROM product'
+        )->queryScalar();
+
+        $minSalesPrice = $db->createCommand(
+            'SELECT MIN(sales_price) FROM product'
+        )->queryScalar();
+
+        return $minPrice < $minSalesPrice ?
+            $minPrice : $minSalesPrice;
+    }
+
+    /**
+     * Return the currently highest price
+     *
+     * @return mixed
+     */
+    public static function getMaxPrice()
+    {
+        $db = Yii::$app->db;
+
+        $maxPrice = $db->createCommand(
+            'SELECT MAX(price) FROM product'
+        )->queryScalar();
+
+        $maxSalesPrice = $db->createCommand(
+            'SELECT MAX(sales_price) FROM product'
+        )->queryScalar();
+
+        return $maxPrice > $maxSalesPrice ?
+            $maxPrice : $maxSalesPrice;
+    }
 }

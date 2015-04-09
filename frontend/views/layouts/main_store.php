@@ -16,6 +16,9 @@ $GLOBALS['urlMgr'] = Yii::$app->urlManager;
 
 /**
  * Generate a category list
+ *
+ * @param Category[] $categories
+ * @return string
  */
 function generateCategoryList($categories)
 {
@@ -28,7 +31,7 @@ function generateCategoryList($categories)
 
             $html .= '<li>';
 
-            $html .= "<a href='{$urlMgr->createUrl(['site/product', 'categoryId' => $cate->id])}'>{$cate->name}</a>";
+            $html .= "<a data-id='{$cate->id}' href='{$urlMgr->createUrl(['site/product', 'categoryId' => $cate->id])}'>{$cate->name}</a>";
 
             $children = $cate->children;
 

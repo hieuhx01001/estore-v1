@@ -42,9 +42,9 @@ function calculateCartTotalCost($items) {
                     </div>
                     <div class="right six columns">
 
-                        <form action="#" id="searchform" method="get">
+                        <form action="<?= $urlManager->createAbsoluteUrl('site/search') ?>" id="searchform" method="get">
 
-                            <input type="text" onblur="if (this.value == '')this.value = 'Nhập để tìm kiếm';" onfocus="if (this.value == 'Nhập để tìm kiếm')this.value = '';" value="Nhập để tìm kiếm" id="s" name="s" class="field">
+                            <input type="text" name="name" id="txt-name" placeholder="Nhập để tìm kiếm">
                             <input type="submit" value="" class="searchbutton">
 
                         </form>

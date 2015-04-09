@@ -12,7 +12,6 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
-use yii\console\Request;
 use yii\data\Pagination;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -332,6 +331,10 @@ class SiteController extends Controller
         // Search for products requested
         $products = $this->searchProducts();
 
+        // Get other needed data for the view
+        $lowestPrice  = Product::getMinPrice();
+        $highestPrice = Product::getMaxPrice();
+
         // Return result as HTML if this is an HTML request,
         // or as JSON if this is an AJAX request
         if (Yii::$app->request->isAjax) {
@@ -340,7 +343,9 @@ class SiteController extends Controller
 
             return [
                 'success' => true,
-                'data'    => $products,
+                'products'    => $products,
+                'highestPrice' => $highestPrice,
+                'lowestPrice' => $lowestPrice,
             ];
         }
         else {
@@ -349,6 +354,8 @@ class SiteController extends Controller
 
             return $this->render('search', [
                 'products' => $products,
+                'highestPrice' => $highestPrice,
+                'lowestPrice' => $lowestPrice,
             ]);
         }
     }
