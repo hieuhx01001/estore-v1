@@ -78,7 +78,10 @@ $this->registerAssetBundle(SearchAsset::className());
 <style>
     #category-list a.selected
     {
-        color: red;
+        padding: 2px 5px;
+        border-radius: 2px;
+        background-color: red;
+        color: white;
     }
     #btn-update-price-range,
     #txt-max-price,

@@ -3,10 +3,13 @@ $(function () {
     function pageInit () {
 
         var curParams = getUrlParams();
+        var selectedName = curParams['name'];
         var selectedCategoryId = curParams['category_id'];
         var selectedClass = 'selected';
         var selectedMinPrice = curParams['min_price'];
         var selectedMaxPrice = curParams['max_price'];
+
+        $('#txt-name').val(selectedName);
 
         $('#category-list a').each(function (idx, item) {
             if ($(item).data('id') == selectedCategoryId) {
@@ -14,13 +17,9 @@ $(function () {
             }
         });
 
-        if (selectedMinPrice) {
-            $('#txt-min-price').val(selectedMinPrice);
-        }
+        $('#txt-min-price').val(selectedMinPrice);
 
-        if (selectedMaxPrice) {
-            $('#txt-max-price').val(selectedMaxPrice);
-        }
+        $('#txt-max-price').val(selectedMaxPrice);
     }
 
     /**
