@@ -124,8 +124,8 @@ $(function () {
                     var totalCost = calculateTotal(data.item);
                     var cartTotalCost = calculateCartTotal(data.items);
 
-                    $('.total-cost', $(btn).closest('tr')).text(totalCost);
-                    $('.cart-total-cost', $(btn).closest('table')).text(cartTotalCost);
+                    $('.total-cost', $(btn).closest('tr')).text(accounting.formatMoney(totalCost));
+                    $('.cart-total-cost', $(btn).closest('table')).text(accounting.formatMoney(cartTotalCost));
 
                     // Set the new quantity as the previous quantity
                     txtProductQty.data('prev-value', qty);
@@ -171,7 +171,7 @@ $(function () {
 
                     // Calculate new cart's total cost
                     var cartTotalCost = calculateCartTotal(data.items);
-                    $('.tbl-cart .cart-total-cost').text(cartTotalCost);
+                    $('.tbl-cart .cart-total-cost').text(accounting.formatMoney(cartTotalCost));
 
                     // Redraw
                     redrawCart(data.items);
