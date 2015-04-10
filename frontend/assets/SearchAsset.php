@@ -7,7 +7,10 @@ class SearchAsset extends ProductAsset
     {
         parent::init();
 
+        $css = & $this->css;
         $js = & $this->js;
+
+        $css[] = 'estore/styles/search.css';
 
         $js[] = 'estore/js/search/search.js';
     }

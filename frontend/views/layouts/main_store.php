@@ -93,10 +93,21 @@ function generateCategoryList($categories)
                             <div class="sidebar">
                                 <ul>
                                     <li class="widget-container">
-                                        <h2 class="widget-title" style="text-align: center">Danh mục sản phẩm</h2>
                                         <!-- BEGIN: Generate list of categories -->
                                         <div id="category-list">
+                                            <h2 class="widget-title">Danh mục sản phẩm</h2>
                                             <?= generateCategoryList(Category::findAll(['level'=> 1])) ?>
+                                        </div>
+                                        <!-- BEGIN: Price range search box -->
+                                        <div id="price-range-container" class="margin_bottom_large">
+                                            <h2 class="widget-title">Lọc theo giá</h2>
+                                            <form id="frm-price-range">
+                                                <label>Min Price</label>
+                                                <input id="txt-min-price" type="number">
+                                                <label>Max Price</label>
+                                                <input id="txt-max-price" type="number">
+                                                <button id="btn-update-price-range">Update</button>
+                                            </form>
                                         </div>
                                     </li>
                                     <?php if(!empty(Yii::$app->session['items'])): ?>
@@ -154,6 +165,8 @@ function generateCategoryList($categories)
 <style>
     .sidebar li li {
         background-image: none;
+        padding: 0 0 4px;
+        border-bottom: none;
     }
     .btn-sub-category {
         display: block;

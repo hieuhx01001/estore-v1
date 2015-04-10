@@ -23,16 +23,6 @@ $this->registerAssetBundle(SearchAsset::className());
 
             <div class="breadcrumb">Trang Chủ / Tìm kiếm</div>
 
-            <div id="price-range-container" class="margin_bottom_large">
-                <form id="frm-price-range">
-                    <label>Min Price</label>
-                    <input id="txt-min-price" type="number">
-                    <label>Max Price</label>
-                    <input id="txt-max-price" type="number">
-                    <button id="btn-update-price-range">Update</button>
-                </form>
-            </div>
-            
             <div class="row">
                 <?php foreach ($products as $product) : ?>
                     <?php $detailsUrl = $urlManager->createAbsoluteUrl('site/detail/' . $product->id) ?>
@@ -74,29 +64,3 @@ $this->registerAssetBundle(SearchAsset::className());
         </section>
     </div>
 </section>
-
-<style>
-    #category-list a.selected
-    {
-        padding: 2px 5px;
-        border-radius: 2px;
-        background-color: red;
-        color: white;
-    }
-    #btn-update-price-range,
-    #txt-max-price,
-    #txt-min-price {
-        display: inline-block;
-        margin-right: 15px;
-        padding: 2px 5px;
-        line-height: 10px;
-        border: solid 1px #d3d3d3;
-        border-radius: 2px;
-    }
-    #btn-update-price-range {
-        line-height: 15px;
-    }
-    #frm-price-range > label {
-        margin-right: 15px;
-    }
-</style>

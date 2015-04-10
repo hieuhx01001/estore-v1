@@ -1,0 +1,32 @@
+#category-list a.selected
+{
+    padding: 2px 5px;
+    border-radius: 2px;
+    background-color: red;
+    color: white;
+}
+#btn-update-price-range,
+#txt-max-price,
+#txt-min-price {
+    display: block;
+    margin-bottom: 5px;
+    padding: 2px 5px;
+    line-height: 10px;
+    border: solid 1px #d3d3d3;
+    border-radius: 2px;
+}
+#btn-update-price-range {
+    line-height: 15px;
+}
+#frm-price-range > label {
+    display: block;
+    margin-bottom: 5px;
+}
+.widget-title {
+    margin-bottom: 9px;
+    margin-top: 15px;
+    padding: 5px 5px;
+    line-height: normal;
+    background-color: #444;
+    color: white !important;
+}

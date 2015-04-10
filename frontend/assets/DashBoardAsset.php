@@ -23,6 +23,7 @@ class DashBoardAsset extends AssetBundle
         'estore/styles/layout.css',
         'estore/styles/layerslider.css',
         'estore/styles/color.css',
+        'estore/styles/search.css',
     ];
     public $js = [
         'estore/js/jquery-1.7.1.min.js',
@@ -37,6 +38,7 @@ class DashBoardAsset extends AssetBundle
         'vendor/accountingjs/accounting.min.js',
         'estore/js/dashboard/dashboard.js',
         'estore/js/common/topbar-cart.js',
+        'estore/js/search/search.js',
     ];
     public $depends = [
     ];

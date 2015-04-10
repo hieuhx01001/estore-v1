@@ -25,6 +25,7 @@ class ProductAsset extends AssetBundle
         'estore/styles/flexslider.css',
         'estore/styles/color.css',
         'estore/styles/prettyPhoto.css',
+        'estore/styles/search.css',
     ];
     public $js = [
         'estore/js/jquery-1.7.1.min.js',
@@ -43,5 +44,6 @@ class ProductAsset extends AssetBundle
         'estore/js/product/product.js',
         'estore/js/order/order.js',
         'estore/js/common/topbar-cart.js',
+        'estore/js/search/search.js',
     ];
 }

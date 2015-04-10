@@ -9,7 +9,7 @@ $(function () {
         var selectedMinPrice = curParams['min_price'];
         var selectedMaxPrice = curParams['max_price'];
 
-        $('#txt-name').val(selectedName);
+        $('.txt-name').val(selectedName);
 
         $('#category-list a').each(function (idx, item) {
             if ($(item).data('id') == selectedCategoryId) {
@@ -38,7 +38,8 @@ $(function () {
         params = $.extend({}, params);
 
         var url = getUrl();
-        var queryString = $.param(params);
+        //var queryString = $.param(params);
+        var queryString = buildQueryString(params);
 
         // Reload the page with the newly built query string
         window.location = url + '?' + queryString;
@@ -57,7 +58,7 @@ $(function () {
     /**
      * Return JSON object containing data collected from URL Params
      *
-     * @returns {JSON}
+     * @returns {Object}
      */
     function getUrlParams () {
 
@@ -73,6 +74,7 @@ $(function () {
         }
 
         queryString = window.location.href.slice(posQuestionSign + 1);
+        queryString = decodeURIComponent(queryString);
 
         // The query string is empty...
         if (queryString == '') {
@@ -90,6 +92,29 @@ $(function () {
     }
 
     /**
+     * Build a query string from the given array or object
+     *
+     * @param {Array|Object} data
+     * @returns {string}
+     */
+    function buildQueryString(data) {
+
+        var queryString = '';
+
+        for (var key in data) {
+
+            var val = data[key];
+
+            queryString += key + '=' + val + '&';
+        }
+
+        // Trim the last ampersand character
+        queryString = queryString.substring(0, queryString.length - 1);
+
+        return queryString;
+    }
+
+    /**
      * Return product name from search text box,
      * or undefined value if the text box is empty
      *
@@ -97,7 +122,7 @@ $(function () {
      */
     function getProductName () {
 
-        var name = $('#txt-name').val().trim();
+        var name = $('.txt-name').val().trim();
 
         if (! name) {
             name = undefined;
@@ -153,7 +178,7 @@ $(function () {
         return maxPrice;
     }
 
-    $('#searchform').submit(function (evt) {
+    $('.searchform').submit(function (evt) {
 
         evt.preventDefault();
 
