@@ -19,10 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'name',
-            'gender',
+            [
+                'attribute' => 'gender',
+                'value' => function ($model) {
+                    if ($model->gender === 1) {
+                        return 'Male';
+                    } elseif ($model->gender === 2) {
+                        return 'Female';
+                    }
+                },
+            ],
             'email:email',
             'phone',
-            // 'address1',
+             'address1',
             // 'address2',
             // 'address3',
             [

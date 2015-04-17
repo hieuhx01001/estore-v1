@@ -96,7 +96,7 @@ $urlMng = Yii::$app->getUrlManager();
                     </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+                    <a href="<?php echo $urlMng->createUrl('order/index')?>" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
                 </div><!-- /.box-footer -->
             </div><!-- /.box -->
         </div><!-- /.col -->
@@ -119,7 +119,7 @@ $urlMng = Yii::$app->getUrlManager();
                                         $imgLink = '';
                                         $mainImage = $product->mainImage;
                                         if(is_null($mainImage)){
-                                            $imgLink = $urlMng->createUrl('img/product/default.jpeg');
+                                            $imgLink = $urlMng->createUrl('img/product/default.jpg');
                                         } else {
                                             $imgLink = $urlMng->createUrl("img/product/{$product->id}/{$product->mainImage->name}");
                                         }
