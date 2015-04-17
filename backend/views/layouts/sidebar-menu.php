@@ -61,6 +61,11 @@ echo Menu::widget(
                 'visible' => Yii::$app->user->can('viewOrder'),
             ],
             [
+                'label' => Yii::t('app', 'Customer'),
+                'url' => ['/customer/index'],
+                'icon' => 'ion ion-person-stalker',
+            ],
+            [
                 'label' => Yii::t('app', 'System'),
                 'url' => ['#'],
                 'icon' => 'fa fa-cog',

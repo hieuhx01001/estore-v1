@@ -171,7 +171,7 @@ $(function () {
 
                     // Calculate new cart's total cost
                     var cartTotalCost = calculateCartTotal(data.items);
-                    $('.tbl-cart .cart-total-cost').text(accounting.formatMoney(cartTotalCost));
+                    $('.tbl-cart .cart-total-cost').text(accounting.formatMoney(cartTotalCost)  );
 
                     // Redraw
                     redrawCart(data.items);

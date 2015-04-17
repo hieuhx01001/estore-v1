@@ -5,12 +5,13 @@
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = 'My Yii Application';
+$urlMng = Yii::$app->getUrlManager();
 ?>
 <div class="site-index">
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-plus-square"></i></span>
+                <a href="<?php echo $urlMng->createUrl('product/index')?>"><span class="info-box-icon bg-yellow"><i class="fa fa-plus-square"></i></span></a>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Products</span>
                     <span class="info-box-number"><?php echo $totalProduct?></span>
@@ -19,7 +20,7 @@ $this->title = 'My Yii Application';
         </div><!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-shopping-cart"></i></span>
+                <a href="<?php echo $urlMng->createUrl('order/index')?>"><span class="info-box-icon bg-aqua"><i class="fa fa-shopping-cart"></i></span></a>
                 <div class="info-box-content">
                     <span class="info-box-text">Total Orders</span>
                     <span class="info-box-number"><?php echo $totalOrder ?></span>
@@ -28,7 +29,7 @@ $this->title = 'My Yii Application';
         </div><!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="ion ion-person-stalker"></i></span>
+                <a href="<?php echo $urlMng->createUrl('customer/index')?>"><span class="info-box-icon bg-red"><i class="ion ion-person-stalker"></i></span></a>
                 <div class="info-box-content">
                     <span class="info-box-text">Customers</span>
                     <span class="info-box-number"><?php echo $totalCustomer?></span>
@@ -53,61 +54,6 @@ $this->title = 'My Yii Application';
 
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Monthly Recap Report</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="text-center">
-                                <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                            </p>
-                            <div class="chart-responsive">
-                                <!-- Sales Chart Canvas -->
-                                <canvas id="salesChart" height="180"></canvas>
-                            </div><!-- /.chart-responsive -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- ./box-body -->
-                <div class="box-footer">
-                    <div class="row">
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                                <h5 class="description-header">$35,210.43</h5>
-                                <span class="description-text">TOTAL REVENUE</span>
-                            </div><!-- /.description-block -->
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                                <h5 class="description-header">$10,390.90</h5>
-                                <span class="description-text">TOTAL COST</span>
-                            </div><!-- /.description-block -->
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block border-right">
-                                <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                                <h5 class="description-header">$24,813.53</h5>
-                                <span class="description-text">TOTAL PROFIT</span>
-                            </div><!-- /.description-block -->
-                        </div><!-- /.col -->
-                        <div class="col-sm-3 col-xs-6">
-                            <div class="description-block">
-                                <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                                <h5 class="description-header">1200</h5>
-                                <span class="description-text">GOAL COMPLETIONS</span>
-                            </div><!-- /.description-block -->
-                        </div>
-                    </div><!-- /.row -->
-                </div><!-- /.box-footer -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-
-    <div class="row">
-        <div class="col-md-8">
             <!-- TABLE: LATEST ORDERS -->
             <div class="box box-info">
                 <div class="box-header with-border">
@@ -154,7 +100,11 @@ $this->title = 'My Yii Application';
                 </div><!-- /.box-footer -->
             </div><!-- /.box -->
         </div><!-- /.col -->
-        <div class="col-md-4">
+
+    </div><!-- /.row -->
+
+    <div class="row">
+        <div class="col-md-12">
             <!-- PRODUCT LIST -->
             <div class="box box-primary">
                 <div class="box-header with-border">
@@ -165,10 +115,20 @@ $this->title = 'My Yii Application';
                         <?php foreach($productData as $product){ ?>
                             <li class="item">
                                 <div class="product-img">
-                                    <img src="http://placehold.it/50x50/d2d6de/ffffff" alt="Product Image"/>
+                                    <?php
+                                        $imgLink = '';
+                                        $mainImage = $product->mainImage;
+                                        if(is_null($mainImage)){
+                                            $imgLink = $urlMng->createUrl('img/product/default.jpeg');
+                                        } else {
+                                            $imgLink = $urlMng->createUrl("img/product/{$product->id}/{$product->mainImage->name}");
+                                        }
+                                    ?>
+
+                                    <img src="<?php echo $imgLink ?>" style="width: 50px;height: 50px" alt="Product Image"/>
                                 </div>
                                 <div class="product-info">
-                                    <a href="javascript::;" class="product-title"><?php echo $product->name?><span class="label label-success pull-right"><?php echo Yii::$app->formatter->asCurrency($product->price) ?></span></a>
+                                    <a href="<?php echo $urlMng->createUrl(['product/view', 'id' => $product->id]); ?>" class="product-title"><?php echo $product->name?><span class="label label-success pull-right"><?php echo Yii::$app->formatter->asCurrency($product->price) ?></span></a>
                                     <span class="product-description">
                                       <?php echo $product->short_description?>
                                     </span>
@@ -178,9 +138,9 @@ $this->title = 'My Yii Application';
                     </ul>
                 </div><!-- /.box-body -->
                 <div class="box-footer text-center">
-                    <a href="javascript::;" class="uppercase">View All Products</a>
+                    <a href="<?php echo $urlMng->createUrl('product/index')?>" class="uppercase">View All Products</a>
                 </div><!-- /.box-footer -->
             </div><!-- /.box -->
         </div><!-- /.col -->
-    </div><!-- /.row -->
+    </div>
 </div>
