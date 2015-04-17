@@ -8,6 +8,7 @@ use backend\models\SupplierSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\HttpException;
 
 /**
  * SupplierController implements the CRUD actions for Supplier model.
@@ -60,15 +61,20 @@ class SupplierController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Supplier();
+        if(Yii::$app->user->can('createProduct')){
+            $model = new Supplier();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            throw new HttpException(500, 'You don not have permission');
         }
+
     }
 
     /**

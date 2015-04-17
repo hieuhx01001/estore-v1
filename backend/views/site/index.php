@@ -130,7 +130,7 @@ $urlMng = Yii::$app->getUrlManager();
                                 <div class="product-info">
                                     <a href="<?php echo $urlMng->createUrl(['product/view', 'id' => $product->id]); ?>" class="product-title"><?php echo $product->name?><span class="label label-success pull-right"><?php echo Yii::$app->formatter->asCurrency($product->price) ?></span></a>
                                     <span class="product-description">
-                                      <?php echo $product->short_description?>
+                                      <?php echo $product->short_description == '' ? '(no description)' : $product->short_description ?>
                                     </span>
                                 </div>
                             </li><!-- /.item -->

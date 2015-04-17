@@ -138,7 +138,7 @@ $(function () {
         var btn = $(this);
         var url = btn.data('url');
         var id = btn.data('id');
-        var qty = $('.qty_list select').val();
+        var qty = 1;
 
         $.ajax({
             url: url,
