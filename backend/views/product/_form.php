@@ -32,29 +32,22 @@ $urlManager = Yii::$app->getUrlManager();
             ArrayHelper::map($manufacturers, 'id', 'name')
         ) ?>
 
-        <?= $form->field($model, 'supplier_id')->dropDownList(
+        <?= $form->field($model, 'supplier_id')->label('Supplier    ')->dropDownList(
             ArrayHelper::map($suppliers, 'id', 'name')
         ) ?>
 
         <?= $form->field($model, 'price')->textInput(['maxlength' => 10])
-            ->widget(MaskMoney::classname(), [
-                'pluginOptions' => [
-                    'prefix' => '',
-                    'suffix' => ' đ',
-                    'precision' => 0,
-                    'allowNegative' => false
-                ]
-            ]) ?>
+//            ->widget(MaskMoney::classname(), [
+//                'pluginOptions' => [
+//                    'prefix' => '',
+//                    'suffix' => ' đ',
+//                    'precision' => 0,
+//                    'allowNegative' => false
+//                ]
+//            ]) ?>
 
         <?= $form->field($model, 'sales_price')->textInput(['maxlength' => 10])
-            ->widget(MaskMoney::classname(), [
-                'pluginOptions' => [
-                    'prefix' => '',
-                    'suffix' => ' đ',
-                    'precision' => 0,
-                    'allowNegative' => false
-                ]
-            ]) ?>
+             ?>
 
         <?= $form->field($model, 'quantity')->textInput() ?>
 
@@ -84,7 +77,7 @@ $urlManager = Yii::$app->getUrlManager();
 <!-- CKEditor Support -->
 <script src="<?= $urlManager->createUrl('vendor/ckeditor/ckeditor.js') ?>"></script>
 <script>
-    var ids = ["short_description", "description", "feature"];
+    var ids = ["description", "feature"];
     for (var i in ids) {
         CKEDITOR.replace(ids[i]);
     }

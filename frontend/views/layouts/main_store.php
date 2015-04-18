@@ -31,7 +31,7 @@ function generateCategoryList($categories)
 
             $html .= '<li>';
 
-            $html .= "<a data-id='{$cate->id}' href='{$urlMgr->createUrl(['site/product', 'categoryId' => $cate->id])}'>{$cate->name}</a>";
+            $html .= "<a data-id='{$cate->id}'>{$cate->name}</a>";
 
             $children = $cate->children;
 

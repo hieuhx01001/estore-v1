@@ -222,7 +222,7 @@ class OrderController extends Controller
         // Check for any missing required field
         foreach ($requiredFields as $field) {
             if (!isset($customerInfo[$field])
-                or empty(trim($customerInfo[$field]))) {
+                or $customerInfo[$field] == '') {
                 return 'Xin hãy điền những thông tin cần thiết (được đánh dấu *)';
             }
         }

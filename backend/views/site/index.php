@@ -73,7 +73,7 @@ $urlMng = Yii::$app->getUrlManager();
                             <tbody>
                             <?php foreach($orderData as $order){ ?>
                                 <tr>
-                                    <td><a href="pages/examples/invoice.html"><?php echo $order->order_code?></a></td>
+                                    <td><a href="<?php echo $urlMng->createUrl(['order/update','id'=> $order->id])?>"><?php echo $order->order_code?></a></td>
                                     <td><?php echo $order->customer->name?></td>
                                     <?php
                                     if ($order->order_status === $order::STATUS_NEW) {

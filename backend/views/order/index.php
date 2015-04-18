@@ -28,10 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'order_status',
                 'format' => 'html',
                 'value' => function ($model) {
-                    if ($model->order_status === $model::STATUS_FINISH) {
+                    if ($model->order_status === $model::STATUS_NEW) {
                         $class = 'label-success';
                     } elseif ($model->order_status === $model::STATUS_PROCESSING) {
                         $class = 'label-warning';
+                    }elseif ($model->order_status === $model::STATUS_FINISH) {
+                        $class = 'label-info';
                     } else {
                         $class = 'label-danger';
                     }

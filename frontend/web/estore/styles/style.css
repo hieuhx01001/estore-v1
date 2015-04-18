@@ -931,3 +931,7 @@ span.price {
     position: relative;
     top: 18px
 }
+
+a, a:hover {
+    cursor: pointer;
+}
