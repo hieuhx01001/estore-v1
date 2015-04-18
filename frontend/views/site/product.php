@@ -68,10 +68,10 @@ $selected = 'selected="selected"';
                     ?>
                     <div class="one_fourth columns">
                         <div class="product-wrapper">
-                            <a title="<? echo $product->name?>" href="<? echo $urlManager->createUrl("site/detail/".$product->id)?>">
+                            <a title="<?php echo $product->name?>" href="<?php echo $urlManager->createUrl("site/detail/".$product->id)?>">
                                 <img src="<?php echo $imgLink?>" alt=""/></a>
                             <h3>
-                                <a title="<? echo $product->name?>" href="<? echo $urlManager->createUrl("site/detail/".$product->id)?>"><?php echo $product->name?></a>
+                                <a title="<?php echo $product->name?>" href="<?php echo $urlManager->createUrl("site/detail/".$product->id)?>"><?php echo $product->name?></a>
                             </h3>
                             <div class="price-cart-wrapper">
                                 <?php echo $priceHtml?>

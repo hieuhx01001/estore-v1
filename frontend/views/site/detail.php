@@ -44,8 +44,8 @@ if(!empty($session['items'])){
 
         <section class="content" id="product-detail">
 
-            <div class="breadcrumb"><a href="index.html">Trang Chủ</a> / Sản Phẩm / <? echo $product->name ?></div>
-            <h1 class="pagetitle"><? echo $product->name ?></h1>
+            <div class="breadcrumb"><a href="index.html">Trang Chủ</a> / Sản Phẩm / <?php echo $product->name ?></div>
+            <h1 class="pagetitle"><?php echo $product->name ?></h1>
 
             <div class="row">
                 <div class="one_fourth columns">
@@ -71,9 +71,9 @@ if(!empty($session['items'])){
                                                 $imgLink = $baseBackEndUrl."/img/product/".$img->product_id."/".$img->name;
                                             ?>
                                             <li>
-                                                <a class="image" href="<? echo $imgLink ?>" data-rel="prettyPhoto[mixed]" >
+                                                <a class="image" href="<?php echo $imgLink ?>" data-rel="prettyPhoto[mixed]" >
 
-                                                    <img src="<? echo $imgLink ?>" alt="">
+                                                    <img src="<?php echo $imgLink ?>" alt="">
                                                 </a>
                                             </li>
                                         <?php endforeach ?>
@@ -87,8 +87,8 @@ if(!empty($session['items'])){
                                     <ul class="slides">
 
                                         <?php foreach ($productImages as $img) : ?>
-                                            <? $imgLink = $baseBackEndUrl."/img/product/".$img->product_id."/".$img->name; ?>
-                                            <li><img src="<? echo $imgLink ?>" alt="" /></li>
+                                            <?php $imgLink = $baseBackEndUrl."/img/product/".$img->product_id."/".$img->name; ?>
+                                            <li><img src="<?php echo $imgLink ?>" alt="" /></li>
                                         <?php endforeach ?>
 
                                     </ul>
@@ -114,7 +114,7 @@ if(!empty($session['items'])){
                 <div class="three_fourth columns">
 
                     <div class="feature-title" style="font-size: 15px;">Giá: <span style="font-weight: normal;color: red"><?echo Yii::$app->formatter->asCurrency($product->price)?></span></div>
-                    <div class="feature-title" style="font-size: 15px;">Mã sản phẩm: <span style="font-weight: normal"><? echo $product->code ?></span></div>
+                    <div class="feature-title" style="font-size: 15px;">Mã sản phẩm: <span style="font-weight: normal"><?php echo $product->code ?></span></div>
                     <div class="feature-title" style="font-size: 15px;">Miêu tả ngắn: <span style="font-weight: 100"><?echo $product->short_description ?></span></div>
                     <div class="feature-title" style="font-size: 15px;">Tính năng</div>
                     <div class="iSpecial">
@@ -149,10 +149,10 @@ if(!empty($session['items'])){
                 </ul>
                 <div class="tab-body">
                     <div id="tab0" class="tab-content">
-                        <p><? echo $product->description?></p>
+                        <p><?php echo $product->description?></p>
                     </div>
                     <div id="tab1" class="tab-content">
-                        <p><? echo $product->feature?></p>
+                        <p><?php echo $product->feature?></p>
                     </div>
 
                 </div>
