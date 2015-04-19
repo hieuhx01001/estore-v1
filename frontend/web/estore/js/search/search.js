@@ -51,7 +51,8 @@ $(function () {
      * @returns {string}
      */
     function getUrl() {
-        var url = location.protocol + '//' + location.host + location.pathname;
+        var url = location.protocol + '//' + location.host;
+        url += '/site/search';
         return url;
     }
 
@@ -152,11 +153,13 @@ $(function () {
      */
     function getMinPrice () {
 
-        var minPrice = $('#txt-min-price').val().trim();
+        var minPrice = $('#txt-min-price').val();
 
         if (! minPrice) {
-            minPrice = undefined;
+            return undefined;
         }
+
+        minPrice = minPrice.trim();
 
         return minPrice;
     }
@@ -169,19 +172,19 @@ $(function () {
      */
     function getMaxPrice () {
 
-        var maxPrice = $('#txt-max-price').val().trim();
+        var maxPrice = $('#txt-max-price').val();
 
         if (! maxPrice) {
-            maxPrice = undefined;
+            return undefined;
         }
+
+        maxPrice = maxPrice.trim();
 
         return maxPrice;
     }
 
-    $('.searchform').submit(function (evt) {
-
+    $('#searchform').submit(function (evt) {
         evt.preventDefault();
-
         search();
     });
 
