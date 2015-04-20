@@ -53,7 +53,9 @@ class Product extends ActiveRecord
             [['price', 'sales_price'], 'number'],
             [['quantity', 'manufacturer_id', 'supplier_id'], 'integer'],
             [['description', 'short_description', 'feature'], 'string'],
-            [['name', 'code'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255],
+            [['code'], 'unique'],
+            [['code'], 'string', 'max' => 8],
         ];
     }
 
