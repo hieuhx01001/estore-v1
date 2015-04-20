@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 /* @var $product backend\models\Product */
+
 $this->title = 'Product Detail';
 $urlManager = Yii::$app->getUrlManager();
 $baseBackEndUrl = \Yii::$app->urlManagerBackEnd->baseUrl;
@@ -39,6 +40,11 @@ if(!empty($session['items'])){
     $session['items'] = $items;
 }
 ?>
+
+<script>
+    window.currentCategoryId = <?= $product->mainCategory->id ?>;
+</script>
+
 <section id="maincontent" class="ten columns positionleft">
     <div class="padcontent">
 

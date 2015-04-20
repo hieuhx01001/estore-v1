@@ -13,6 +13,11 @@ function calculateCartTotalCost($items) {
     return $total;
 }
 ?>
+
+<script>
+    window.baseUrl = "<?= Yii::getAlias('@web') ?>";
+</script>
+
 <div id="outerheader">
     <header>
         <div id="top">

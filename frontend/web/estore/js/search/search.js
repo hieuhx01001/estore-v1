@@ -51,8 +51,9 @@ $(function () {
      * @returns {string}
      */
     function getUrl() {
-        var url = location.protocol + '//' + location.host;
-        url += '/site/search';
+        //var baseUrl = location.protocol + '//' + location.host;
+        var baseUrl = window.baseUrl;
+        var url = baseUrl + '/site/search';
         return url;
     }
 

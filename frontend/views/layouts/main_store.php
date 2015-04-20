@@ -10,7 +10,7 @@ use frontend\widgets\Alert;
 /* @var $this \yii\web\View */
 /* @var $content string */
 \frontend\assets\ProductAsset::register($this);
-
+\frontend\assets\DetailsAsset::register($this);
 /** @var \yii\web\UrlManager $urlMgr */
 $GLOBALS['urlMgr'] = Yii::$app->urlManager;
 
