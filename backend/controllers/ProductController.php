@@ -20,6 +20,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\web\HttpException;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -72,41 +73,46 @@ class ProductController extends Controller
      */
     public function actionCreate()
     {
-        // Check if there's any category currently
-        if (Category::find()->count() == 0) {
-            // Show a message page if there's currently no category
-            return $this->render('message', ['message' => 'There\'s currently no category. Create one before creating a product.']);
-        }
+        if(Yii::$app->user->can('createProduct')){
+//          Check if there's any category currently
+            if (Category::find()->count() == 0) {
+                // Show a message page if there's currently no category
+                return $this->render('message', ['message' => 'There\'s currently no category. Create one before creating a product.']);
+            }
 
-        $product = new Product();
-        $requestMethod = Yii::$app->request->method;
+            $product = new Product();
+            $requestMethod = Yii::$app->request->method;
 
-        if ('POST' == $requestMethod) {
-            $pcRepository = new ProductCategoryRepository();
+            if ('POST' == $requestMethod) {
+                $pcRepository = new ProductCategoryRepository();
 
-            $product->load(Yii::$app->request->post());
-            $categoryId = Yii::$app->request->post('category_id');
+                $product->load(Yii::$app->request->post());
+                $categoryId = Yii::$app->request->post('category_id');
 
-            $result = $pcRepository->createProduct($product, $categoryId);
+                $result = $pcRepository->createProduct($product, $categoryId);
 
-            if ($result) {
-                return $this->redirect(['view', 'id' => $product->id]);
+                if ($result) {
+                    return $this->redirect(['view', 'id' => $product->id]);
+                }
+                else {
+                    die('Failed to create product by ProductCategoryRepository');
+                }
             }
             else {
-                die('Failed to create product by ProductCategoryRepository');
-            }
-        }
-        else {
-            $manufacturers = $this->getManufacturers();
-            $suppliers     = $this->getSuppliers();
+                $manufacturers = $this->getManufacturers();
+                $suppliers     = $this->getSuppliers();
 
-            return $this->render('create', [
-                'model' => $product,
-                'categories' => $this->getCategories(),
-                'manufacturers' => $manufacturers,
-                'suppliers' => $suppliers,
-            ]);
+                return $this->render('create', [
+                    'model' => $product,
+                    'categories' => $this->getCategories(),
+                    'manufacturers' => $manufacturers,
+                    'suppliers' => $suppliers,
+                ]);
+            }
+        } else {
+            throw new HttpException(500, 'You don not have permission');
         }
+
     }
 
     /**
