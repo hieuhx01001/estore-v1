@@ -18,6 +18,7 @@ class SupplierController extends Controller
     public function behaviors()
     {
         return [
+            UserPermissionFilter::className(),
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

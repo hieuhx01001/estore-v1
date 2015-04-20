@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\filters\UserPermissionFilter;
 use backend\models\Category;
-use backend\models\forms\ImageUploaderForm;
 use backend\models\Image;
 use backend\models\Manufacturer;
 use backend\models\Supplier;
@@ -30,6 +30,7 @@ class ProductController extends Controller
     public function behaviors()
     {
         return [
+            UserPermissionFilter::className(),
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

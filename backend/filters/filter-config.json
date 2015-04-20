@@ -1,0 +1,43 @@
+{
+  "backend\\controllers\\ProductController" : {
+    "actionIndex" : ["viewProduct"],
+    "actionView" : ["viewProduct"],
+    "actionCreate" : ["createProduct"],
+    "actionUpdate" : ["updateProduct"],
+    "actionDelete" : ["deleteProduct"],
+    "actionAttributes" : ["updateProduct"],
+    "actionImages" : ["updateProduct"],
+    "actionAddImage" : ["updateProduct"],
+    "actionSetMainImage" : ["updateProduct"],
+    "actionRemoveImage" : ["updateProduct"]
+  },
+  "backend\\controllers\\CategoryController" : {
+    "actionIndex" : ["viewCategory"],
+    "actionView" : ["viewCategory"],
+    "actionCreate" : ["createCategory"],
+    "actionUpdate" : ["updateCategory"],
+    "actionDelete" : ["deleteCategory"]
+  },
+  "backend\\controllers\\AttributeController" : {
+    "actionIndex" : ["viewAttribute"],
+    "actionView" : ["viewAttribute"],
+    "actionCreate" : ["createAttribute"],
+    "actionUpdate" : ["updateAttribute"],
+    "actionDelete" : ["deleteAttribute"]
+  },
+  "backend\\controllers\\ManufacturerController" : {
+    "actionIndex" : ["createProduct"],
+    "actionView" : ["createProduct"],
+    "actionCreate" : ["createProduct"],
+    "actionUpdate" : ["createProduct"],
+    "actionDelete" : ["createProduct"]
+  },
+  "backend\\controllers\\SupplierController" : {
+    "actionIndex" : ["createProduct"],
+    "actionView" : ["createProduct"],
+    "actionCreate" : ["createProduct"],
+    "actionUpdate" : ["createProduct"],
+    "actionDelete" : ["createProduct"]
+  }
+}
+
