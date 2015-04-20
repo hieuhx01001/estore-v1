@@ -119,9 +119,9 @@ if(!empty($session['items'])){
 
                 <div class="three_fourth columns">
 
-                    <div class="feature-title" style="font-size: 15px;">Giá: <span style="font-weight: normal;color: red"><?echo Yii::$app->formatter->asCurrency($product->price)?></span></div>
+                    <div class="feature-title" style="font-size: 15px;">Giá: <span style="font-weight: normal;color: red"><?php echo Yii::$app->formatter->asCurrency($product->price)?></span></div>
                     <div class="feature-title" style="font-size: 15px;">Mã sản phẩm: <span style="font-weight: normal"><?php echo $product->code ?></span></div>
-                    <div class="feature-title" style="font-size: 15px;">Miêu tả ngắn: <span style="font-weight: 100"><?echo $product->short_description ?></span></div>
+                    <div class="feature-title" style="font-size: 15px;">Miêu tả ngắn: <span style="font-weight: 100"><?php echo $product->short_description ?></span></div>
                     <div class="feature-title" style="font-size: 15px;">Tính năng</div>
                     <div class="iSpecial">
                         <table width="100%">
