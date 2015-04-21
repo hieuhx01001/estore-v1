@@ -18,12 +18,14 @@ use backend\models\Auth;
 use backend\models\AuthSearch;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use backend\filters\UserPermissionFilter;
 
 class RoleController extends Controller
 {
     public function behaviors()
     {
         return [
+            UserPermissionFilter::className(),
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

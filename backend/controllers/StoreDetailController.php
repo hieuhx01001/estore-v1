@@ -8,6 +8,7 @@ use backend\models\StoreDetailSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\filters\UserPermissionFilter;
 
 /**
  * StoreDetailController implements the CRUD actions for StoreDetail model.
@@ -17,6 +18,7 @@ class StoreDetailController extends Controller
     public function behaviors()
     {
         return [
+            UserPermissionFilter::className(),
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

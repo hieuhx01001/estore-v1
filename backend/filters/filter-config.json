@@ -38,6 +38,32 @@
     "actionCreate" : ["createProduct"],
     "actionUpdate" : ["createProduct"],
     "actionDelete" : ["createProduct"]
+  },
+  "backend\\controllers\\UserController" : {
+    "actionIndex" : ["viewUser"],
+    "actionView" : ["viewUser"],
+    "actionCreate" : ["createUser"],
+    "actionUpdate" : ["updateUser"],
+    "actionDelete" : ["deleteUser"]
+  },
+  "backend\\controllers\\StoreDetailController" : {
+    "actionIndex" : ["viewUser"],
+    "actionView" : ["viewUser"],
+    "actionCreate" : ["createUser"],
+    "actionUpdate" : ["updateUser"],
+    "actionDelete" : ["deleteUser"]
+  },
+  "backend\\controllers\\OrderController" : {
+    "actionIndex" : ["viewOrder"],
+    "actionView" : ["viewOrder"],
+    "actionUpdate" : ["updateUser"]
+  },
+  "backend\\controllers\\RoleController" : {
+    "actionIndex" : ["viewRole"],
+    "actionView" : ["viewRole"],
+    "actionCreate" : ["createRole"],
+    "actionUpdate" : ["updateRole"],
+    "actionDelete" : ["deleteRole"]
   }
 }
 

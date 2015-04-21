@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\HttpException;
+use backend\filters\UserPermissionFilter;
 
 /**
  * SupplierController implements the CRUD actions for Supplier model.

@@ -8,6 +8,7 @@ use backend\models\ManufacturerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\filters\UserPermissionFilter;
 
 /**
  * ManufacturerController implements the CRUD actions for Manufacturer model.

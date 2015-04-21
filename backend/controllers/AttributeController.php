@@ -8,6 +8,7 @@ use backend\models\AttributeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\filters\UserPermissionFilter;
 
 /**
  * AttributeController implements the CRUD actions for Attribute model.

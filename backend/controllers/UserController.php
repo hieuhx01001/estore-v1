@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\filters\UserPermissionFilter;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -20,6 +21,7 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            UserPermissionFilter::className(),
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

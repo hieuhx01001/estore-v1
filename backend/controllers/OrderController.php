@@ -4,12 +4,14 @@ namespace backend\Controllers;
 
 use backend\models\Invoice;
 use backend\models\StoreDetail;
+use backend\models\User;
 use Yii;
 use backend\models\Order;
 use backend\models\OrderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\filters\UserPermissionFilter;
 
 /**
  * OrderController implements the CRUD actions for Order model.
@@ -19,6 +21,7 @@ class OrderController extends Controller
     public function behaviors()
     {
         return [
+            UserPermissionFilter::className(),
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
