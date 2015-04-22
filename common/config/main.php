@@ -31,10 +31,11 @@ return [
             ],
         ],
         'formatter' => [
+            'class' => 'yii\i18n\formatter',
             'dateFormat' => 'dd/MM/yyyy',
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
-            'decimalSeparator' => ',',
-            'thousandSeparator' => ' ',
+            'thousandSeparator' => ',',
+            'decimalSeparator' => '.',
             'currencyCode' => 'VND',
         ],
     ],

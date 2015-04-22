@@ -50,10 +50,10 @@ class Product extends ActiveRecord
     {
         return [
             [['name', 'code', 'price', 'quantity'], 'required'],
-            [['price', 'sales_price'], 'number'],
-            [['quantity', 'manufacturer_id', 'supplier_id'], 'integer'],
+            [['price', 'sales_price'], 'number', 'min'=>0],
+            [['quantity', 'manufacturer_id', 'supplier_id'], 'integer', 'min'=>0],
             [['description', 'short_description', 'feature'], 'string'],
-            [['name'], 'string', 'max' => 255],
+            [['name'],'string', 'max' => 255],
             [['code'], 'unique'],
             [['code'], 'string', 'max' => 8],
         ];

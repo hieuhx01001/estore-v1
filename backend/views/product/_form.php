@@ -36,15 +36,7 @@ $urlManager = Yii::$app->getUrlManager();
             ArrayHelper::map($suppliers, 'id', 'name')
         ) ?>
 
-        <?= $form->field($model, 'price')->textInput(['maxlength' => 10])
-//            ->widget(MaskMoney::classname(), [
-//                'pluginOptions' => [
-//                    'prefix' => '',
-//                    'suffix' => ' đ',
-//                    'precision' => 0,
-//                    'allowNegative' => false
-//                ]
-//            ]) ?>
+        <?= $form->field($model, 'price')->textInput(['maxlength' => 10]) ?>
 
         <?= $form->field($model, 'sales_price')->textInput(['maxlength' => 10])
              ?>
